@@ -1,0 +1,35 @@
+{
+    "constructions": [
+        {
+            "name": "Floor_SFH_1961_1972_DK",
+            "layers": [
+                {
+                    "material": "Concrete",
+                    "thickness": 0.2
+                }
+            ]
+        },
+        {
+            "name": "Walls_SFH_1961_1972_DK",
+            "layers": [
+                {
+                    "material": "Insulation",
+                    "thickness": 0.08
+                },
+                {
+                    "material": "Brick",
+                    "thickness": 0.1
+                }
+            ]
+        },
+        {
+            "name": "Roof_SFH_1961_1972_DK",
+            "layers": [
+                {
+                    "material": "Concrete",
+                    "thickness": 0.1
+                }
+            ]
+        }
+    ]
+}

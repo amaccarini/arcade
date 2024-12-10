@@ -1,0 +1,22 @@
+{
+  "materials": [
+    {
+      "name": "Concrete",
+      "specific_heat_capacity": 840,   // J/(kg·K)
+      "density": 2400,                 // kg/m³
+      "thermal_conductivity": 1.7      // W/(m·K)
+    },
+    {
+      "name": "Insulation",
+      "specific_heat_capacity": 1500, // J/(kg·K)
+      "density": 32,                  // kg/m³
+      "thermal_conductivity": 0.04    // W/(m·K)
+    },
+    {
+      "name": "Brick",
+      "specific_heat_capacity": 840,  // J/(kg·K)
+      "density": 1920,                // kg/m³
+      "thermal_conductivity": 0.7     // W/(m·K)
+    }
+  ]
+}
