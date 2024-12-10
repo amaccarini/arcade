@@ -1,4 +1,4 @@
-from .functions import latlon_to_xyz, create_flat_face, create_building
+from .functions import latlon_to_xyz, create_flat_face, create_building, calculate_horizontal_area
 import bpy
 import json
 
@@ -66,3 +66,17 @@ class ADDON1_OT_Operator(bpy.types.Operator):
 
         print("Buildings and flat faces created successfully.")
         return {'FINISHED'}  # Or another appropriate result like {'CANCELLED'}
+
+
+class ADDON2_OT_Operator(bpy.types.Operator):
+    bl_label = "calculate heating and cooling laods"
+    bl_idname = "calculate.myop_operator"
+
+    def execute(self, context):
+        selected_objects = bpy.context.selected_objects
+        for cube in selected_objects:
+            calculate_horizontal_area(cube, threshold=0.01)
+            horizontal_area = calculate_horizontal_area(cube)
+            print(horizontal_area)
+
+        return {'FINISHED'}

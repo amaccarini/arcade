@@ -1,5 +1,6 @@
 import bpy
 import json
+import bmesh
 from math import pi, cos
 from mathutils import Vector
 
@@ -78,3 +79,38 @@ def create_building(vertices, height, name, year, use):
         obj.my_properties.usage = "terrace"
     else:
         obj.my_properties.usage = "apartments"
+
+# Function to calculate horizontal surface for buildings (floor and roof surface area)
+def calculate_horizontal_area(obj, threshold=0.01):
+    """
+    Calculate the horizontal surface area of a mesh object in Blender.
+
+    Parameters:
+        obj (bpy.types.Object): The mesh object to calculate the area for.
+        threshold (float): Tolerance for determining if a face is horizontal
+                           (normal.z close to ±1).
+
+    Returns:
+        float: The horizontal surface area in square meters.
+    """
+    if obj.type != 'MESH':
+        print(f"{obj.name} is not a mesh object!")
+        return 0.0
+
+    # Get the mesh data
+    mesh = obj.data
+    bm = bmesh.new()
+    bm.from_mesh(mesh)
+
+    horizontal_area = 0.0
+
+    # Loop through all faces in the mesh
+    for face in bm.faces:
+        # Get the face normal
+        normal = face.normal.normalized()
+        # Check if the face is horizontal
+        if abs(normal.z) >= (1 - threshold):  # Nearly horizontal
+            horizontal_area += face.calc_area()
+
+    bm.free()
+    return horizontal_area

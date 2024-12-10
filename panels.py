@@ -34,3 +34,22 @@ class ADDON2_PT_Panel(bpy.types.Panel):
         if len(objs) == 0: return False
         if obj.type == 'MESH': return True
         return False
+
+class ADDON3_PT_Panel(bpy.types.Panel):
+    bl_space_type = 'VIEW_3D'
+    bl_region_type = 'UI'
+    bl_label = 'Calculate heating and coolig loads'
+    bl_context = 'objectmode'
+    bl_category = 'Arcade'
+
+    def draw(self, context):
+        layout = self.layout
+        layout.operator("calculate.myop_operator")
+
+    @classmethod
+    def poll(cls, context):
+        obj = context.active_object
+        objs = context.selected_objects
+        if len(objs) == 0: return False
+        if obj.type == 'MESH': return True
+        return False
