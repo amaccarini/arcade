@@ -76,7 +76,6 @@ class ADDON2_OT_Operator(bpy.types.Operator):
         selected_objects = bpy.context.selected_objects
         for cube in selected_objects:
             calculate_horizontal_area(cube, threshold=0.01)
-            horizontal_area = calculate_horizontal_area(cube)
-            print(horizontal_area)
+            
 
         return {'FINISHED'}

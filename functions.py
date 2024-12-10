@@ -97,12 +97,15 @@ def calculate_horizontal_area(obj, threshold=0.01):
         print(f"{obj.name} is not a mesh object!")
         return 0.0
 
+    bpy.ops.object.transform_apply(location=False, rotation=False, scale=True)
+
     # Get the mesh data
     mesh = obj.data
     bm = bmesh.new()
     bm.from_mesh(mesh)
 
     horizontal_area = 0.0
+    threshold = 0.01
 
     # Loop through all faces in the mesh
     for face in bm.faces:
@@ -110,7 +113,5 @@ def calculate_horizontal_area(obj, threshold=0.01):
         normal = face.normal.normalized()
         # Check if the face is horizontal
         if abs(normal.z) >= (1 - threshold):  # Nearly horizontal
-            horizontal_area += face.calc_area()
-
-    bm.free()
-    return horizontal_area
+            horizontal_area += face.calc_area()/2
+    print(horizontal_area)
