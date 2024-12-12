@@ -1,7 +1,7 @@
 import bpy
 import json
 import bmesh
-from math import pi, cos
+from math import pi, cos, degrees, atan2
 from mathutils import Vector
 
 # Earth radius and scale (in meters)
@@ -115,3 +115,77 @@ def calculate_horizontal_area(obj, threshold=0.01):
         if abs(normal.z) >= (1 - threshold):  # Nearly horizontal
             horizontal_area += face.calc_area()/2
     print(horizontal_area)
+
+
+
+def calculate_and_group_vertical_faces(obj, threshold=0.01, angle_tolerance=30):
+    """
+    Calculate and group vertical faces of a mesh object in Blender by similar rotation angles.
+
+    Parameters:
+        obj (bpy.types.Object): The mesh object to calculate the areas for.
+        threshold (float): Tolerance for determining if a face is vertical
+                           (normal.z close to 0).
+        angle_tolerance (float): Maximum difference in rotation angles (degrees) to group faces.
+
+    Returns:
+        dict: A dictionary where keys are the rounded rotation angles (group centers) and
+              values are the total area of faces in that group.
+    """
+    if obj.type != 'MESH':
+        print(f"{obj.name} is not a mesh object!")
+        return {}
+    bpy.ops.object.transform_apply(location=False, rotation=True, scale=True)
+    # Get the mesh data
+    mesh = obj.data
+    bm = bmesh.new()
+    bm.from_mesh(mesh)
+
+    vertical_faces = []
+
+    # Z-axis for vertical comparison
+    z_axis = Vector((0, 0, 1))
+
+    # Loop through all faces in the mesh
+    for face in bm.faces:
+        # Get the face normal
+        normal = face.normal.normalized()
+
+        # Check if the face is vertical (normal.z is close to 0)
+        if abs(normal.z) <= threshold:  # Nearly vertical
+            # Calculate area
+            area = face.calc_area()
+
+            # Calculate orientation (rotation angle in degrees around Z-axis)
+            horizontal_projection = Vector((normal.x, normal.y))
+            angle = degrees(atan2(horizontal_projection.y, horizontal_projection.x))
+
+            # Normalize angle to range [0, 360)
+            angle = angle % 360
+
+            # Add face information to the list
+            vertical_faces.append({
+                "area": area,
+                "orientation": angle
+            })
+
+    bm.free()
+
+    # Group faces by similar angles (within angle_tolerance)
+    grouped_faces = {}
+    for face_info in vertical_faces:
+        area = face_info["area"]
+        angle = face_info["orientation"]
+
+        # Find the closest group center or create a new group
+        group_found = False
+        for group_angle in grouped_faces:
+            if abs(group_angle - angle) <= angle_tolerance:
+                grouped_faces[group_angle] += area
+                group_found = True
+                break
+
+        if not group_found:
+            grouped_faces[angle] = area
+
+    print(grouped_faces)

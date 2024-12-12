@@ -1,4 +1,4 @@
-from .functions import latlon_to_xyz, create_flat_face, create_building, calculate_horizontal_area
+from .functions import latlon_to_xyz, create_flat_face, create_building, calculate_horizontal_area, calculate_and_group_vertical_faces
 import bpy
 import json
 
@@ -59,12 +59,12 @@ class ADDON1_OT_Operator(bpy.types.Operator):
             else:
                 # Otherwise, create a building with the given height
                 height = float(height)  # Convert height to float
-                year = int(year)  # Convert height to float
+                year = int(year)  # Convert year to int
                 create_building(vertices, height*3, f"Building_{feature['properties']['@id']}", year, use)
 
 
 
-        print("Buildings and flat faces created successfully.")
+        print("Buildings created successfully.")
         return {'FINISHED'}  # Or another appropriate result like {'CANCELLED'}
 
 
@@ -76,6 +76,10 @@ class ADDON2_OT_Operator(bpy.types.Operator):
         selected_objects = bpy.context.selected_objects
         for cube in selected_objects:
             calculate_horizontal_area(cube, threshold=0.01)
-            
+            calculate_and_group_vertical_faces(cube, threshold=0.01, angle_tolerance=30)
+            print(cube.my_properties.usage)
+            print(cube.my_properties.age)
+
+
 
         return {'FINISHED'}
