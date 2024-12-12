@@ -1,22 +1,107 @@
 {
   "materials": [
     {
+      "name": "Wood",
+      "specific_heat_capacity": 1300,
+      "density": 800,
+      "thermal_conductivity": 0.14
+    },
+    {
+      "name": "Brick_int",
+      "specific_heat_capacity": 880
+      "density": 1600,
+      "thermal_conductivity": 0.57
+    },
+    {
+      "name": "Brick_ext",
+      "specific_heat_capacity": 880,
+      "density": 1800,
+      "thermal_conductivity": 0.68
+    },
+    {
       "name": "Concrete",
-      "specific_heat_capacity": 840,   // J/(kg·K)
-      "density": 2400,                 // kg/m³
-      "thermal_conductivity": 1.7      // W/(m·K)
+      "specific_heat_capacity": 800,
+      "density": 2300,
+      "thermal_conductivity": 1.6
     },
     {
-      "name": "Insulation",
-      "specific_heat_capacity": 1500, // J/(kg·K)
-      "density": 32,                  // kg/m³
-      "thermal_conductivity": 0.04    // W/(m·K)
+      "name": "Light_Concrete",
+      "specific_heat_capacity": 1000
+      "density": 1100,
+      "thermal_conductivity": 0.5
     },
     {
-      "name": "Brick",
-      "specific_heat_capacity": 840,  // J/(kg·K)
-      "density": 1920,                // kg/m³
-      "thermal_conductivity": 0.7     // W/(m·K)
+      "name": "Ins_36",
+      "specific_heat_capacity": 840,
+      "density": 58,
+      "thermal_conductivity": 0.036
+    },
+    {
+      "name": "Ins_39",
+      "specific_heat_capacity": 1000,
+      "density": 50,
+      "thermal_conductivity": 0.039
+    },
+    {
+      "name": "Ins_42",
+      "specific_heat_capacity": 1000
+      "density": 45,
+      "thermal_conductivity": 0.042
+    },
+    {
+      "name": "Ins_45",
+      "specific_heat_capacity": 840,
+      "density": 40,
+      "thermal_conductivity": 0.045
+    },
+    {
+      "name": "Ins_60",
+      "specific_heat_capacity": 800,
+      "density": 50,
+      "thermal_conductivity": 0.06
+    },
+    {
+      "name": "Gypsum_board",
+      "specific_heat_capacity": 1000
+      "density": 900,
+      "thermal_conductivity": 0.2
+    },
+    {
+      "name": "Lineolum",
+      "specific_heat_capacity": 1260,
+      "density": 1100,
+      "thermal_conductivity": 0.2
+    },
+    {
+      "name": "Leca",
+      "specific_heat_capacity": 780,
+      "density": 100,
+      "thermal_conductivity": 0.21
+    },
+    {
+      "name": "Clay",
+      "specific_heat_capacity": 800
+      "density": 1400,
+      "thermal_conductivity": 0.8
+    },
+    {
+      "name": "Air_layer",
+      "specific_heat_capacity": 1005,
+      "density": 1184,
+      "thermal_conductivity": 0.35
+    },
+    {
+      "name": "Air_layer_poor",
+      "specific_heat_capacity": 1005,
+      "density": 1184,
+      "thermal_conductivity": 0.7
+    },
+    {
+      "name": "Soil",
+      "specific_heat_capacity": 1200
+      "density": 1900,
+      "thermal_conductivity": 1.4
     }
+
   ]
 }

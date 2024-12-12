@@ -8,13 +8,7 @@
                 "walls": "Walls_SFH_1850_DK",
                 "roof": "Roof_SFH_1850_DK"
             }
-        }
-    ]
-}
-
-
-{
-    "archetypes": [
+        },
         {
             "name": "SFH_1851_1930_DK",
             "description": "Single-family house built between 1851 and 1930 in Denmark.",
@@ -23,13 +17,7 @@
                 "walls": "Walls_SFH_1851_1930_DK",
                 "roof": "Roof_SFH_1851_1930_DK"
             }
-        }
-    ]
-}
-
-
-{
-    "archetypes": [
+        },
         {
             "name": "SFH_1931_1950_DK",
             "description": "Single-family house built between 1931 and 1950 in Denmark.",

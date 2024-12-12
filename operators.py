@@ -1,6 +1,7 @@
 from .functions import latlon_to_xyz, create_flat_face, create_building, calculate_horizontal_area, calculate_and_group_vertical_faces
 import bpy
 import json
+import os
 
 
 class ADDON1_OT_Operator(bpy.types.Operator):
@@ -79,6 +80,92 @@ class ADDON2_OT_Operator(bpy.types.Operator):
             calculate_and_group_vertical_faces(cube, threshold=0.01, angle_tolerance=30)
             print(cube.my_properties.usage)
             print(cube.my_properties.age)
+
+            addon_directory = os.path.dirname(os.path.realpath(__file__))
+            print(addon_directory)
+
+            # Load JSON data from the files
+            def load_json(file_name):
+                file_path = os.path.join(addon_directory, file_name)
+                with open(file_path, 'r') as file:
+                    return json.load(file)
+
+            # Load the JSON files
+            archetype_data = load_json('archetypes.json')
+            construction_data = load_json('constructions.json')
+            material_data = load_json('materials.json')
+
+            # Define the building properties
+            building_type = "SFH"
+            year = cube.my_properties.age  # Change this year as needed
+            country = "DK"
+
+            # Construct the archetype name based on the year
+            if year < 1850:
+                year_range = "1850"
+            elif 1851 <= year <= 1930:
+                year_range = "1851_1930"
+            else:
+                year_range = "1931_1950"
+
+            archetype_name = f"{building_type}_{year_range}_{country}"
+
+            # Find the matching archetype
+            selected_archetype = None
+            for archetype in archetype_data['archetypes']:
+                if archetype['name'] == archetype_name:
+                    selected_archetype = archetype
+                    break
+
+            if not selected_archetype:
+                print(f"Archetype '{archetype_name}' not found!")
+                exit()
+
+            print(f"Selected Archetype: {selected_archetype['description']}")
+
+            # Get the construction types for the archetype
+            constructions = selected_archetype['constructions']
+
+            # Extract construction details
+            for construction_type, construction_name in constructions.items():
+                print(f"\n{construction_type.capitalize()} - {construction_name}")
+
+                # Find the construction layers
+                construction = next((c for c in construction_data['constructions'] if c['name'] == construction_name), None)
+                if not construction:
+                    print(f"  No details found for {construction_name}")
+                    continue
+
+                print("  Layers:")
+                total_resistance = 0  # Initialize total thermal resistance
+
+                for layer in construction['layers']:
+                    material_name = layer['material']
+                    material = next((m for m in material_data['materials'] if m['name'] == material_name), None)
+                    if material:
+                        thickness = layer['thickness']
+                        thermal_conductivity = material['thermal_conductivity']
+
+                        # Calculate the resistance of the layer
+                        resistance = thickness / thermal_conductivity
+                        total_resistance += resistance
+
+                        print(f"    Material: {material_name}")
+                        print(f"      Thickness: {thickness} m")
+                        print(f"      Thermal Conductivity: {thermal_conductivity} W/(m·K)")
+                        print(f"      Resistance: {resistance:.4f} m²·K/W")
+                    else:
+                        print(f"    Material: {material_name} (No details found)")
+
+                if total_resistance > 0:
+                    # Calculate the U-value
+                    u_value = 1 / total_resistance
+                    print(f"  Total Resistance (R): {total_resistance:.4f} m²·K/W")
+                    print(f"  U-value: {u_value:.4f} W/(m²·K)")
+                else:
+                    print("  Unable to calculate U-value (no valid layers).")
+
+
 
 
 
