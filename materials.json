@@ -8,7 +8,7 @@
     },
     {
       "name": "Brick_int",
-      "specific_heat_capacity": 880
+      "specific_heat_capacity": 880,
       "density": 1600,
       "thermal_conductivity": 0.57
     },
@@ -26,7 +26,7 @@
     },
     {
       "name": "Light_Concrete",
-      "specific_heat_capacity": 1000
+      "specific_heat_capacity": 1000,
       "density": 1100,
       "thermal_conductivity": 0.5
     },
@@ -44,7 +44,7 @@
     },
     {
       "name": "Ins_42",
-      "specific_heat_capacity": 1000
+      "specific_heat_capacity": 1000,
       "density": 45,
       "thermal_conductivity": 0.042
     },
@@ -62,7 +62,7 @@
     },
     {
       "name": "Gypsum_board",
-      "specific_heat_capacity": 1000
+      "specific_heat_capacity": 1000,
       "density": 900,
       "thermal_conductivity": 0.2
     },
@@ -80,7 +80,7 @@
     },
     {
       "name": "Clay",
-      "specific_heat_capacity": 800
+      "specific_heat_capacity": 800,
       "density": 1400,
       "thermal_conductivity": 0.8
     },
@@ -98,9 +98,21 @@
     },
     {
       "name": "Soil",
-      "specific_heat_capacity": 1200
+      "specific_heat_capacity": 1200,
       "density": 1900,
       "thermal_conductivity": 1.4
+    },
+    {
+      "name": "Roofing",
+      "specific_heat_capacity": 880,
+      "density": 1700,
+      "thermal_conductivity": 0.25
+    },
+    {
+      "name": "Glass",
+      "specific_heat_capacity": 0,
+      "density": 0,
+      "thermal_conductivity": 0.76
     }
 
   ]

@@ -8,12 +8,12 @@
                     "thickness": 0.022
                 },
                 {
-                    "material": "Clay",
-                    "thickness": 0.02
+                    "material": "Air_layer",
+                    "thickness": 0.05
                 },
                 {
-                    "material": "Wood",
-                    "thickness": 0.02
+                    "material": "Soil",
+                    "thickness": 0.5
                 }
             ]
         },
@@ -60,33 +60,75 @@
             ]
         },
         {
-            "name": "Floor_SFH_1850_1930_DK",
+            "name": "Window_SFH_1850_DK",
             "layers": [
                 {
-                    "material": "Concrete",
-                    "thickness": 0.3
+                    "material": "Glass",
+                    "thickness": 0.142
                 }
             ]
         },
         {
-            "name": "Walls_SFH_1850_1930_DK",
+            "name": "Floor_SFH_1851_1930_DK",
             "layers": [
                 {
-                    "material": "Insulation",
-                    "thickness": 0.09
+                    "material": "Wood",
+                    "thickness": 0.022
                 },
                 {
-                    "material": "Brick",
-                    "thickness": 0.2
+                    "material": "Clay",
+                    "thickness": 0.02
+                },
+                {
+                    "material": "Wood",
+                    "thickness": 0.02
                 }
             ]
         },
         {
-            "name": "Roof_SFH_1850_1930_DK",
+            "name": "Walls_SFH_1851_1930_DK",
             "layers": [
                 {
-                    "material": "Concrete",
-                    "thickness": 0.1
+                    "material": "Brick_int",
+                    "thickness": 0.11
+                },
+                {
+                    "material": "Air_layer_poor",
+                    "thickness": 0.07
+                },
+                {
+                    "material": "Brick_ext",
+                    "thickness": 0.11
+                }
+            ]
+        },
+        {
+            "name": "Roof_SFH_1851_1930_DK",
+            "layers": [
+                {
+                    "material": "Gypsum_board",
+                    "thickness": 0.02
+                },
+                {
+                    "material": "Wood",
+                    "thickness": 0.02
+                },
+                {
+                    "material": "Ins_60",
+                    "thickness": 0.05
+                },
+                {
+                    "material": "Air_layer",
+                    "thickness": 0.16
+                }
+            ]
+        },
+        {
+            "name": "Window_SFH_1851_1930_DK",
+            "layers": [
+                {
+                    "material": "Glass",
+                    "thickness": 0.152
                 }
             ]
         },
@@ -94,8 +136,16 @@
             "name": "Floor_SFH_1931_1950_DK",
             "layers": [
                 {
-                    "material": "Concrete",
-                    "thickness": 0.4
+                    "material": "Wood",
+                    "thickness": 0.022
+                },
+                {
+                    "material": "Clay",
+                    "thickness": 0.02
+                },
+                {
+                    "material": "Wood",
+                    "thickness": 0.02
                 }
             ]
         },
@@ -103,12 +153,16 @@
             "name": "Walls_SFH_1931_1950_DK",
             "layers": [
                 {
-                    "material": "Insulation",
-                    "thickness": 0.12
+                    "material": "Brick_int",
+                    "thickness": 0.11
                 },
                 {
-                    "material": "Brick",
-                    "thickness": 0.1
+                    "material": "Ins_60",
+                    "thickness": 0.058
+                },
+                {
+                    "material": "Brick_ext",
+                    "thickness": 0.11
                 }
             ]
         },
@@ -116,8 +170,1017 @@
             "name": "Roof_SFH_1931_1950_DK",
             "layers": [
                 {
+                    "material": "Gypsum_board",
+                    "thickness": 0.02
+                },
+                {
+                    "material": "Wood",
+                    "thickness": 0.02
+                },
+                {
+                    "material": "Air_layer",
+                    "thickness": 0.099
+                }
+            ]
+        },
+        {
+            "name": "Window_SFH_1931_1950_DK",
+            "layers": [
+                {
+                    "material": "Glass",
+                    "thickness": 0.152
+                }
+            ]
+        },
+        {
+            "name": "Floor_SFH_1951_1960_DK",
+            "layers": [
+                {
+                    "material": "Wood",
+                    "thickness": 0.022
+                },
+                {
+                    "material": "Ins_39",
+                    "thickness": 0.05
+                },
+                {
+                    "material": "Wood",
+                    "thickness": 0.02
+                }
+            ]
+        },
+        {
+            "name": "Walls_SFH_1951_1960_DK",
+            "layers": [
+                {
+                    "material": "Brick_int",
+                    "thickness": 0.12
+                },
+                {
+                    "material": "Leca",
+                    "thickness": 0.092
+                },
+                {
+                    "material": "Brick_ext",
+                    "thickness": 0.12
+                }
+            ]
+        },
+        {
+            "name": "Roof_SFH_1951_1960_DK",
+            "layers": [
+                {
+                    "material": "Gypsum_board",
+                    "thickness": 0.02
+                },
+                {
+                    "material": "Wood",
+                    "thickness": 0.02
+                },
+                {
+                    "material": "Ins_60",
+                    "thickness": 0.1
+                },
+                {
+                    "material": "Air_layer",
+                    "thickness": 0.2
+                }
+            ]
+        },
+        {
+            "name": "Window_SFH_1951_1960_DK",
+            "layers": [
+                {
+                    "material": "Glass",
+                    "thickness": 0.142
+                }
+            ]
+        },
+        {
+            "name": "Floor_SFH_1961_1972_DK",
+            "layers": [
+                {
+                    "material": "Lineolum",
+                    "thickness": 0.02
+                },
+                {
+                    "material": "Air_layer",
+                    "thickness": 0.48
+                },
+                {
                     "material": "Concrete",
+                    "thickness": 0.1
+                },
+                {
+                    "material": "Light_Concrete",
+                    "thickness": 0.2
+                }
+            ]
+        },
+        {
+            "name": "Walls_SFH_1961_1972_DK",
+            "layers": [
+                {
+                    "material": "Brick_int",
+                    "thickness": 0.12
+                },
+                {
+                    "material": "Ins_60",
+                    "thickness": 0.066
+                },
+                {
+                    "material": "Brick_ext",
+                    "thickness": 0.12
+                }
+            ]
+        },
+        {
+            "name": "Roof_SFH_1961_1972_DK",
+            "layers": [
+                {
+                    "material": "Gypsum_board",
+                    "thickness": 0.02
+                },
+                {
+                    "material": "Wood",
+                    "thickness": 0.02
+                },
+                {
+                    "material": "Ins_60",
+                    "thickness": 0.15
+                },
+                {
+                    "material": "Air_layer",
+                    "thickness": 0.15
+                }
+            ]
+        },
+        {
+            "name": "Window_SFH_1961_1972_DK",
+            "layers": [
+                {
+                    "material": "Glass",
+                    "thickness": 0.142
+                }
+            ]
+        },
+        {
+            "name": "Floor_SFH_1973_1978_DK",
+            "layers": [
+                {
+                    "material": "Wood",
+                    "thickness": 0.022
+                },
+                {
+                    "material": "Ins_36",
+                    "thickness": 0.13
+                },
+                {
+                    "material": "Concrete",
+                    "thickness": 0.1
+                },
+                {
+                    "material": "Leca",
+                    "thickness": 0.15
+                }
+            ]
+        },
+        {
+            "name": "Walls_SFH_1973_1978_DK",
+            "layers": [
+                {
+                    "material": "Light_Concrete",
+                    "thickness": 0.11
+                },
+                {
+                    "material": "Ins_45",
+                    "thickness": 0.125
+                },
+                {
+                    "material": "Brick_ext",
+                    "thickness": 0.11
+                }
+            ]
+        },
+        {
+            "name": "Roof_SFH_1973_1978_DK",
+            "layers": [
+                {
+                    "material": "Gypsum_board",
+                    "thickness": 0.02
+                },
+                {
+                    "material": "Wood",
+                    "thickness": 0.02
+                },
+                {
+                    "material": "Ins_60",
+                    "thickness": 0.15
+                },
+                {
+                    "material": "Air_layer",
+                    "thickness": 0.15
+                }
+            ]
+        },
+        {
+            "name": "Window_SFH_1973_1978_DK",
+            "layers": [
+                {
+                    "material": "Glass",
+                    "thickness": 0.152
+                }
+            ]
+        },
+        {
+            "name": "Floor_SFH_1979_1998_DK",
+            "layers": [
+                {
+                    "material": "Wood",
+                    "thickness": 0.022
+                },
+                {
+                    "material": "Air_layer",
+                    "thickness": 0.1
+                },
+                {
+                    "material": "Concrete",
+                    "thickness": 0.1
+                },
+                {
+                    "material": "Ins_45",
+                    "thickness": 0.1
+                }
+            ]
+        },
+        {
+            "name": "Walls_SFH_1979_1998_DK",
+            "layers": [
+                {
+                    "material": "Brick_int",
+                    "thickness": 0.11
+                },
+                {
+                    "material": "Ins_60",
+                    "thickness": 0.094
+                },
+                {
+                    "material": "Brick_ext",
+                    "thickness": 0.11
+                }
+            ]
+        },
+        {
+            "name": "Roof_SFH_1979_1998_DK",
+            "layers": [
+                {
+                    "material": "Gypsum_board",
+                    "thickness": 0.02
+                },
+                {
+                    "material": "Wood",
+                    "thickness": 0.02
+                },
+                {
+                    "material": "Ins_36",
                     "thickness": 0.3
+                },
+                {
+                    "material": "Air_layer",
+                    "thickness": 0.1
+                }
+            ]
+        },
+        {
+            "name": "Window_SFH_1979_1998_DK",
+            "layers": [
+                {
+                    "material": "Glass",
+                    "thickness": 0.376
+                }
+            ]
+        },
+        {
+            "name": "Floor_SFH_1999_2006_DK",
+            "layers": [
+                {
+                    "material": "Wood",
+                    "thickness": 0.022
+                },
+                {
+                    "material": "Air_layer",
+                    "thickness": 0.35
+                },
+                {
+                    "material": "Concrete",
+                    "thickness": 0.1
+                },
+                {
+                    "material": "Ins_36",
+                    "thickness": 0.2
+                }
+            ]
+        },
+        {
+            "name": "Walls_SFH_1999_2006_DK",
+            "layers": [
+                {
+                    "material": "Gypsum_board",
+                    "thickness": 0.02
+                },
+                {
+                    "material": "Ins_39",
+                    "thickness": 0.3
+                },
+                {
+                    "material": "Gypsum_board",
+                    "thickness": 0.02
+                }
+            ]
+        },
+        {
+            "name": "Roof_SFH_1999_2006_DK",
+            "layers": [
+                {
+                    "material": "Gypsum_board",
+                    "thickness": 0.02
+                },
+                {
+                    "material": "Wood",
+                    "thickness": 0.02
+                },
+                {
+                    "material": "Ins_36",
+                    "thickness": 0.3
+                },
+                {
+                    "material": "Air_layer",
+                    "thickness": 0.1
+                }
+            ]
+        },
+        {
+            "name": "Window_SFH_1999_2006_DK",
+            "layers": [
+                {
+                    "material": "Glass",
+                    "thickness": 0.27
+                }
+            ]
+        },
+        {
+            "name": "Floor_SFH_2007_DK",
+            "layers": [
+                {
+                    "material": "Wood",
+                    "thickness": 0.022
+                },
+                {
+                    "material": "Air_layer",
+                    "thickness": 0
+                },
+                {
+                    "material": "Concrete",
+                    "thickness": 0.1
+                },
+                {
+                    "material": "Ins_39",
+                    "thickness": 0.3
+                }
+            ]
+        },
+        {
+            "name": "Walls_SFH_2007_DK",
+            "layers": [
+                {
+                    "material": "Brick_int",
+                    "thickness": 0.11
+                },
+                {
+                    "material": "Ins_36",
+                    "thickness": 0.2
+                },
+                {
+                    "material": "Brick_ext",
+                    "thickness": 0.11
+                }
+            ]
+        },
+        {
+            "name": "Roof_SFH_2007_DK",
+            "layers": [
+                {
+                    "material": "Gypsum_board",
+                    "thickness": 0.02
+                },
+                {
+                    "material": "Wood",
+                    "thickness": 0.02
+                },
+                {
+                    "material": "Ins_36",
+                    "thickness": 0.3
+                },
+                {
+                    "material": "Air_layer",
+                    "thickness": 0.1
+                }
+            ]
+        },
+        {
+            "name": "Window_SFH_2007_DK",
+            "layers": [
+                {
+                    "material": "Glass",
+                    "thickness": 0.375
+                }
+            ]
+        },
+        {
+            "name": "Floor_AB_1850_DK",
+            "layers": [
+                {
+                    "material": "Wood",
+                    "thickness": 0.022
+                },
+                {
+                    "material": "Air_layer",
+                    "thickness": 0.1165
+                },
+                {
+                    "material": "Clay",
+                    "thickness": 0.05
+                },
+                {
+                    "material": "Wood",
+                    "thickness": 0.011
+                }
+            ]
+        },
+        {
+            "name": "Walls_AB_1850_DK",
+            "layers": [
+                {
+                    "material": "Brick_ext",
+                    "thickness": 0.208
+                }
+            ]
+        },
+        {
+            "name": "Roof_AB_1850_DK",
+            "layers": [
+                {
+                    "material": "Gypsum_board",
+                    "thickness": 0.02
+                },
+                {
+                    "material": "Wood",
+                    "thickness": 0.03
+                },
+                {
+                    "material": "Ins_45",
+                    "thickness": 0.2
+                },
+                {
+                    "material": "Air_layer",
+                    "thickness": 0
+                }
+            ]
+        },
+        {
+            "name": "Window_AB_1850_DK",
+            "layers": [
+                {
+                    "material": "Glass",
+                    "thickness": 0.152
+                }
+            ]
+        },
+        {
+            "name": "Floor_AB_1851_1930_DK",
+            "layers": [
+                {
+                    "material": "Wood",
+                    "thickness": 0.022
+                },
+                {
+                    "material": "Ins_39",
+                    "thickness": 0.05
+                },
+                {
+                    "material": "Wood",
+                    "thickness": 0.02
+                }
+            ]
+        },
+        {
+            "name": "Walls_AB_1851_1930_DK",
+            "layers": [
+                {
+                    "material": "Gypsum_board",
+                    "thickness": 0.02
+                },
+                {
+                    "material": "Ins_45",
+                    "thickness": 0.052
+                },
+                {
+                    "material": "Brick_ext",
+                    "thickness": 0.12
+                }
+            ]
+        },
+        {
+            "name": "Roof_AB_1851_1930_DK",
+            "layers": [
+                {
+                    "material": "Gypsum_board",
+                    "thickness": 0.02
+                },
+                {
+                    "material": "Wood",
+                    "thickness": 0.02
+                },
+                {
+                    "material": "Ins_45",
+                    "thickness": 0.1
+                },
+                {
+                    "material": "Air_layer",
+                    "thickness": 0
+                }
+            ]
+        },
+        {
+            "name": "Window_AB_1851_1930_DK",
+            "layers": [
+                {
+                    "material": "Glass",
+                    "thickness": 0.152
+                }
+            ]
+        },
+        {
+            "name": "Floor_AB_1931_1950_DK",
+            "layers": [
+                {
+                    "material": "Wood",
+                    "thickness": 0.022
+                },
+                {
+                    "material": "Air_layer",
+                    "thickness": 0.115
+                },
+                {
+                    "material": "Wood",
+                    "thickness": 0
+                }
+            ]
+        },
+        {
+            "name": "Walls_AB_1931_1950_DK",
+            "layers": [
+                {
+                    "material": "Brick_int",
+                    "thickness": 0
+                },
+                {
+                    "material": "Ins_60",
+                    "thickness": 0
+                },
+                {
+                    "material": "Brick_ext",
+                    "thickness": 0.45
+                }
+            ]
+        },
+        {
+            "name": "Roof_AB_1931_1950_DK",
+            "layers": [
+                {
+                    "material": "Gypsum_board",
+                    "thickness": 0.02
+                },
+                {
+                    "material": "Wood",
+                    "thickness": 0.03
+                },
+                {
+                    "material": "Air_layer",
+                    "thickness": 0.025
+                }
+            ]
+        },
+        {
+            "name": "Window_AB_1931_1950_DK",
+            "layers": [
+                {
+                    "material": "Glass",
+                    "thickness": 0.1422
+                }
+            ]
+        },
+        {
+            "name": "Floor_AB_1951_1960_DK",
+            "layers": [
+                {
+                    "material": "Wood",
+                    "thickness": 0.022
+                },
+                {
+                    "material": "Air_layer",
+                    "thickness": 0.14
+                },
+                {
+                    "material": "Light_Concrete",
+                    "thickness": 0.2
+                }
+            ]
+        },
+        {
+            "name": "Walls_AB_1951_1960_DK",
+            "layers": [
+                {
+                    "material": "Brick_int",
+                    "thickness": 0.11
+                },
+                {
+                    "material": "Air_layer",
+                    "thickness": 0.035
+                },
+                {
+                    "material": "Brick_ext",
+                    "thickness": 0.11
+                }
+            ]
+        },
+        {
+            "name": "Roof_AB_1951_1960_DK",
+            "layers": [
+                {
+                    "material": "Gypsum_board",
+                    "thickness": 0.02
+                },
+                {
+                    "material": "Wood",
+                    "thickness": 0.02
+                },
+                {
+                    "material": "Ins_60",
+                    "thickness": 0.05
+                },
+                {
+                    "material": "Air_layer",
+                    "thickness": 0.16
+                }
+            ]
+        },
+        {
+            "name": "Window_AB_1951_1960_DK",
+            "layers": [
+                {
+                    "material": "Glass",
+                    "thickness": 0.142
+                }
+            ]
+        },
+        {
+            "name": "Floor_AB_1961_1972_DK",
+            "layers": [
+                {
+                    "material": "Wood",
+                    "thickness": 0.022
+                },
+                {
+                    "material": "Air_layer",
+                    "thickness": 0.135
+                },
+                {
+                    "material": "Concrete",
+                    "thickness": 0.2
+                },
+                {
+                    "material": "Light_Concrete",
+                    "thickness": 0
+                }
+            ]
+        },
+        {
+            "name": "Walls_AB_1961_1972_DK",
+            "layers": [
+                {
+                    "material": "Gypsum_board",
+                    "thickness": 0.02
+                },
+                {
+                    "material": "Ins_60",
+                    "thickness": 0.075
+                },
+                {
+                    "material": "Wood",
+                    "thickness": 0.022
+                }
+            ]
+        },
+        {
+            "name": "Roof_AB_1961_1972_DK",
+            "layers": [
+                {
+                    "material": "Concrete",
+                    "thickness": 0.1
+                },
+                {
+                    "material": "Ins_36",
+                    "thickness": 0.1
+                },
+                {
+                    "material": "Roofing",
+                    "thickness": 0.01
+                },
+                {
+                    "material": "Air_layer",
+                    "thickness": 0
+                }
+            ]
+        },
+        {
+            "name": "Window_AB_1961_1972_DK",
+            "layers": [
+                {
+                    "material": "Glass",
+                    "thickness": 0.152
+                }
+            ]
+        },
+        {
+            "name": "Floor_AB_1973_1978_DK",
+            "layers": [
+                {
+                    "material": "Wood",
+                    "thickness": 0.022
+                },
+                {
+                    "material": "Air_layer",
+                    "thickness": 0.15
+                },
+                {
+                    "material": "Concrete",
+                    "thickness": 0.2
+                },
+                {
+                    "material": "Ins_45",
+                    "thickness": 0.05
+                }
+            ]
+        },
+        {
+            "name": "Walls_AB_1973_1978_DK",
+            "layers": [
+                {
+                    "material": "Brick_int",
+                    "thickness": 0.18
+                },
+                {
+                    "material": "Ins_45",
+                    "thickness": 0.05
+                },
+                {
+                    "material": "Brick_ext",
+                    "thickness": 0.18
+                }
+            ]
+        },
+        {
+            "name": "Roof_AB_1973_1978_DK",
+            "layers": [
+                {
+                    "material": "Concrete",
+                    "thickness": 0.1
+                },
+                {
+                    "material": "Wood",
+                    "thickness": 0
+                },
+                {
+                    "material": "Ins_39",
+                    "thickness": 0.2
+                },
+                {
+                    "material": "Air_layer",
+                    "thickness": 0
+                }
+            ]
+        },
+        {
+            "name": "Window_AB_1973_1978_DK",
+            "layers": [
+                {
+                    "material": "Glass",
+                    "thickness": 0.142
+                }
+            ]
+        },
+        {
+            "name": "Floor_AB_1979_1998_DK",
+            "layers": [
+                {
+                    "material": "Wood",
+                    "thickness": 0.022
+                },
+                {
+                    "material": "Air_layer",
+                    "thickness": 0.05
+                },
+                {
+                    "material": "Concrete",
+                    "thickness": 0.2
+                },
+                {
+                    "material": "Ins_45",
+                    "thickness": 0.2
+                }
+            ]
+        },
+        {
+            "name": "Walls_AB_1979_1998_DK",
+            "layers": [
+                {
+                    "material": "Gypsum_board",
+                    "thickness": 0.01
+                },
+                {
+                    "material": "Ins_39",
+                    "thickness": 0.1
+                },
+                {
+                    "material": "Brick_ext",
+                    "thickness": 0.12
+                }
+            ]
+        },
+        {
+            "name": "Roof_AB_1979_1998_DK",
+            "layers": [
+                {
+                    "material": "Concrete",
+                    "thickness": 0.1
+                },
+                {
+                    "material": "Wood",
+                    "thickness": 0
+                },
+                {
+                    "material": "Ins_39",
+                    "thickness": 0.2
+                },
+                {
+                    "material": "Air_layer",
+                    "thickness": 0
+                }
+            ]
+        },
+        {
+            "name": "Window_AB_1979_1998_DK",
+            "layers": [
+                {
+                    "material": "Glass",
+                    "thickness": 0.152
+                }
+            ]
+        },
+        {
+            "name": "Floor_AB_1999_2006_DK",
+            "layers": [
+                {
+                    "material": "Wood",
+                    "thickness": 0.022
+                },
+                {
+                    "material": "Air_layer",
+                    "thickness": 0.05
+                },
+                {
+                    "material": "Concrete",
+                    "thickness": 0.1
+                },
+                {
+                    "material": "Ins_39",
+                    "thickness": 0.15
+                }
+            ]
+        },
+        {
+            "name": "Walls_AB_1999_2006_DK",
+            "layers": [
+                {
+                    "material": "Leca",
+                    "thickness": 0.11
+                },
+                {
+                    "material": "Ins_60",
+                    "thickness": 0.146
+                },
+                {
+                    "material": "Brick_ext",
+                    "thickness": 0.11
+                }
+            ]
+        },
+        {
+            "name": "Roof_AB_1999_2006_DK",
+            "layers": [
+                {
+                    "material": "Concrete",
+                    "thickness": 0.1
+                },
+                {
+                    "material": "Wood",
+                    "thickness": 0
+                },
+                {
+                    "material": "Ins_39",
+                    "thickness": 0.2
+                },
+                {
+                    "material": "Air_layer",
+                    "thickness": 0
+                }
+            ]
+        },
+        {
+            "name": "Window_AB_1999_2006_DK",
+            "layers": [
+                {
+                    "material": "Glass",
+                    "thickness": 0.345
+                }
+            ]
+        },
+        {
+            "name": "Floor_AB_2007_DK",
+            "layers": [
+                {
+                    "material": "Wood",
+                    "thickness": 0.022
+                },
+                {
+                    "material": "Air_layer",
+                    "thickness": 0.36
+                },
+                {
+                    "material": "Concrete",
+                    "thickness": 0.1
+                },
+                {
+                    "material": "Ins_36",
+                    "thickness": 0.2
+                }
+            ]
+        },
+        {
+            "name": "Walls_AB_2007_DK",
+            "layers": [
+                {
+                    "material": "Brick_int",
+                    "thickness": 0
+                },
+                {
+                    "material": "Ins_39",
+                    "thickness": 0.149
+                },
+                {
+                    "material": "Brick_ext",
+                    "thickness": 0.12
+                }
+            ]
+        },
+        {
+            "name": "Roof_AB_2007_DK",
+            "layers": [
+                {
+                    "material": "Concrete",
+                    "thickness": 0.1
+                },
+                {
+                    "material": "Wood",
+                    "thickness": 0
+                },
+                {
+                    "material": "Ins_39",
+                    "thickness": 0.2
+                },
+                {
+                    "material": "Air_layer",
+                    "thickness": 0
+                }
+            ]
+        },
+        {
+            "name": "Window_AB_2007_DK",
+            "layers": [
+                {
+                    "material": "Glass",
+                    "thickness": 0.345
                 }
             ]
         }

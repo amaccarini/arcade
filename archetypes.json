@@ -6,7 +6,8 @@
             "constructions": {
                 "floor": "Floor_SFH_1850_DK",
                 "walls": "Walls_SFH_1850_DK",
-                "roof": "Roof_SFH_1850_DK"
+                "roof": "Roof_SFH_1850_DK",
+                "window": "Window_SFH_1850_DK"
             }
         },
         {
@@ -15,7 +16,8 @@
             "constructions": {
                 "floor": "Floor_SFH_1851_1930_DK",
                 "walls": "Walls_SFH_1851_1930_DK",
-                "roof": "Roof_SFH_1851_1930_DK"
+                "roof": "Roof_SFH_1851_1930_DK",
+                "window": "Window_SFH_1851_1930_DK"
             }
         },
         {
@@ -24,7 +26,158 @@
             "constructions": {
                 "floor": "Floor_SFH_1931_1950_DK",
                 "walls": "Walls_SFH_1931_1950_DK",
-                "roof": "Roof_SFH_1931_1950_DK"
+                "roof": "Roof_SFH_1931_1950_DK",
+                "window": "Window_SFH_1931_1950_DK"
+            }
+        },
+        {
+            "name": "SFH_1951_1960_DK",
+            "description": "Single-family house built between 1951 and 1960 in Denmark.",
+            "constructions": {
+                "floor": "Floor_SFH_1951_1960_DK",
+                "walls": "Walls_SFH_1951_1960_DK",
+                "roof": "Roof_SFH_1951_1960_DK",
+                "window": "Window_SFH_1951_1960_DK"
+            }
+        },
+        {
+            "name": "SFH_1961_1972_DK",
+            "description": "Single-family house built between 1961 and 1972 in Denmark.",
+            "constructions": {
+                "floor": "Floor_SFH_1961_1972_DK",
+                "walls": "Walls_SFH_1961_1972_DK",
+                "roof": "Roof_SFH_1961_1972_DK",
+                "window": "Window_SFH_1961_1972_DK"
+            }
+        },
+        {
+            "name": "SFH_1973_1978_DK",
+            "description": "Single-family house built between 1973 and 1978 in Denmark.",
+            "constructions": {
+                "floor": "Floor_SFH_1973_1978_DK",
+                "walls": "Walls_SFH_1973_1978_DK",
+                "roof": "Roof_SFH_1973_1978_DK",
+                "window": "Window_SFH_1973_1978_DK"
+            }
+        },
+        {
+            "name": "SFH_1979_1998_DK",
+            "description": "Single-family house built between 1979 and 1998 in Denmark.",
+            "constructions": {
+                "floor": "Floor_SFH_1979_1998_DK",
+                "walls": "Walls_SFH_1979_1998_DK",
+                "roof": "Roof_SFH_1979_1998_DK",
+                "window": "Window_SFH_1979_1998_DK"
+            }
+        },
+        {
+            "name": "SFH_1999_2006_DK",
+            "description": "Single-family house built between 1999 and 2006 in Denmark.",
+            "constructions": {
+                "floor": "Floor_SFH_1999_2006_DK",
+                "walls": "Walls_SFH_1999_2006_DK",
+                "roof": "Roof_SFH_1999_2006_DK",
+                "window": "Window_SFH_1999_2006_DK"
+            }
+        },
+        {
+            "name": "SFH_2007_DK",
+            "description": "Single-family house built after 2007 in Denmark.",
+            "constructions": {
+                "floor": "Floor_SFH_2007_DK",
+                "walls": "Walls_SFH_2007_DK",
+                "roof": "Roof_SFH_2007_DK",
+                "window": "Window_SFH_2007_DK"
+            }
+        },
+        {
+            "name": "AB_1850_DK",
+            "description": "Apartment block built before 1850 in Denmark.",
+            "constructions": {
+                "floor": "Floor_AB_1850_DK",
+                "walls": "Walls_AB_1850_DK",
+                "roof": "Roof_AB_1850_DK",
+                "window": "Window_AB_1850_DK"
+            }
+        },
+        {
+            "name": "AB_1851_1930_DK",
+            "description": "Apartment block built between 1851 and 1930 in Denmark.",
+            "constructions": {
+                "floor": "Floor_AB_1851_1930_DK",
+                "walls": "Walls_AB_1851_1930_DK",
+                "roof": "Roof_AB_1851_1930_DK",
+                "window": "Window_AB_1851_1930_DK"
+            }
+        },
+        {
+            "name": "AB_1931_1950_DK",
+            "description": "Apartment block built between 1931 and 1950 in Denmark.",
+            "constructions": {
+                "floor": "Floor_AB_1931_1950_DK",
+                "walls": "Walls_AB_1931_1950_DK",
+                "roof": "Roof_AB_1931_1950_DK",
+                "window": "Window_AB_1931_1950_DK"
+            }
+        },
+        {
+            "name": "AB_1951_1960_DK",
+            "description": "Apartment block built between 1951 and 1960 in Denmark.",
+            "constructions": {
+                "floor": "Floor_AB_1951_1960_DK",
+                "walls": "Walls_AB_1951_1960_DK",
+                "roof": "Roof_AB_1951_1960_DK",
+                "window": "Window_AB_1951_1960_DK"
+            }
+        },
+        {
+            "name": "AB_1961_1972_DK",
+            "description": "Apartment block built between 1961 and 1972 in Denmark.",
+            "constructions": {
+                "floor": "Floor_AB_1961_1972_DK",
+                "walls": "Walls_AB_1961_1972_DK",
+                "roof": "Roof_AB_1961_1972_DK",
+                "window": "Window_AB_1961_1972_DK"
+            }
+        },
+        {
+            "name": "AB_1973_1978_DK",
+            "description": "Apartment block built between 1973 and 1978 in Denmark.",
+            "constructions": {
+                "floor": "Floor_AB_1973_1978_DK",
+                "walls": "Walls_AB_1973_1978_DK",
+                "roof": "Roof_AB_1973_1978_DK",
+                "window": "Window_AB_1973_1978_DK"
+            }
+        },
+        {
+            "name": "AB_1979_1998_DK",
+            "description": "Apartment block built between 1979 and 1998 in Denmark.",
+            "constructions": {
+                "floor": "Floor_AB_1979_1998_DK",
+                "walls": "Walls_AB_1979_1998_DK",
+                "roof": "Roof_AB_1979_1998_DK",
+                "window": "Window_AB_1979_1998_DK"
+            }
+        },
+        {
+            "name": "AB_1999_2006_DK",
+            "description": "Apartment block built between 1999 and 2006 in Denmark.",
+            "constructions": {
+                "floor": "Floor_AB_1999_2006_DK",
+                "walls": "Walls_AB_1999_2006_DK",
+                "roof": "Roof_AB_1999_2006_DK",
+                "window": "Window_AB_1999_2006_DK"
+            }
+        },
+        {
+            "name": "AB_2007_DK",
+            "description": "Apartment block built after 2007 in Denmark.",
+            "constructions": {
+                "floor": "Floor_AB_2007_DK",
+                "walls": "Walls_AB_2007_DK",
+                "roof": "Roof_AB_2007_DK",
+                "window": "Window_AB_2007_DK"
             }
         }
     ]

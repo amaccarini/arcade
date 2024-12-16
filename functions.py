@@ -73,12 +73,12 @@ def create_building(vertices, height, name, year, use):
     obj = bpy.data.objects.new(name, mesh)
     bpy.context.collection.objects.link(obj)
     obj.my_properties.age = year
-    if use == "detached":
-        obj.my_properties.usage = "detached"
-    elif use == "terrace":
-        obj.my_properties.usage = "terrace"
+    if use == "detached" or use =="terrace" or use == "house" or use =="residential" or use=="semidetached_house":
+        obj.my_properties.usage = "RES1"
+    elif use == "apartments":
+        obj.my_properties.usage = "RES2"
     else:
-        obj.my_properties.usage = "apartments"
+        obj.my_properties.usage = "TER"
 
 # Function to calculate horizontal surface for buildings (floor and roof surface area)
 def calculate_horizontal_area(obj, threshold=0.01):

@@ -105,6 +105,12 @@ class ADDON2_OT_Operator(bpy.types.Operator):
                 year_range = "1850"
             elif 1851 <= year <= 1930:
                 year_range = "1851_1930"
+            elif 1931 <= year <= 1950:
+                year_range = "1931_1950"
+            elif 1951 <= year <= 1960:
+                year_range = "1951_1960"
+            elif 1961 <= year <= 1972:
+                year_range = "1961_1972"
             else:
                 year_range = "1931_1950"
 
@@ -158,12 +164,34 @@ class ADDON2_OT_Operator(bpy.types.Operator):
                         print(f"    Material: {material_name} (No details found)")
 
                 if total_resistance > 0:
-                    # Calculate the U-value
-                    u_value = 1 / total_resistance
-                    print(f"  Total Resistance (R): {total_resistance:.4f} m²·K/W")
-                    print(f"  U-value: {u_value:.4f} W/(m²·K)")
-                else:
-                    print("  Unable to calculate U-value (no valid layers).")
+                    if "Floor" in construction_name:
+                        con_resistance=total_resistance+0.34
+                        # Calculate the U-value
+                        u_value = 1 / con_resistance
+                        print(f"  Total Resistance (R): {total_resistance:.4f} m²·K/W")
+                        print(f"  U-value: {u_value:.4f} W/(m²·K)")
+                    elif "Walls" in construction_name:
+                        con_resistance=total_resistance+0.17
+                        # Calculate the U-value
+                        u_value = 1 / con_resistance
+                        print(f"  Total Resistance (R): {total_resistance:.4f} m²·K/W")
+                        print(f"  U-value: {u_value:.4f} W/(m²·K)")
+                    elif "Roof" in construction_name:
+                        con_resistance=total_resistance+0.14
+                        # Calculate the U-value
+                        u_value = 1 / con_resistance
+                        print(f"  Total Resistance (R): {total_resistance:.4f} m²·K/W")
+                        print(f"  U-value: {u_value:.4f} W/(m²·K)")
+                    else:
+                        con_resistance=total_resistance+0.17
+                        # Calculate the U-value
+                        u_value = 1 / con_resistance
+                        print(f"  Total Resistance (R): {total_resistance:.4f} m²·K/W")
+                        print(f"  U-value: {u_value:.4f} W/(m²·K)")
+
+
+
+
 
 
 
