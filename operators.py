@@ -96,7 +96,10 @@ class ADDON2_OT_Operator(bpy.types.Operator):
             material_data = load_json('materials.json')
 
             # Define the building properties
-            building_type = "SFH"
+            if cube.my_properties.usage=="SFH":
+                building_type = "SFH"
+            else:
+                building_type = "AB"
             year = cube.my_properties.age  # Change this year as needed
             country = "DK"
 
@@ -111,8 +114,14 @@ class ADDON2_OT_Operator(bpy.types.Operator):
                 year_range = "1951_1960"
             elif 1961 <= year <= 1972:
                 year_range = "1961_1972"
+            elif 1973 <= year <= 1978:
+                year_range = "1973_1978"
+            elif 1979 <= year <= 1998:
+                year_range = "1979_1998"
+            elif 1999 <= year <= 2006:
+                year_range = "1999_2006"
             else:
-                year_range = "1931_1950"
+                year_range = "2007"
 
             archetype_name = f"{building_type}_{year_range}_{country}"
 

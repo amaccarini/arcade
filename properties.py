@@ -6,8 +6,8 @@ class MyPropertyGroup(bpy.types.PropertyGroup):
     usage: bpy.props.EnumProperty(
         name= "",
         description= "Building usage type",
-        items= [('RES1', "Single-family house", ""),
-                ('RES2', "Apartments", ""),
-                ('TER', "Tertiary building", "")
+        items= [('SFH', "Single-family house", ""),
+                ('AB', "Apartments", ""),
+                ('OTH', "Other building", "")
         ]
     )
