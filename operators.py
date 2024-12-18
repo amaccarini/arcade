@@ -70,40 +70,34 @@ class ADDON1_OT_Operator(bpy.types.Operator):
 
 
 class ADDON2_OT_Operator(bpy.types.Operator):
-    bl_label = "calculate heating and cooling laods"
+    bl_label = "Calculate Heating and Cooling Loads"
     bl_idname = "calculate.myop_operator"
 
     def execute(self, context):
         selected_objects = bpy.context.selected_objects
+        addon_directory = os.path.dirname(os.path.realpath(__file__))
+
+        # Load the JSON file
+        def load_json(file_name):
+            file_path = os.path.join(addon_directory, file_name)
+            with open(file_path, 'r') as file:
+                return json.load(file)
+
+        # Load the archetypes.json file
+        archetype_data = load_json('archetypes.json')
+
         for cube in selected_objects:
             calculate_horizontal_area(cube, threshold=0.01)
             calculate_and_group_vertical_faces(cube, threshold=0.01, angle_tolerance=30)
             print(cube.my_properties.usage)
             print(cube.my_properties.age)
 
-            addon_directory = os.path.dirname(os.path.realpath(__file__))
-            print(addon_directory)
-
-            # Load JSON data from the files
-            def load_json(file_name):
-                file_path = os.path.join(addon_directory, file_name)
-                with open(file_path, 'r') as file:
-                    return json.load(file)
-
-            # Load the JSON files
-            archetype_data = load_json('archetypes.json')
-            construction_data = load_json('constructions.json')
-            material_data = load_json('materials.json')
-
             # Define the building properties
-            if cube.my_properties.usage=="SFH":
-                building_type = "SFH"
-            else:
-                building_type = "AB"
-            year = cube.my_properties.age  # Change this year as needed
+            building_type = "SFH" if cube.my_properties.usage == "SFH" else "AB"
+            year = cube.my_properties.age  # Building year
             country = "DK"
 
-            # Construct the archetype name based on the year
+            # Determine the year range
             if year < 1850:
                 year_range = "1850"
             elif 1851 <= year <= 1930:
@@ -120,9 +114,12 @@ class ADDON2_OT_Operator(bpy.types.Operator):
                 year_range = "1979_1998"
             elif 1999 <= year <= 2006:
                 year_range = "1999_2006"
+            elif 2007 <= year <= 2010:
+                year_range = "2007_2010"
             else:
-                year_range = "2007"
+                year_range = "2011"
 
+            # Construct the archetype name
             archetype_name = f"{building_type}_{year_range}_{country}"
 
             # Find the matching archetype
@@ -134,76 +131,27 @@ class ADDON2_OT_Operator(bpy.types.Operator):
 
             if not selected_archetype:
                 print(f"Archetype '{archetype_name}' not found!")
-                exit()
+                continue
 
+            # Print the selected archetype description
             print(f"Selected Archetype: {selected_archetype['description']}")
 
-            # Get the construction types for the archetype
+            # Get construction data for the selected archetype
             constructions = selected_archetype['constructions']
+            for construction_type, properties in constructions.items():
+                print(f"\n{construction_type.capitalize()}:")
 
-            # Extract construction details
-            for construction_type, construction_name in constructions.items():
-                print(f"\n{construction_type.capitalize()} - {construction_name}")
+                # Extract and display U-value and k_m
+                u_value = properties["Uvalue"]
+                k_m = properties["k_m"]
+                print(f"  U-value: {u_value:.2f} W/(m²·K)")
+                print(f"  k_m: {k_m:.2f} J/(m²·K)")
 
-                # Find the construction layers
-                construction = next((c for c in construction_data['constructions'] if c['name'] == construction_name), None)
-                if not construction:
-                    print(f"  No details found for {construction_name}")
-                    continue
-
-                print("  Layers:")
-                total_resistance = 0  # Initialize total thermal resistance
-
-                for layer in construction['layers']:
-                    material_name = layer['material']
-                    material = next((m for m in material_data['materials'] if m['name'] == material_name), None)
-                    if material:
-                        thickness = layer['thickness']
-                        thermal_conductivity = material['thermal_conductivity']
-
-                        # Calculate the resistance of the layer
-                        resistance = thickness / thermal_conductivity
-                        total_resistance += resistance
-
-                        print(f"    Material: {material_name}")
-                        print(f"      Thickness: {thickness} m")
-                        print(f"      Thermal Conductivity: {thermal_conductivity} W/(m·K)")
-                        print(f"      Resistance: {resistance:.4f} m²·K/W")
-                    else:
-                        print(f"    Material: {material_name} (No details found)")
-
-                if total_resistance > 0:
-                    if "Floor" in construction_name:
-                        con_resistance=total_resistance+0.34
-                        # Calculate the U-value
-                        u_value = 1 / con_resistance
-                        print(f"  Total Resistance (R): {total_resistance:.4f} m²·K/W")
-                        print(f"  U-value: {u_value:.4f} W/(m²·K)")
-                    elif "Walls" in construction_name:
-                        con_resistance=total_resistance+0.17
-                        # Calculate the U-value
-                        u_value = 1 / con_resistance
-                        print(f"  Total Resistance (R): {total_resistance:.4f} m²·K/W")
-                        print(f"  U-value: {u_value:.4f} W/(m²·K)")
-                    elif "Roof" in construction_name:
-                        con_resistance=total_resistance+0.14
-                        # Calculate the U-value
-                        u_value = 1 / con_resistance
-                        print(f"  Total Resistance (R): {total_resistance:.4f} m²·K/W")
-                        print(f"  U-value: {u_value:.4f} W/(m²·K)")
-                    else:
-                        con_resistance=total_resistance+0.17
-                        # Calculate the U-value
-                        u_value = 1 / con_resistance
-                        print(f"  Total Resistance (R): {total_resistance:.4f} m²·K/W")
-                        print(f"  U-value: {u_value:.4f} W/(m²·K)")
-
-
-
-
-
-
-
-
+                # If it's a window, also print g-factor and wwr
+                if construction_type == "window":
+                    g_factor = properties["g-factor"]
+                    wwr = properties["wwr"]
+                    print(f"  g-factor: {g_factor:.2f}")
+                    print(f"  wwr: {wwr:.2f}")
 
         return {'FINISHED'}

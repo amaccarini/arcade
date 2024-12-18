@@ -64,7 +64,9 @@
             "layers": [
                 {
                     "material": "Glass",
-                    "thickness": 0.142
+                    "thickness": 0.142,
+                    "g-factor": 0.76,
+                    "wwr": 0.18
                 }
             ]
         },
@@ -128,7 +130,9 @@
             "layers": [
                 {
                     "material": "Glass",
-                    "thickness": 0.152
+                    "thickness": 0.152,
+                    "g-factor": 0.76,
+                    "wwr": 0.15
                 }
             ]
         },
@@ -188,7 +192,9 @@
             "layers": [
                 {
                     "material": "Glass",
-                    "thickness": 0.152
+                    "thickness": 0.152,
+                    "g-factor": 0.76,
+                    "wwr": 0.2
                 }
             ]
         },
@@ -252,7 +258,9 @@
             "layers": [
                 {
                     "material": "Glass",
-                    "thickness": 0.142
+                    "thickness": 0.142,
+                    "g-factor": 0.76,
+                    "wwr": 0.28
                 }
             ]
         },
@@ -320,7 +328,9 @@
             "layers": [
                 {
                     "material": "Glass",
-                    "thickness": 0.142
+                    "thickness": 0.142,
+                    "g-factor": 0.76,
+                    "wwr": 0.28
                 }
             ]
         },
@@ -388,7 +398,9 @@
             "layers": [
                 {
                     "material": "Glass",
-                    "thickness": 0.152
+                    "thickness": 0.152,
+                    "g-factor": 0.76,
+                    "wwr": 0.23
                 }
             ]
         },
@@ -456,7 +468,9 @@
             "layers": [
                 {
                     "material": "Glass",
-                    "thickness": 0.376
+                    "thickness": 0.376,
+                    "g-factor": 0.63,
+                    "wwr": 0.2
                 }
             ]
         },
@@ -524,12 +538,14 @@
             "layers": [
                 {
                     "material": "Glass",
-                    "thickness": 0.27
+                    "thickness": 0.27,
+                    "g-factor": 0.63,
+                    "wwr": 0.23
                 }
             ]
         },
         {
-            "name": "Floor_SFH_2007_DK",
+            "name": "Floor_SFH_2007_2010_DK",
             "layers": [
                 {
                     "material": "Wood",
@@ -550,7 +566,7 @@
             ]
         },
         {
-            "name": "Walls_SFH_2007_DK",
+            "name": "Walls_SFH_2007_2010_DK",
             "layers": [
                 {
                     "material": "Brick_int",
@@ -567,7 +583,7 @@
             ]
         },
         {
-            "name": "Roof_SFH_2007_DK",
+            "name": "Roof_SFH_2007_2010_DK",
             "layers": [
                 {
                     "material": "Gypsum_board",
@@ -583,16 +599,88 @@
                 },
                 {
                     "material": "Air_layer",
-                    "thickness": 0.1
+                    "thickness": 0
                 }
             ]
         },
         {
-            "name": "Window_SFH_2007_DK",
+            "name": "Window_SFH_2007_2010_DK",
             "layers": [
                 {
                     "material": "Glass",
-                    "thickness": 0.375
+                    "thickness": 0.45,
+                    "g-factor": 0.63,
+                    "wwr": 0.16
+                }
+            ]
+        },
+        {
+            "name": "Floor_SFH_2011_DK",
+            "layers": [
+                {
+                    "material": "Wood",
+                    "thickness": 0.022
+                },
+                {
+                    "material": "Air_layer",
+                    "thickness": 0
+                },
+                {
+                    "material": "Concrete",
+                    "thickness": 0.1
+                },
+                {
+                    "material": "Ins_39",
+                    "thickness": 0.35
+                }
+            ]
+        },
+        {
+            "name": "Walls_SFH_2011_DK",
+            "layers": [
+                {
+                    "material": "Brick_int",
+                    "thickness": 0.11
+                },
+                {
+                    "material": "Ins_36",
+                    "thickness": 0.18
+                },
+                {
+                    "material": "Brick_ext",
+                    "thickness": 0.11
+                }
+            ]
+        },
+        {
+            "name": "Roof_SFH_2011_DK",
+            "layers": [
+                {
+                    "material": "Gypsum_board",
+                    "thickness": 0.02
+                },
+                {
+                    "material": "Wood",
+                    "thickness": 0.02
+                },
+                {
+                    "material": "Ins_36",
+                    "thickness": 0.3
+                },
+                {
+                    "material": "Air_layer",
+                    "thickness": 0
+                }
+            ]
+        },
+        {
+            "name": "Window_SFH_2011_DK",
+            "layers": [
+                {
+                    "material": "Glass",
+                    "thickness": 0.45,
+                    "g-factor": 0.63,
+                    "wwr": 0.22
                 }
             ]
         },
@@ -652,7 +740,9 @@
             "layers": [
                 {
                     "material": "Glass",
-                    "thickness": 0.152
+                    "thickness": 0.152,
+                    "g-factor": 0.76,
+                    "wwr": 0.14
                 }
             ]
         },
@@ -716,7 +806,9 @@
             "layers": [
                 {
                     "material": "Glass",
-                    "thickness": 0.152
+                    "thickness": 0.152,
+                    "g-factor": 0.76,
+                    "wwr": 0.24
                 }
             ]
         },
@@ -776,7 +868,9 @@
             "layers": [
                 {
                     "material": "Glass",
-                    "thickness": 0.1422
+                    "thickness": 0.1422,
+                    "g-factor": 0.76,
+                    "wwr": 0.28
                 }
             ]
         },
@@ -840,7 +934,9 @@
             "layers": [
                 {
                     "material": "Glass",
-                    "thickness": 0.142
+                    "thickness": 0.142,
+                    "g-factor": 0.76,
+                    "wwr": 0.21
                 }
             ]
         },
@@ -908,7 +1004,9 @@
             "layers": [
                 {
                     "material": "Glass",
-                    "thickness": 0.152
+                    "thickness": 0.152,
+                    "g-factor": 0.76,
+                    "wwr": 0.42
                 }
             ]
         },
@@ -976,7 +1074,9 @@
             "layers": [
                 {
                     "material": "Glass",
-                    "thickness": 0.142
+                    "thickness": 0.142,
+                    "g-factor": 0.76,
+                    "wwr": 0.5
                 }
             ]
         },
@@ -1044,7 +1144,9 @@
             "layers": [
                 {
                     "material": "Glass",
-                    "thickness": 0.152
+                    "thickness": 0.152,
+                    "g-factor": 0.76,
+                    "wwr": 0.38
                 }
             ]
         },
@@ -1112,12 +1214,14 @@
             "layers": [
                 {
                     "material": "Glass",
-                    "thickness": 0.345
+                    "thickness": 0.345,
+                    "g-factor": 0.63,
+                    "wwr": 0.65
                 }
             ]
         },
         {
-            "name": "Floor_AB_2007_DK",
+            "name": "Floor_AB_2007_2010_DK",
             "layers": [
                 {
                     "material": "Wood",
@@ -1138,7 +1242,7 @@
             ]
         },
         {
-            "name": "Walls_AB_2007_DK",
+            "name": "Walls_AB_2007_2010_DK",
             "layers": [
                 {
                     "material": "Brick_int",
@@ -1155,7 +1259,7 @@
             ]
         },
         {
-            "name": "Roof_AB_2007_DK",
+            "name": "Roof_AB_2007_2010_DK",
             "layers": [
                 {
                     "material": "Concrete",
@@ -1176,11 +1280,83 @@
             ]
         },
         {
-            "name": "Window_AB_2007_DK",
+            "name": "Window_AB_2007_2010_DK",
             "layers": [
                 {
                     "material": "Glass",
-                    "thickness": 0.345
+                    "thickness": 0.345,
+                    "g-factor": 0.63,
+                    "wwr": 0.56
+                }
+            ]
+        },
+        {
+            "name": "Floor_AB_2011_DK",
+            "layers": [
+                {
+                    "material": "Wood",
+                    "thickness": 0.022
+                },
+                {
+                    "material": "Air_layer",
+                    "thickness": 0.36
+                },
+                {
+                    "material": "Concrete",
+                    "thickness": 0.1
+                },
+                {
+                    "material": "Ins_36",
+                    "thickness": 0.2
+                }
+            ]
+        },
+        {
+            "name": "Walls_AB_2011_DK",
+            "layers": [
+                {
+                    "material": "Concrete",
+                    "thickness": 0.11
+                },
+                {
+                    "material": "Ins_39",
+                    "thickness": 0.2
+                },
+                {
+                    "material": "Brick_ext",
+                    "thickness": 0.12
+                }
+            ]
+        },
+        {
+            "name": "Roof_AB_2011_DK",
+            "layers": [
+                {
+                    "material": "Concrete",
+                    "thickness": 0.1
+                },
+                {
+                    "material": "Wood",
+                    "thickness": 0
+                },
+                {
+                    "material": "Ins_39",
+                    "thickness": 0.39
+                },
+                {
+                    "material": "Air_layer",
+                    "thickness": 0
+                }
+            ]
+        },
+        {
+            "name": "Window_AB_2011_DK",
+            "layers": [
+                {
+                    "material": "Glass",
+                    "thickness": 0.595,
+                    "g-factor": 0.35,
+                    "wwr": 0.61
                 }
             ]
         }
