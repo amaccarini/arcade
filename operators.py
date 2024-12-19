@@ -1,4 +1,4 @@
-from .functions import latlon_to_xyz, create_flat_face, create_building, calculate_horizontal_area, calculate_and_group_vertical_faces
+from .functions import latlon_to_xyz, create_flat_face, create_building, calculate_horizontal_area, calculate_and_group_vertical_faces, process_archetype
 import bpy
 import json
 import os
@@ -87,71 +87,28 @@ class ADDON2_OT_Operator(bpy.types.Operator):
         archetype_data = load_json('archetypes.json')
 
         for cube in selected_objects:
+
+            #Calculate the horizontal area of the building
             calculate_horizontal_area(cube, threshold=0.01)
+
+            #Calculate the vertical areas of the building together with their orientation
             calculate_and_group_vertical_faces(cube, threshold=0.01, angle_tolerance=30)
+
+            #Process the archetypes JSON file to match the archetype
+            process_archetype(cube, archetype_data)
             print(cube.my_properties.usage)
             print(cube.my_properties.age)
+            constructions_data=process_archetype(cube, archetype_data)
+            print(constructions_data)
 
-            # Define the building properties
-            building_type = "SFH" if cube.my_properties.usage == "SFH" else "AB"
-            year = cube.my_properties.age  # Building year
-            country = "DK"
+            #Retrieve data from the archetype
+            floor_data = constructions_data.get("floor")
+            k_m_floor = floor_data["k_m"]
+            print(k_m_floor)
 
-            # Determine the year range
-            if year < 1850:
-                year_range = "1850"
-            elif 1851 <= year <= 1930:
-                year_range = "1851_1930"
-            elif 1931 <= year <= 1950:
-                year_range = "1931_1950"
-            elif 1951 <= year <= 1960:
-                year_range = "1951_1960"
-            elif 1961 <= year <= 1972:
-                year_range = "1961_1972"
-            elif 1973 <= year <= 1978:
-                year_range = "1973_1978"
-            elif 1979 <= year <= 1998:
-                year_range = "1979_1998"
-            elif 1999 <= year <= 2006:
-                year_range = "1999_2006"
-            elif 2007 <= year <= 2010:
-                year_range = "2007_2010"
-            else:
-                year_range = "2011"
+            #Calculate the total haet capacity Cm
 
-            # Construct the archetype name
-            archetype_name = f"{building_type}_{year_range}_{country}"
 
-            # Find the matching archetype
-            selected_archetype = None
-            for archetype in archetype_data['archetypes']:
-                if archetype['name'] == archetype_name:
-                    selected_archetype = archetype
-                    break
 
-            if not selected_archetype:
-                print(f"Archetype '{archetype_name}' not found!")
-                continue
-
-            # Print the selected archetype description
-            print(f"Selected Archetype: {selected_archetype['description']}")
-
-            # Get construction data for the selected archetype
-            constructions = selected_archetype['constructions']
-            for construction_type, properties in constructions.items():
-                print(f"\n{construction_type.capitalize()}:")
-
-                # Extract and display U-value and k_m
-                u_value = properties["Uvalue"]
-                k_m = properties["k_m"]
-                print(f"  U-value: {u_value:.2f} W/(m²·K)")
-                print(f"  k_m: {k_m:.2f} J/(m²·K)")
-
-                # If it's a window, also print g-factor and wwr
-                if construction_type == "window":
-                    g_factor = properties["g-factor"]
-                    wwr = properties["wwr"]
-                    print(f"  g-factor: {g_factor:.2f}")
-                    print(f"  wwr: {wwr:.2f}")
 
         return {'FINISHED'}

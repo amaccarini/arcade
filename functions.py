@@ -189,3 +189,57 @@ def calculate_and_group_vertical_faces(obj, threshold=0.01, angle_tolerance=30):
             grouped_faces[angle] = area
 
     print(grouped_faces)
+
+
+def process_archetype(cube, archetype_data):
+    """
+    Determines the archetype name based on the cube's properties, finds the matching archetype,
+    and prints relevant details including U-values, k_m, g-factor, and wwr.
+
+    Args:
+        cube: The selected Blender object with `my_properties.usage` and `my_properties.age`.
+        archetype_data: Loaded JSON data containing archetype information.
+    """
+    # Define the building properties
+    building_type = "SFH" if cube.my_properties.usage == "SFH" else "AB"
+    year = cube.my_properties.age  # Building year
+    country = "DK"
+
+    # Determine the year range
+    if year < 1850:
+        year_range = "1850"
+    elif 1851 <= year <= 1930:
+        year_range = "1851_1930"
+    elif 1931 <= year <= 1950:
+        year_range = "1931_1950"
+    elif 1951 <= year <= 1960:
+        year_range = "1951_1960"
+    elif 1961 <= year <= 1972:
+        year_range = "1961_1972"
+    elif 1973 <= year <= 1978:
+        year_range = "1973_1978"
+    elif 1979 <= year <= 1998:
+        year_range = "1979_1998"
+    elif 1999 <= year <= 2006:
+        year_range = "1999_2006"
+    elif 2007 <= year <= 2010:
+        year_range = "2007_2010"
+    else:
+        year_range = "2011"
+
+    # Construct the archetype name
+    archetype_name = f"{building_type}_{year_range}_{country}"
+
+    # Find the matching archetype
+    selected_archetype = None
+    for archetype in archetype_data['archetypes']:
+        if archetype['name'] == archetype_name:
+            selected_archetype = archetype
+            break
+
+    if not selected_archetype:
+        print(f"Archetype '{archetype_name}' not found!")
+        return  None # Stop processing this cube if no matching archetype is found
+
+    
+    return selected_archetype['constructions']
