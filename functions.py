@@ -80,7 +80,7 @@ def create_building(vertices, height, name, year, use):
     else:
         obj.my_properties.usage = "OTH"
 
-# Function to calculate horizontal surface for buildings (floor and roof surface area)
+# Function to calculate horizontal surface of buildings (floor and roof surface area - divided by 2 to get single surface)
 def calculate_horizontal_area(obj, threshold=0.01):
     """
     Calculate the horizontal surface area of a mesh object in Blender.
@@ -114,7 +114,7 @@ def calculate_horizontal_area(obj, threshold=0.01):
         # Check if the face is horizontal
         if abs(normal.z) >= (1 - threshold):  # Nearly horizontal
             horizontal_area += face.calc_area()/2
-    print(horizontal_area)
+    return horizontal_area
 
 
 
@@ -188,7 +188,8 @@ def calculate_and_group_vertical_faces(obj, threshold=0.01, angle_tolerance=30):
         if not group_found:
             grouped_faces[angle] = area
 
-    print(grouped_faces)
+    rounded_grouped_faces = {round(k, 1): round(v, 1) for k, v in grouped_faces.items()}
+    return rounded_grouped_faces
 
 
 def process_archetype(cube, archetype_data):
@@ -241,5 +242,5 @@ def process_archetype(cube, archetype_data):
         print(f"Archetype '{archetype_name}' not found!")
         return  None # Stop processing this cube if no matching archetype is found
 
-    
+
     return selected_archetype['constructions']

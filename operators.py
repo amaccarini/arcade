@@ -89,10 +89,13 @@ class ADDON2_OT_Operator(bpy.types.Operator):
         for cube in selected_objects:
 
             #Calculate the horizontal area of the building
-            calculate_horizontal_area(cube, threshold=0.01)
+            horizontal_face_area=calculate_horizontal_area(cube, threshold=0.01)
 
             #Calculate the vertical areas of the building together with their orientation
-            calculate_and_group_vertical_faces(cube, threshold=0.01, angle_tolerance=30)
+            vertical_faces_areas=calculate_and_group_vertical_faces(cube, threshold=0.01, angle_tolerance=30)
+
+            #Calculate total sum of vertical areas
+            tot_vertical_area=sum(vertical_faces_areas.values())
 
             #Process the archetypes JSON file to match the archetype
             process_archetype(cube, archetype_data)
@@ -101,10 +104,23 @@ class ADDON2_OT_Operator(bpy.types.Operator):
             constructions_data=process_archetype(cube, archetype_data)
             print(constructions_data)
 
-            #Retrieve data from the archetype
-            floor_data = constructions_data.get("floor")
-            k_m_floor = floor_data["k_m"]
-            print(k_m_floor)
+            #Calculate the total heat capacity of the building (windows are not involved - Eq. 66)
+            Cm_floor=constructions_data.get("floor")["k_m"]*horizontal_face_area
+            Cm_roof=constructions_data.get("roof")["k_m"]*horizontal_face_area
+            Cm_walls=constructions_data.get("walls")["k_m"]*tot_vertical_area*(1-constructions_data.get("window")["wwr"])
+            Cm_tot=Cm_floor+Cm_roof+Cm_walls
+
+            #Calculate the effective mass area Am - Eq. 65)
+            den_floor=constructions_data.get("floor")["k_m"]**2*horizontal_face_area
+            den_roof=constructions_data.get("roof")["k_m"]**2*horizontal_face_area
+            den_walls=constructions_data.get("walls")["k_m"]**2*tot_vertical_area*(1-constructions_data.get("window")["wwr"])
+            Am=Cm_tot**2/(den_floor+den_roof+den_walls)
+            print(horizontal_face_area)
+            print(Cm_floor)
+            print(Cm_roof)
+            print(Cm_walls)
+            print(den_floor)
+            print(Am)
 
             #Calculate the total haet capacity Cm
 
