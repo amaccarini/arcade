@@ -2,6 +2,7 @@ from .functions import latlon_to_xyz, create_flat_face, create_building, calcula
 import bpy
 import json
 import os
+import math
 
 
 class ADDON1_OT_Operator(bpy.types.Operator):
@@ -88,32 +89,43 @@ class ADDON2_OT_Operator(bpy.types.Operator):
 
         for cube in selected_objects:
 
-            #Calculate the horizontal area of the building
+            #Calculate number of floors
+            num_floors = math.floor(cube.dimensions.z / 3)
+            print(num_floors)
+
+
+            #Calculate the horizontal area of the building, and then floor area and roof area
             horizontal_face_area=calculate_horizontal_area(cube, threshold=0.01)
+            Aflo=horizontal_face_area*num_floors
 
             #Calculate the vertical areas of the building together with their orientation
             vertical_faces_areas=calculate_and_group_vertical_faces(cube, threshold=0.01, angle_tolerance=30)
 
-            #Calculate total sum of vertical areas
+            #Calculate total sum of vertical areas, and then area of walls (opaque) and windows
             tot_vertical_area=sum(vertical_faces_areas.values())
+
+
 
             #Process the archetypes JSON file to match the archetype
             process_archetype(cube, archetype_data)
+
             print(cube.my_properties.usage)
             print(cube.my_properties.age)
             constructions_data=process_archetype(cube, archetype_data)
             print(constructions_data)
+            Awal=tot_vertical_area*(1-constructions_data.get("window")["wwr"])
+            Awin=tot_vertical_area*(constructions_data.get("window")["wwr"])
 
-            #Calculate the total heat capacity of the building (windows are not involved - Eq. 66)
+            #Calculate the total heat capacity of the building (1C) (windows are not involved - Eq. 66)
             Cm_floor=constructions_data.get("floor")["k_m"]*horizontal_face_area
             Cm_roof=constructions_data.get("roof")["k_m"]*horizontal_face_area
-            Cm_walls=constructions_data.get("walls")["k_m"]*tot_vertical_area*(1-constructions_data.get("window")["wwr"])
+            Cm_walls=constructions_data.get("walls")["k_m"]*Awal
             Cm_tot=Cm_floor+Cm_roof+Cm_walls
 
             #Calculate the effective mass area Am - Eq. 65)
             den_floor=constructions_data.get("floor")["k_m"]**2*horizontal_face_area
             den_roof=constructions_data.get("roof")["k_m"]**2*horizontal_face_area
-            den_walls=constructions_data.get("walls")["k_m"]**2*tot_vertical_area*(1-constructions_data.get("window")["wwr"])
+            den_walls=constructions_data.get("walls")["k_m"]**2*Awal
             Am=Cm_tot**2/(den_floor+den_roof+den_walls)
             print(horizontal_face_area)
             print(Cm_floor)
@@ -122,7 +134,57 @@ class ADDON2_OT_Operator(bpy.types.Operator):
             print(den_floor)
             print(Am)
 
-            #Calculate the total haet capacity Cm
+            #Calculate the volume of the building
+            vol=horizontal_face_area*cube.dimensions.z
+            print(vol)
+
+            #---------------Definition of constant parameters---------------------- MAYBE TO MOVE BEFORE LOOP as they are constant
+
+            #Adjustment factor for floor
+            b=0.5
+
+            #Heat transfer coefficient between surface and air nodes
+            h_sa=3.45 #W/m2K
+
+            #Heat trannsfer coefficient between mass and surface nodes
+            h_ms=9.1 #W/m2K
+
+            #Ratio between internal surfaces and floor area (dimensionless)
+            ratSur=4.5
+
+            #Absorption coefficient for solar radiation (dimensionless)
+            abs=0.6
+
+            #Heat resistance of external surfaces
+            surRes=0.04 #m2K/W
+
+            #Emissivity of external surfaces (dimensionless)
+            eps=0.9
+
+            #Air change rate (MAYBE TO BE MOVED INSIDE ARCHETYPES JSON FILE AS IT IS ARCHETYPE-SPECIFIC)
+            ACH=0.15
+
+            #--------------Calculation of heat transfer elements (5R) -----------------------
+
+            #Heat transfer element for ventilation (Eq. 21)
+            Hven=1.225*1005*ACH*vol/3600
+
+            #Heat transfer element for windows (Eq. 17)
+            Hwin=constructions_data.get("window")["Uvalue"]*Awin
+
+            #Heat transfer element for opaque surfaces (Eq. 63)
+            Uwal=constructions_data.get("walls")["Uvalue"]
+            Uflo=constructions_data.get("floor")["Uvalue"]
+            Uroo=constructions_data.get("roof")["Uvalue"]
+            Hem=1/(1/(Uwal*Awal+b*Uflo*horizontal_face_area+Uroo*horizontal_face_area)-1/(h_ms*Am))
+
+            #Heat transfer element between mass and surface node
+            Htr_ms=h_ms*Am
+
+            #Heat transfer element between surface and air node
+            Htr_sa=h_sa
+
+
 
 
 
