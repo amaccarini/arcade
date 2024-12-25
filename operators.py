@@ -6,6 +6,7 @@ import math
 from pvlib.iotools import read_epw
 from pvlib import location, irradiance
 import pandas as pd
+import numpy as np
 
 
 class ADDON1_OT_Operator(bpy.types.Operator):
@@ -126,9 +127,9 @@ class ADDON2_OT_Operator(bpy.types.Operator):
 
         for cube in selected_objects:
 
-            #Calculate number of floors
-            num_floors = math.floor(cube.dimensions.z / 3)
-            print(num_floors)
+            #Calculate number of floors, ensuring that the value is minimum = 1
+            num_floors = max(1, math.floor(cube.dimensions.z / 3))
+            print(f"The nu_flors is {num_floors}")
 
             #Calculate the horizontal area of the building, and then floor area and roof area
             horizontal_face_area=calculate_horizontal_area(cube, threshold=0.01)
@@ -171,12 +172,13 @@ class ADDON2_OT_Operator(bpy.types.Operator):
             den_roof=constructions_data.get("roof")["k_m"]**2*Aroo
             den_walls=constructions_data.get("walls")["k_m"]**2*Awal
             Am=Cm_tot**2/(den_floor+den_roof+den_walls)
+
             print(horizontal_face_area)
             print(Cm_floor)
             print(Cm_roof)
             print(Cm_walls)
             print(den_floor)
-            print(Am)
+            print(f"The Am is {Am}")
 
             #Calculate the volume of the building
             vol=horizontal_face_area*cube.dimensions.z
@@ -208,7 +210,13 @@ class ADDON2_OT_Operator(bpy.types.Operator):
             #Air change rate (MAYBE TO BE MOVED INSIDE ARCHETYPES JSON FILE AS IT IS ARCHETYPE-SPECIFIC)
             ACH=0.15
 
+            #Internal heat gains
+            gain=200
+
             #--------------Calculation of heat transfer elements (5R) -----------------------
+
+            Atot=Aflo_tot*ratSur
+            print(f"The Atot is {Atot}")
 
             #Heat transfer element for ventilation (Eq. 21)
             Hven=1.225*1005*ACH*vol/3600
@@ -226,7 +234,7 @@ class ADDON2_OT_Operator(bpy.types.Operator):
             Htr_ms=h_ms*Am
 
             #Heat transfer element between surface and air node
-            Htr_sa=h_sa*Aflo_tot*4.5
+            Htr_sa=h_sa*Atot
 
             #---------CALCULATE SOLAR RADIATION ON SURFACES-----------
 
@@ -263,14 +271,107 @@ class ADDON2_OT_Operator(bpy.types.Operator):
             multiplied_values_opa = []
 
             #Calculate for the vertical walls
-            # Iterate over values in All_list['Awal'] and corresponding POA_irradiance_values
+            # Iterate over values in Awal_list and corresponding POA_irradiance_values
             for opa_value, poa_value in zip(Awal_list, POA_irradiance_values):
                 # Multiply the values and append the result to the list
                 multiplied_value_opa = opa_value * poa_value*absCoe*Uwal*surRes
                 multiplied_values_opa.append(multiplied_value_opa)
 
+            multiplied_values_opa_df=pd.DataFrame(multiplied_values_opa)
+
+            multiplied_values_t_opa = []
+
+            for areaWal in Awal_list:
+                multiplied_value_t_opa=areaWal*Uwal*surRes*5*eps*11*0.5
+                multiplied_values_t_opa.append(multiplied_value_t_opa)
+
+            multiplied_values_t_opa_df=pd.DataFrame(multiplied_values_t_opa)
+
+            #Total solar radiation on opaque vertical surface
+            solRadOpa_walls = [a - b for a, b in zip(multiplied_values_opa, multiplied_values_t_opa)]
+            solRadOpa_walls_tot=sum(solRadOpa_walls)
+
+            #Calculate for the roof
+            POA_irradiance_roof = irradiance.get_total_irradiance(surface_tilt=0, surface_azimuth=0,
+                                                 solar_zenith=solar_zenith, solar_azimuth=solar_azimuth,
+                                                 dni=dni, ghi=ghi, dhi=dhi)
+            POA_global_roof=POA_irradiance_roof['poa_global']
+
+            multiplied_values_roo = POA_global_roof*Aroo*absCoe*Uroo*surRes
+
+            multiplied_value_roo_t=Aroo*Uroo*surRes*5*eps*11*1
+            multiplied_value_roo_t = [multiplied_value_roo_t] * len(multiplied_values_roo)
+
+            #Total solar radiation on opaque vertical surface
+            solRadOpa_roo_tot = [a - b for a, b in zip(multiplied_values_roo, multiplied_value_roo_t)]
+            solRadOpa_roo_tot_df=pd.DataFrame(solRadOpa_roo_tot)
+
+            #Sum solar radiation walls+roof
+            solRadOpa = [a + b for a, b in zip(solRadOpa_walls_tot, solRadOpa_roo_tot)]
+            solRadOpa_df = pd.Series(solRadOpa)
+
+            #Calculate total solar radiation as sum of windows+opaque
+            solRadTot = [a + b for a, b in zip(solRadOpa_df, solRadWin_tot)]
+            solRadTot_df = pd.Series(solRadTot)
 
 
+            #------------CALCULATIONS FOR HEAT INJECTIONS-------------------------------------
+            phi_air=gain*0.5
+            phi_sur=(1-Am/Atot-Hwin/(Atot*h_ms))*(0.5*gain+solRadTot_df)
+            phi_mas=(Am/Atot)*(0.5*gain+solRadTot_df)
+
+            #------------CALCULATION OF HEATING AND COOLING LOADS----------------------------
+
+            a=[]
+            c=[]
+            Tm_ini=20
+            Ti_set_hea=20
+            Ti_set_coo=27
+
+
+            for h in range(0, 8760, 1):
+
+                A = np.array([[Hven+Htr_sa, -Htr_sa, 0], [Htr_sa, -Hwin-Htr_sa-Htr_ms, Htr_ms], [0, Htr_ms, -Hem-Htr_ms-Cm_tot/3600]])
+                #b = np.array([phi_air+Hven*Tsup, -phi_sur-Hwin*Text.temp_air[h], -phi_mas-Cm_tot/3600*Tm_ini-Hem*Text.temp_air[h]])
+                b = np.array([phi_air+Hven*Text.temp_air.iloc[h], -phi_sur.iloc[h]-Hwin*Text.temp_air.iloc[h], -phi_mas.iloc[h]-Cm_tot/3600*Tm_ini-Hem*Text.temp_air.iloc[h]])
+                x = np.linalg.solve(A, b)
+
+
+                if x[0]<Ti_set_hea:
+                    A = np.array([[1, Htr_sa, 0], [0, -Hwin-Htr_sa-Htr_ms, Htr_ms], [0, Htr_ms, -Hem-Htr_ms-Cm_tot/3600]])
+                    b = np.array([-Hven*Text.temp_air.iloc[h]+Hven*Ti_set_hea+Htr_sa*Ti_set_hea-phi_air, -phi_sur.iloc[h]-Hwin*Text.temp_air.iloc[h]-Ti_set_hea*Htr_sa, -phi_mas.iloc[h]-Cm_tot/3600*Tm_ini-Hem*Text.temp_air.iloc[h]])
+                    x = np.linalg.solve(A, b)
+                    a.append(Ti_set_hea)
+                    c.append(x[0])
+                    Tm_ini=x[2]
+
+                elif x[0]>Ti_set_coo:
+                    A = np.array([[1, Htr_sa, 0], [0, -Hwin-Htr_sa-Htr_ms, Htr_ms], [0, Htr_ms, -Hem-Htr_ms-Cm_tot/3600]])
+                    b = np.array([-Hven*Text.temp_air.iloc[h]+Hven*Ti_set_coo+Htr_sa*Ti_set_coo-phi_air, -phi_sur.iloc[h]-Hwin*Text.temp_air.iloc[h]-Ti_set_coo*Htr_sa, -phi_mas.iloc[h]-Cm_tot/3600*Tm_ini-Hem*Text.temp_air.iloc[h]])
+                    x = np.linalg.solve(A, b)
+                    a.append(Ti_set_coo)
+                    c.append(x[0])
+                    Tm_ini=x[2]
+
+                else:
+                    a.append(x[0])
+                    c.append(0)
+                    Tm_ini=x[2]
+
+            df = pd.DataFrame (a)
+            df1=pd.DataFrame(c)
+            fileName = cube.name
+            out_dir = bpy.context.preferences.addons[__package__].preferences.folder_path
+            print(out_dir)
+            os.makedirs(out_dir, exist_ok=True)
+
+            # Combine directory and file name
+            out_file = os.path.join(out_dir, fileName)
+            print(out_file)
+
+            df.to_csv(out_file + 'Temp' + '.csv', sep=';')
+            df1.to_csv(out_file + 'Loads' + '.csv', sep=';')
+            print(f"Calculation for {cube.name} completed")
 
             # Open the file in write mode
             # Specify the output file path

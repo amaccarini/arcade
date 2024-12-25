@@ -6,6 +6,10 @@ from bpy.types import AddonPreferences
 class saveLocFile(bpy.types.AddonPreferences):
     bl_idname = __package__
 
+    folder_path: StringProperty(
+        name="Output folder",
+        subtype='DIR_PATH',
+    )
     file_path: StringProperty(
         name="EPW File",
         subtype='FILE_PATH',
@@ -13,4 +17,5 @@ class saveLocFile(bpy.types.AddonPreferences):
 
     def draw(self, context):
         layout = self.layout
+        layout.prop(self, "folder_path")
         layout.prop(self, "file_path")
