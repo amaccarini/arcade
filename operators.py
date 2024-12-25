@@ -3,6 +3,9 @@ import bpy
 import json
 import os
 import math
+from pvlib.iotools import read_epw
+from pvlib import location, irradiance
+import pandas as pd
 
 
 class ADDON1_OT_Operator(bpy.types.Operator):
@@ -87,44 +90,85 @@ class ADDON2_OT_Operator(bpy.types.Operator):
         # Load the archetypes.json file
         archetype_data = load_json('archetypes.json')
 
+        #-----Define basic climate and geographic info----------
+
+        #read the .epw file
+        epwFile = bpy.context.preferences.addons[__package__].preferences.file_path
+        epw_data = read_epw(epwFile)
+        print(epw_data)
+
+        #export timezone and convert it into string with sign changed
+        tz_epw = int(epw_data[1]['TZ'])
+        #print('ciao')
+        #print(tz_epw)
+        sign = '+' if tz_epw <= 0 else '-'
+        timezone_string = f"Etc/GMT{sign}{abs(tz_epw)}"
+
+        #define weather parameters for solar calculation
+        lat=epw_data[1]['latitude']
+        lon=epw_data[1]['longitude']
+        ghi=epw_data[0]['ghi'].tz_localize(None).reset_index(drop=True)
+        dni=epw_data[0]['dni'].tz_localize(None).reset_index(drop=True)
+        dhi=epw_data[0]['dhi'].tz_localize(None).reset_index(drop=True)
+        Text = epw_data[0].filter(['temp_air'])
+
+        loc = location.Location(lat,lon)
+        times = pd.date_range(start='01-01-2021', end='12-31-2021 23:00', freq='h', tz=timezone_string)
+        sp = loc.get_solarposition(times)
+        print(times)
+        #print(sp)
+
+        solar_zenith=sp['apparent_zenith'].reset_index(drop=True)
+        solar_azimuth=sp['azimuth'].reset_index(drop=True)
+        #print(solar_azimuth)
+
+        #--------START LOOP FOR BUILDINGS----------------------
+
         for cube in selected_objects:
 
             #Calculate number of floors
             num_floors = math.floor(cube.dimensions.z / 3)
             print(num_floors)
 
-
             #Calculate the horizontal area of the building, and then floor area and roof area
             horizontal_face_area=calculate_horizontal_area(cube, threshold=0.01)
-            Aflo=horizontal_face_area*num_floors
+            Aflo_tot=horizontal_face_area*num_floors
+            Aflo=horizontal_face_area
+            Aroo=horizontal_face_area
 
             #Calculate the vertical areas of the building together with their orientation
             vertical_faces_areas=calculate_and_group_vertical_faces(cube, threshold=0.01, angle_tolerance=30)
-
+            #print(vertical_faces_areas)
+            print(type(vertical_faces_areas))
             #Calculate total sum of vertical areas, and then area of walls (opaque) and windows
             tot_vertical_area=sum(vertical_faces_areas.values())
-
-
 
             #Process the archetypes JSON file to match the archetype
             process_archetype(cube, archetype_data)
 
-            print(cube.my_properties.usage)
-            print(cube.my_properties.age)
+            #print(cube.my_properties.usage)
+            #print(cube.my_properties.age)
             constructions_data=process_archetype(cube, archetype_data)
-            print(constructions_data)
-            Awal=tot_vertical_area*(1-constructions_data.get("window")["wwr"])
-            Awin=tot_vertical_area*(constructions_data.get("window")["wwr"])
+            #print(constructions_data)
+
+            Awal=tot_vertical_area*(1-constructions_data.get("window")["wwr"]) #float
+            Awin=tot_vertical_area*(constructions_data.get("window")["wwr"]) #float
+            Awal_list=[x * (1-constructions_data.get("window")["wwr"]) for x in list(vertical_faces_areas.values())] #list
+            Awin_list=[x * (constructions_data.get("window")["wwr"]) for x in list(vertical_faces_areas.values())] #list
+            print('CIAOOOOOO')
+            print(Awal_list)
+            print(Awal)
+
 
             #Calculate the total heat capacity of the building (1C) (windows are not involved - Eq. 66)
-            Cm_floor=constructions_data.get("floor")["k_m"]*horizontal_face_area
-            Cm_roof=constructions_data.get("roof")["k_m"]*horizontal_face_area
+            Cm_floor=constructions_data.get("floor")["k_m"]*Aflo_tot
+            Cm_roof=constructions_data.get("roof")["k_m"]*Aroo
             Cm_walls=constructions_data.get("walls")["k_m"]*Awal
             Cm_tot=Cm_floor+Cm_roof+Cm_walls
 
             #Calculate the effective mass area Am - Eq. 65)
-            den_floor=constructions_data.get("floor")["k_m"]**2*horizontal_face_area
-            den_roof=constructions_data.get("roof")["k_m"]**2*horizontal_face_area
+            den_floor=constructions_data.get("floor")["k_m"]**2*Aflo_tot
+            den_roof=constructions_data.get("roof")["k_m"]**2*Aroo
             den_walls=constructions_data.get("walls")["k_m"]**2*Awal
             Am=Cm_tot**2/(den_floor+den_roof+den_walls)
             print(horizontal_face_area)
@@ -153,7 +197,7 @@ class ADDON2_OT_Operator(bpy.types.Operator):
             ratSur=4.5
 
             #Absorption coefficient for solar radiation (dimensionless)
-            abs=0.6
+            absCoe=0.6
 
             #Heat resistance of external surfaces
             surRes=0.04 #m2K/W
@@ -176,13 +220,67 @@ class ADDON2_OT_Operator(bpy.types.Operator):
             Uwal=constructions_data.get("walls")["Uvalue"]
             Uflo=constructions_data.get("floor")["Uvalue"]
             Uroo=constructions_data.get("roof")["Uvalue"]
-            Hem=1/(1/(Uwal*Awal+b*Uflo*horizontal_face_area+Uroo*horizontal_face_area)-1/(h_ms*Am))
+            Hem=1/(1/(Uwal*Awal+b*Uflo*Aflo+Uroo*Aroo)-1/(h_ms*Am))
 
             #Heat transfer element between mass and surface node
             Htr_ms=h_ms*Am
 
             #Heat transfer element between surface and air node
-            Htr_sa=h_sa
+            Htr_sa=h_sa*Aflo_tot*4.5
+
+            #---------CALCULATE SOLAR RADIATION ON SURFACES-----------
+
+
+            #---Calculate solar radiation on vertical surfaces
+            POA_irradiance_values = []
+
+
+            # Iterate over each azimuth angle stored in vertical_faces_areas.keys
+            for azimuth_angle in vertical_faces_areas.keys():
+                # Calculate POA irradiance for the current azimuth angle
+                POA_irradiance = irradiance.get_total_irradiance(surface_tilt=90, surface_azimuth=azimuth_angle,
+                                                     solar_zenith=solar_zenith, solar_azimuth=solar_azimuth,
+                                                     dni=dni, ghi=ghi, dhi=dhi)
+                POA_global=POA_irradiance['poa_global']
+                # Append the POA irradiance value to the list
+                POA_irradiance_values.append(POA_global)
+
+            POA_irradiance_values_df=pd.DataFrame(POA_irradiance_values)
+
+            #---Calculate solar radiation through windows
+            multiplied_values_win = []
+
+            # Iterate over values in Awin and corresponding POA_irradiance_values
+            for win_value, poa_value in zip(Awin_list, POA_irradiance_values):
+                # Multiply the values and append the result to the list
+                multiplied_value_win = win_value * poa_value*constructions_data.get("window")["g-factor"]
+                multiplied_values_win.append(multiplied_value_win)
+
+            multiplied_values_win_df=pd.DataFrame(multiplied_values_win)
+            solRadWin_tot=sum(multiplied_values_win)
+
+            #---Calculate solar radiation through opaque constructions
+            multiplied_values_opa = []
+
+            #Calculate for the vertical walls
+            # Iterate over values in All_list['Awal'] and corresponding POA_irradiance_values
+            for opa_value, poa_value in zip(Awal_list, POA_irradiance_values):
+                # Multiply the values and append the result to the list
+                multiplied_value_opa = opa_value * poa_value*absCoe*Uwal*surRes
+                multiplied_values_opa.append(multiplied_value_opa)
+
+
+
+
+            # Open the file in write mode
+            # Specify the output file path
+            #output_file = "/Users/alm/Documents/output_transposed.csv"
+
+            # Transpose the DataFrame
+            #transposed_df = POA_irradiance_values_df.T
+
+            # Export the transposed DataFrame to a CSV file
+            #transposed_df.to_csv(output_file, index=False)
 
 
 

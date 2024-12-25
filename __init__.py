@@ -24,9 +24,10 @@ import bpy
 from .panels import ADDON1_PT_Panel, ADDON2_PT_Panel, ADDON3_PT_Panel
 from .operators import ADDON1_OT_Operator, ADDON2_OT_Operator
 from .properties import MyPropertyGroup
+from .pref import saveLocFile
 
 
-classes=[MyPropertyGroup, ADDON1_PT_Panel,ADDON2_PT_Panel, ADDON3_PT_Panel, ADDON1_OT_Operator, ADDON2_OT_Operator]
+classes=[MyPropertyGroup, ADDON1_PT_Panel,ADDON2_PT_Panel, ADDON3_PT_Panel, ADDON1_OT_Operator, ADDON2_OT_Operator,saveLocFile]
 
 def register():
     from bpy.utils import register_class
