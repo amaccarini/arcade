@@ -55,6 +55,11 @@ class ADDON1_OT_Operator(bpy.types.Operator):
             year = feature['properties'].get('start_date', "NA")
             use = feature['properties'].get('building', "NA")
 
+            # Get the @id property
+            feature_id = feature['properties'].get('@id', "Unnamed")
+            # Replace "/" with "_" in the feature ID
+            feature_id = feature_id.replace('/', '_')
+
 
             # Convert lat/lon to Blender coordinates, using the smallest lat/lon as the origin
             vertices = [latlon_to_xyz(lat, lon, min_lat, min_lon) for lon, lat in coordinates]
@@ -66,7 +71,7 @@ class ADDON1_OT_Operator(bpy.types.Operator):
                 # Otherwise, create a building with the given height
                 height = float(height)  # Convert height to float
                 year = int(year)  # Convert year to int
-                create_building(vertices, height*3, f"Building_{feature['properties']['@id']}", year, use)
+                create_building(vertices, height*3, f"Building_{feature_id}", year, use)
 
 
 
