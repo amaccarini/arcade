@@ -9,7 +9,19 @@ class ADDON1_PT_Panel(bpy.types.Panel):
 
     def draw(self, context):
         layout = self.layout
+
+        # Add tick-boxes
+        layout.prop(context.scene.my_addon_props, "tick_box_1")
+        layout.prop(context.scene.my_addon_props, "tick_box_2")
+
+        # Add the button
+        layout.operator("my_addon.check_options")
+
         layout.operator("import.myop_operator")
+
+
+
+
 
 
 class ADDON2_PT_Panel(bpy.types.Panel):

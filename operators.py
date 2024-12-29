@@ -390,7 +390,23 @@ class ADDON2_OT_Operator(bpy.types.Operator):
 
 
 
+        return {'FINISHED'}
 
 
+
+class ADDON4_OT_Operator(bpy.types.Operator):
+    bl_idname = "my_addon.check_options"
+    bl_label = "Check Options"
+
+    def execute(self, context):
+        props = context.scene.my_addon_props
+
+        # Check which option is selected and print the result
+        if props.tick_box_1:
+            print("1: Option 1 is selected")
+        elif props.tick_box_2:
+            print("2: Option 2 is selected")
+        else:
+            print("No option is selected")
 
         return {'FINISHED'}
