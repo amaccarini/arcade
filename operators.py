@@ -15,7 +15,7 @@ class ADDON1_OT_Operator(bpy.types.Operator):
 
     def execute(self, context):
         # Load the JSON file
-        json_path = "/Users/alm/Documents/arcade/myfile3.geojson"  # Replace with your file path
+        json_path = "/Users/alm/Documents/arcade/myfile4.geojson"  # Replace with your file path
         with open(json_path, 'r') as f:
             data = json.load(f)
 

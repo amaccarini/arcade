@@ -65,10 +65,14 @@ class ADDON2_PT_Panel(bpy.types.Panel):
 
     @classmethod
     def poll(cls, context):
-        obj = context.active_object
         objs = context.selected_objects
-        if len(objs) == 0: return False
-        if obj.type == 'MESH': return True
+
+        # Ensure exactly one object is selected and active
+        if len(objs) == 1:
+            obj = objs[0]  # Since there's only one selected, it's also active
+            if obj.type == 'MESH':
+                return True
+
         return False
 
 class ADDON3_PT_Panel(bpy.types.Panel):
@@ -85,10 +89,20 @@ class ADDON3_PT_Panel(bpy.types.Panel):
 
     @classmethod
     def poll(cls, context):
-        obj = context.active_object
+        # Get the list of selected objects
         objs = context.selected_objects
-        if len(objs) == 0: return False
-        if obj.type == 'MESH': return True
+
+        # Return False if no objects are selected
+        if len(objs) == 0:
+            return False
+
+        # Try to get the active object, or fallback to the first selected object
+        obj = context.active_object if context.active_object else objs[0]
+
+        # Check if the active object (or fallback) is of type MESH
+        if obj.type == 'MESH':
+            return True
+
         return False
 
 
