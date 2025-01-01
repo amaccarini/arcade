@@ -15,13 +15,28 @@ class ADDON1_OT_Operator(bpy.types.Operator):
     bl_idname = "import.myop_operator"
 
     def execute(self, context):
+        props = context.scene.my_addon_props
+
+        # Fetch bbox coordinates from properties
+        bbox = (props.lat_min, props.lon_min, props.lat_max, props.lon_max)
+
+        # Call the fetch function with the specified folder
+        result = fetch_buildings_geojson(bbox, bpy.context.preferences.addons[__package__].preferences.folder_path)
+
+        # Report the result
+        if "saved" in result:
+            self.report({'INFO'}, result)
+        else:
+            self.report({'ERROR'}, result)
+
+
         # Load the JSON file
         folder_path = bpy.context.preferences.addons[__package__].preferences.folder_path
 
         # Define the file name
         file_name = "enriched_buildings.geojson"
         json_path = os.path.join(folder_path, file_name)
-        
+
         with open(json_path, 'r') as f:
             data = json.load(f)
 
