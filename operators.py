@@ -1,4 +1,4 @@
-from .functions import latlon_to_xyz, create_flat_face, create_building, calculate_horizontal_area, calculate_and_group_vertical_faces, process_archetype
+from .functions import latlon_to_xyz, create_flat_face, create_building, calculate_horizontal_area, calculate_and_group_vertical_faces, process_archetype, fetch_buildings_geojson
 import bpy
 import json
 import os
@@ -7,6 +7,7 @@ from pvlib.iotools import read_epw
 from pvlib import location, irradiance
 import pandas as pd
 import numpy as np
+import webbrowser
 
 
 class ADDON1_OT_Operator(bpy.types.Operator):
@@ -15,7 +16,12 @@ class ADDON1_OT_Operator(bpy.types.Operator):
 
     def execute(self, context):
         # Load the JSON file
-        json_path = "/Users/alm/Documents/arcade/myfile4.geojson"  # Replace with your file path
+        folder_path = bpy.context.preferences.addons[__package__].preferences.folder_path
+
+        # Define the file name
+        file_name = "enriched_buildings.geojson"
+        json_path = os.path.join(folder_path, file_name)
+        
         with open(json_path, 'r') as f:
             data = json.load(f)
 
@@ -56,9 +62,9 @@ class ADDON1_OT_Operator(bpy.types.Operator):
             use = feature['properties'].get('building', "NA")
 
             # Get the @id property
-            feature_id = feature['properties'].get('@id', "Unnamed")
+            feature_id = feature.get('id', "Unnamed")
             # Replace "/" with "_" in the feature ID
-            feature_id = feature_id.replace('/', '_')
+            feature_id = str(feature_id).replace('/', '_')
 
 
             # Convert lat/lon to Blender coordinates, using the smallest lat/lon as the origin
@@ -367,12 +373,10 @@ class ADDON2_OT_Operator(bpy.types.Operator):
             df1=pd.DataFrame(c)
             fileName = cube.name
             out_dir = bpy.context.preferences.addons[__package__].preferences.folder_path
-            print(out_dir)
             os.makedirs(out_dir, exist_ok=True)
 
             # Combine directory and file name
             out_file = os.path.join(out_dir, fileName)
-            print(out_file)
 
             df.to_csv(out_file + 'Temp' + '.csv', sep=';')
             df1.to_csv(out_file + 'Loads' + '.csv', sep=';')
@@ -408,5 +412,42 @@ class ADDON4_OT_Operator(bpy.types.Operator):
             print("2: Option 2 is selected")
         else:
             print("No option is selected")
+
+        return {'FINISHED'}
+
+class ADDON5_OT_Operator(bpy.types.Operator):
+    bl_idname = "myaddon.open_browser"
+    bl_label = "Open Website"
+    bl_description = "Open a specific website in the browser"
+
+    def execute(self, context):
+        # URL to open
+        url = "https://www.openstreetmap.org/export#map=4/49.07/17.84"
+        webbrowser.open(url)
+        return {'FINISHED'}
+
+
+# Fetch buildings
+class ADDON6_OT_Operator(bpy.types.Operator):
+    """Fetch buildings within a bounding box and save as GeoJSON"""
+    bl_idname = "fetch.buildings_geojson"
+    bl_label = "Fetch Buildings GeoJSON"
+
+
+    # Define properties for user input
+    def execute(self, context):
+        props = context.scene.my_addon_props
+
+        # Fetch bbox coordinates from properties
+        bbox = (props.lat_min, props.lon_min, props.lat_max, props.lon_max)
+
+        # Call the fetch function with the specified folder
+        result = fetch_buildings_geojson(bbox, bpy.context.preferences.addons[__package__].preferences.folder_path)
+
+        # Report the result
+        if "saved" in result:
+            self.report({'INFO'}, result)
+        else:
+            self.report({'ERROR'}, result)
 
         return {'FINISHED'}

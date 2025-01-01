@@ -3,13 +3,43 @@ import bpy
 class ADDON1_PT_Panel(bpy.types.Panel):
     bl_space_type = 'VIEW_3D'
     bl_region_type = 'UI'
-    bl_label = 'Import geojson file'
+    bl_label = 'Import urban area'
     bl_context = 'objectmode'
     bl_category = 'Arcade'
     bl_idname = "VIEW3D_PT_addon1_panel"
 
     def draw(self, context):
         layout = self.layout
+
+        props = context.scene.my_addon_props
+
+        # Add the button to open the browser
+        layout.operator("myaddon.open_browser", text="Find urban area boundaries")
+
+        # Add a separator for padding
+        layout.separator(factor=0.5)
+
+        # Create a "darker" grey box
+        box = layout.box()
+        box.ui_units_x = 12  # Optional: Adjust box width
+
+        # Top row with centered Max Lat
+        row = box.row()
+        row.alignment = 'CENTER'
+        row.prop(props, "lat_max", text="Max Lat")
+
+        # Second row: split into two columns for Min Lon and Max Lon
+        split = box.split(factor=0.5)
+        col_left = split.column()
+        col_right = split.column()
+        col_left.prop(props, "lon_min", text="Min Lon")
+        col_right.prop(props, "lon_max", text="Max Lon")
+
+        # Third row with centered Min Lat
+        row = box.row()
+        row.alignment = 'CENTER'
+        row.prop(props, "lat_min", text="Min Lat")
+
 
         # Add tick-boxes
         layout.prop(context.scene.my_addon_props, "tick_box_1")
@@ -19,6 +49,8 @@ class ADDON1_PT_Panel(bpy.types.Panel):
         layout.operator("my_addon.check_options")
 
         layout.operator("import.myop_operator")
+
+        layout.operator("fetch.buildings_geojson")
 
 
 

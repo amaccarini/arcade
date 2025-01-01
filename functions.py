@@ -3,6 +3,7 @@ import json
 import bmesh
 from math import pi, cos, degrees, atan2
 from mathutils import Vector
+import requests
 
 # Earth radius and scale (in meters)
 EARTH_RADIUS = 6371000  # in meters
@@ -191,7 +192,7 @@ def calculate_and_group_vertical_faces(obj, threshold=0.01, angle_tolerance=30):
     rounded_grouped_faces = {round(k, 1): round(v, 1) for k, v in grouped_faces.items()}
     return rounded_grouped_faces
 
-
+#Function to process archetypes
 def process_archetype(cube, archetype_data):
     """
     Determines the archetype name based on the cube's properties, finds the matching archetype,
@@ -244,3 +245,114 @@ def process_archetype(cube, archetype_data):
 
 
     return selected_archetype['constructions']
+
+
+
+# Function to fetch buildings GeoJSON
+import requests
+import json
+import numpy as np
+
+def fetch_buildings_geojson(bbox, output_folder, start_date_mean=1950, start_date_std_dev=20, levels_mean=2, levels_std_dev=0.5):
+    """
+    Fetch buildings within a specified bounding box from Overpass API, enrich with probabilistic properties,
+    and save as GeoJSON.
+
+    Args:
+        bbox (tuple): Bounding box in the format (south, west, north, east).
+        output_folder (str): Path to the folder where the GeoJSON file will be saved.
+        start_date_mean (int): Mean year for start_date normal distribution.
+        start_date_std_dev (int): Standard deviation for start_date normal distribution.
+        levels_mean (float): Mean levels for building:levels normal distribution.
+        levels_std_dev (float): Standard deviation for building:levels normal distribution.
+
+    Returns:
+        str: Result message indicating success or error.
+    """
+    # Overpass API endpoint
+    overpass_url = "https://overpass-api.de/api/interpreter"
+
+    # Overpass query
+    query = f"""
+    [out:json][timeout:25];
+    (
+      way["building"]({bbox[0]},{bbox[1]},{bbox[2]},{bbox[3]});
+      relation["building"]({bbox[0]},{bbox[1]},{bbox[2]},{bbox[3]});
+    );
+    out body;
+    >;
+    out skel qt;
+    """
+
+    try:
+        print("Sending request to Overpass API...")
+        response = requests.get(overpass_url, params={"data": query})
+
+        if response.status_code == 200:
+            print("Response received. Parsing data...")
+            data = response.json()
+
+            # Convert Overpass JSON to GeoJSON
+            geojson = {
+                "type": "FeatureCollection",
+                "features": []
+            }
+
+            # Parse nodes and ways to construct polygons
+            nodes = {node["id"]: (node["lon"], node["lat"]) for node in data.get("elements", []) if node["type"] == "node"}
+            for element in data.get("elements", []):
+                if element["type"] == "way" and "nodes" in element:
+                    coordinates = [nodes[node_id] for node_id in element["nodes"] if node_id in nodes]
+                    if len(coordinates) > 2:  # Ensure it forms a polygon
+                        feature = {
+                            "type": "Feature",
+                            "properties": element.get("tags", {}),
+                            "geometry": {
+                                "type": "Polygon",
+                                "coordinates": [coordinates]
+                            },
+                            "id": element["id"]
+                        }
+                        geojson["features"].append(feature)
+
+            # Enrich missing properties
+            enrich_features(geojson["features"], start_date_mean, start_date_std_dev, levels_mean, levels_std_dev)
+
+            # Save the enriched GeoJSON to file
+            output_file = f"{output_folder}/enriched_buildings.geojson"
+            with open(output_file, "w") as f:
+                json.dump(geojson, f, indent=4)
+
+            return f"Enriched GeoJSON data saved to {output_file}"
+        else:
+            return f"Error: Unable to fetch data. HTTP Status code: {response.status_code}"
+
+    except Exception as e:
+        return f"Error occurred: {str(e)}"
+
+
+def enrich_features(features, start_date_mean, start_date_std_dev, levels_mean, levels_std_dev):
+    """
+    Enrich features by assigning missing start_date and building:levels properties.
+
+    Args:
+        features (list): List of GeoJSON features.
+        start_date_mean (int): Mean year for start_date normal distribution.
+        start_date_std_dev (int): Standard deviation for start_date normal distribution.
+        levels_mean (float): Mean levels for building:levels normal distribution.
+        levels_std_dev (float): Standard deviation for building:levels normal distribution.
+    """
+    for feature in features:
+        # Assign missing start_date
+        if "start_date" not in feature["properties"] or not feature["properties"]["start_date"]:
+            start_date = int(np.random.normal(start_date_mean, start_date_std_dev))
+            if start_date < 1850:
+                start_date = 1850
+            elif start_date > 2024:
+                start_date = 2024
+            feature["properties"]["start_date"] = str(start_date)
+
+        # Assign missing building:levels
+        if "building:levels" not in feature["properties"] or not feature["properties"]["building:levels"]:
+            levels = max(1, round(np.random.normal(levels_mean, levels_std_dev)))  # Ensure at least 1 level
+            feature["properties"]["building:levels"] = str(levels)
