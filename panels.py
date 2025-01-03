@@ -50,7 +50,6 @@ class ADDON1_PT_Panel(bpy.types.Panel):
 
         layout.operator("import.myop_operator")
 
-        layout.operator("fetch.buildings_geojson")
 
 
 
@@ -94,6 +93,21 @@ class ADDON2_PT_Panel(bpy.types.Panel):
             # Add the property box for usage in the second column
             col2 = split.column()
             col2.prop(obj.my_properties, "usage", text="")
+
+
+            # Add the number of stories box with a separate label and box
+            row = layout.row()
+            split = row.split(factor=0.5)  # Split the row into two equal parts
+
+            # Add the label in the first column and align to the right
+            col1 = split.column()
+            col1.alignment = 'RIGHT'  # Align the label to the right
+            col1.label(text="Number of stories:")
+
+            # Add the property box for usage in the second column
+            col2 = split.column()
+            col2.prop(obj.my_properties, "num_stories", text="")
+
 
     @classmethod
     def poll(cls, context):
@@ -139,7 +153,7 @@ class ADDON3_PT_Panel(bpy.types.Panel):
 
 
 class SUB_ADDON1_PT_Panel(bpy.types.Panel):
-    bl_label = "Option 1 Settings"
+    bl_label = "Settings for probabilistic method"
     bl_idname = "VIEW3D_PT_my_addon_submenu"
     bl_space_type = 'VIEW_3D'
     bl_region_type = 'UI'
@@ -155,5 +169,8 @@ class SUB_ADDON1_PT_Panel(bpy.types.Panel):
         layout = self.layout  # Initialize layout
         props = context.scene.my_addon_props  # Access scene properties
 
-        # Add property for Option 1
-        layout.prop(props, "probability", text="Probability")
+        layout.prop(props, "avg_age", text="Average age of buildings")
+        layout.prop(props, "std_age", text="Age variation (std dev)")
+        layout.separator()  # Add padding
+        layout.prop(props, "avg_nfloor", text="Average num of stories")
+        layout.prop(props, "std_nfloor", text="Number of stories variation (std dev)")

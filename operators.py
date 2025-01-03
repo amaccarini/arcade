@@ -19,9 +19,13 @@ class ADDON1_OT_Operator(bpy.types.Operator):
 
         # Fetch bbox coordinates from properties
         bbox = (props.lat_min, props.lon_min, props.lat_max, props.lon_max)
+        start_date_mean=props.avg_age
+        start_date_std_dev=props.std_age
+        levels_mean=props.avg_nfloor
+        levels_std_dev=props.std_nfloor
 
         # Call the fetch function with the specified folder
-        result = fetch_buildings_geojson(bbox, bpy.context.preferences.addons[__package__].preferences.folder_path)
+        result = fetch_buildings_geojson(bbox, bpy.context.preferences.addons[__package__].preferences.folder_path, start_date_mean, start_date_std_dev, levels_mean, levels_std_dev)
 
         # Report the result
         if "saved" in result:
@@ -72,7 +76,7 @@ class ADDON1_OT_Operator(bpy.types.Operator):
         # Iterate through the features in the JSON and create buildings or flat faces
         for feature in data['features']:
             coordinates = feature['geometry']['coordinates'][0]
-            height = feature['properties'].get('building:levels', "NA")
+            num_stories = feature['properties'].get('building:levels', "NA")
             year = feature['properties'].get('start_date', "NA")
             use = feature['properties'].get('building', "NA")
 
@@ -86,13 +90,13 @@ class ADDON1_OT_Operator(bpy.types.Operator):
             vertices = [latlon_to_xyz(lat, lon, min_lat, min_lon) for lon, lat in coordinates]
 
             # If height is "NA" or not defined, create a flat face
-            if height == "NA" or not height.isdigit():
+            if num_stories == "NA" or not num_stories.isdigit():
                 create_flat_face(vertices, f"Flat_{feature['properties']['id']}")
             else:
                 # Otherwise, create a building with the given height
-                height = float(height)  # Convert height to float
+                num_stories = float(num_stories)  # Convert height to float
                 year = int(year)  # Convert year to int
-                create_building(vertices, height*3, f"Building_{feature_id}", year, use)
+                create_building(vertices, num_stories*3, f"Building_{feature_id}", year, use)
 
 
 
@@ -439,30 +443,4 @@ class ADDON5_OT_Operator(bpy.types.Operator):
         # URL to open
         url = "https://www.openstreetmap.org/export#map=4/49.07/17.84"
         webbrowser.open(url)
-        return {'FINISHED'}
-
-
-# Fetch buildings
-class ADDON6_OT_Operator(bpy.types.Operator):
-    """Fetch buildings within a bounding box and save as GeoJSON"""
-    bl_idname = "fetch.buildings_geojson"
-    bl_label = "Fetch Buildings GeoJSON"
-
-
-    # Define properties for user input
-    def execute(self, context):
-        props = context.scene.my_addon_props
-
-        # Fetch bbox coordinates from properties
-        bbox = (props.lat_min, props.lon_min, props.lat_max, props.lon_max)
-
-        # Call the fetch function with the specified folder
-        result = fetch_buildings_geojson(bbox, bpy.context.preferences.addons[__package__].preferences.folder_path)
-
-        # Report the result
-        if "saved" in result:
-            self.report({'INFO'}, result)
-        else:
-            self.report({'ERROR'}, result)
-
         return {'FINISHED'}

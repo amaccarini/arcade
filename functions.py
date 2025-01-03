@@ -74,6 +74,8 @@ def create_building(vertices, height, name, year, use):
     obj = bpy.data.objects.new(name, mesh)
     bpy.context.collection.objects.link(obj)
     obj.my_properties.age = year
+
+
     if use == "detached" or use =="terrace" or use == "house" or use =="residential" or use=="semidetached_house":
         obj.my_properties.usage = "SFH"
     elif use == "apartments":
@@ -253,7 +255,7 @@ import requests
 import json
 import numpy as np
 
-def fetch_buildings_geojson(bbox, output_folder, start_date_mean=1950, start_date_std_dev=20, levels_mean=2, levels_std_dev=0.5):
+def fetch_buildings_geojson(bbox, output_folder, start_date_mean, start_date_std_dev, levels_mean, levels_std_dev):
     """
     Fetch buildings within a specified bounding box from Overpass API, enrich with probabilistic properties,
     and save as GeoJSON.
