@@ -3,7 +3,7 @@ import bpy
 class ADDON1_PT_Panel(bpy.types.Panel):
     bl_space_type = 'VIEW_3D'
     bl_region_type = 'UI'
-    bl_label = 'Import urban area'
+    bl_label = 'Generate geoJSON file'
     bl_context = 'objectmode'
     bl_category = 'Arcade'
     bl_idname = "VIEW3D_PT_addon1_panel"
@@ -45,10 +45,70 @@ class ADDON1_PT_Panel(bpy.types.Panel):
         layout.prop(context.scene.my_addon_props, "tick_box_1")
         layout.prop(context.scene.my_addon_props, "tick_box_2")
 
-        # Add the button
-        layout.operator("import.myop_operator")
+
+        if props.tick_box_1:
+            layout.separator()
+            layout.label(text="Settings for Probabilistic Method:", icon="TOOL_SETTINGS")
+
+            # Create a dark grey box
+            box = layout.box()
+            box.ui_units_x = 12 # Can be adjusted
+
+            row = box.row()
+            split = row.split(factor=0.75)  # Split the row into two equal parts
+
+            # Add the label in the first column and align to the right
+            col1 = split.column()
+            col1.alignment = 'RIGHT'  # Align the label to the right
+            col1.label(text="Average age of buildings")
+
+            # Add the property box for age in the second column
+            col2 = split.column()
+            col2.prop(props, "avg_age", text="")
 
 
+            row = box.row()
+            split = row.split(factor=0.75)  # Split the row into two equal parts
+
+            # Add the label in the first column and align to the right
+            col1 = split.column()
+            col1.alignment = 'RIGHT'  # Align the label to the right
+            col1.label(text="Age variation (Std Dev)")
+
+            # Add the property box for age in the second column
+            col2 = split.column()
+            col2.prop(props, "std_age", text="")
+
+            layout.separator()
+
+            row = box.row()
+            split = row.split(factor=0.75)  # Split the row into two equal parts
+
+            # Add the label in the first column and align to the right
+            col1 = split.column()
+            col1.alignment = 'RIGHT'  # Align the label to the right
+            col1.label(text="Average number of stories")
+
+            # Add the property box for age in the second column
+            col2 = split.column()
+            col2.prop(props, "avg_nfloor", text="")
+
+
+            row = box.row()
+            split = row.split(factor=0.75)  # Split the row into two equal parts
+
+            # Add the label in the first column and align to the right
+            col1 = split.column()
+            col1.alignment = 'RIGHT'  # Align the label to the right
+            col1.label(text="Number of stories variation (Std Dev)")
+
+            # Add the property box for age in the second column
+            col2 = split.column()
+            col2.prop(props, "std_nfloor", text="")
+
+
+        # Add the button for creating the geojson file
+        layout.operator("generate.myop_operator", icon="FILE_NEW")
 
 
 
@@ -149,26 +209,28 @@ class ADDON3_PT_Panel(bpy.types.Panel):
 
         return False
 
-
-class SUB_ADDON1_PT_Panel(bpy.types.Panel):
-    bl_label = "Settings for probabilistic method"
-    bl_idname = "VIEW3D_PT_my_addon_submenu"
+class ADDON4_PT_Panel(bpy.types.Panel):
     bl_space_type = 'VIEW_3D'
     bl_region_type = 'UI'
-    bl_category = "Arcade"
-    bl_parent_id = "VIEW3D_PT_addon1_panel"
-
-    @classmethod
-    def poll(cls, context):
-        props = context.scene.my_addon_props
-        return props.tick_box_1  # Show this panel only if Option 1 is selected
+    bl_idname = 'VIEW3D_PT_addon4_panel'
+    bl_label = 'Import geoJSON file'
+    bl_context = 'objectmode'
+    bl_category = 'Arcade'
 
     def draw(self, context):
-        layout = self.layout  # Initialize layout
-        props = context.scene.my_addon_props  # Access scene properties
+        layout = self.layout
+        props = context.scene.my_addon_props
 
-        layout.prop(props, "avg_age", text="Average age of buildings")
-        layout.prop(props, "std_age", text="Age variation (std dev)")
-        layout.separator()  # Add padding
-        layout.prop(props, "avg_nfloor", text="Average num of stories")
-        layout.prop(props, "std_nfloor", text="Number of stories variation (std dev)")
+        # Row for label and file path input
+        row = layout.row()
+        split = row.split(factor=0.5)  # Split the row into two equal parts
+
+        # Add the label in the first column
+        col1 = split.column()
+        col1.label(text="Select GeoJSON File:")
+
+        # Add the property box and folder icon in the second column
+        col2 = split.column(align=True)
+        col2.prop(props, "file_path", text="")
+
+        layout.operator("import.open_file", icon="IMPORT")

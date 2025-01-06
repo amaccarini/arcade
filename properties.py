@@ -1,5 +1,6 @@
 import bpy
 
+
 class MyPropertyGroup(bpy.types.PropertyGroup):
 
     age: bpy.props.IntProperty(name="Age of construction", description="Archetype era", min=1500, max=2050, default=(1970))
@@ -11,6 +12,7 @@ class MyPropertyGroup(bpy.types.PropertyGroup):
                 ('OTH', "Other building", "")
         ]
     )
+
 
     def get_num_stories(self):
         obj = self.id_data  # Access the object this property group belongs to
@@ -31,6 +33,10 @@ class MyPropertyGroup(bpy.types.PropertyGroup):
         get=get_num_stories,
         set=set_num_stories,
     )
+
+    #Add property to search for the geojson file
+
+
 
 class MyAddonProperties(bpy.types.PropertyGroup):
     def update_tick_box_1(self, context):
@@ -101,3 +107,10 @@ class MyAddonProperties(bpy.types.PropertyGroup):
     lat_max: bpy.props.FloatProperty(name="Max latitude", description="Maximum latitude of the box containing the urban area", min=-90, max=90, default=(55.649166), precision=4)
     lon_max: bpy.props.FloatProperty(name="Max longitude", description="Maximum longitutide of the box containing the urban area", min=-180, max=180, default=(12.589409), precision=4)
     lat_min: bpy.props.FloatProperty(name="Min latitude", description="Minimum latitude of the box containing the urban area", min=-90, max=90, default=(55.647846), precision=4)
+
+    file_path: bpy.props.StringProperty(
+        name="File Path",
+        description="Enter the file path or use the folder icon to browse",
+        default="",
+        subtype="FILE_PATH"
+    )
