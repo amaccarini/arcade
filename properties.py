@@ -34,12 +34,20 @@ class MyPropertyGroup(bpy.types.PropertyGroup):
 
 class MyAddonProperties(bpy.types.PropertyGroup):
     def update_tick_box_1(self, context):
+        # If tick_box_1 is selected, ensure tick_box_2 is unchecked
         if self.tick_box_1:
-            self.tick_box_2 = False  # Uncheck the other option
+            self.tick_box_2 = False
+        elif not self.tick_box_2:
+            # Ensure at least one box is selected (tick_box_1 becomes default)
+            self.tick_box_1 = True
 
     def update_tick_box_2(self, context):
+        # If tick_box_2 is selected, ensure tick_box_1 is unchecked
         if self.tick_box_2:
-            self.tick_box_1 = False  # Uncheck the other option
+            self.tick_box_1 = False
+        elif not self.tick_box_1:
+            # Ensure at least one box is selected (tick_box_1 becomes default)
+            self.tick_box_2 = True
 
     tick_box_1: bpy.props.BoolProperty(
         name="Probabilistic",

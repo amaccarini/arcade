@@ -46,8 +46,6 @@ class ADDON1_PT_Panel(bpy.types.Panel):
         layout.prop(context.scene.my_addon_props, "tick_box_2")
 
         # Add the button
-        layout.operator("my_addon.check_options")
-
         layout.operator("import.myop_operator")
 
 

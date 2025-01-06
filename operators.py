@@ -8,100 +8,131 @@ from pvlib import location, irradiance
 import pandas as pd
 import numpy as np
 import webbrowser
-
+import brails
+from mathutils import Vector
 
 class ADDON1_OT_Operator(bpy.types.Operator):
-    bl_label = "Import geojson file"
     bl_idname = "import.myop_operator"
+    bl_label = "Import buildings"
 
     def execute(self, context):
         props = context.scene.my_addon_props
 
-        # Fetch bbox coordinates from properties
-        bbox = (props.lat_min, props.lon_min, props.lat_max, props.lon_max)
-        start_date_mean=props.avg_age
-        start_date_std_dev=props.std_age
-        levels_mean=props.avg_nfloor
-        levels_std_dev=props.std_nfloor
+        # If probabilistic option selected, start to create buildings using settings
+        if props.tick_box_1:
+            # Fetch bbox coordinates from properties
+            bbox = (props.lat_min, props.lon_min, props.lat_max, props.lon_max)
+            start_date_mean=props.avg_age
+            start_date_std_dev=props.std_age
+            levels_mean=props.avg_nfloor
+            levels_std_dev=props.std_nfloor
 
-        # Call the fetch function with the specified folder
-        result = fetch_buildings_geojson(bbox, bpy.context.preferences.addons[__package__].preferences.folder_path, start_date_mean, start_date_std_dev, levels_mean, levels_std_dev)
+            # Call the fetch function with the specified folder
+            result = fetch_buildings_geojson(bbox, bpy.context.preferences.addons[__package__].preferences.folder_path, start_date_mean, start_date_std_dev, levels_mean, levels_std_dev)
 
-        # Report the result
-        if "saved" in result:
-            self.report({'INFO'}, result)
-        else:
-            self.report({'ERROR'}, result)
-
-
-        # Load the JSON file
-        folder_path = bpy.context.preferences.addons[__package__].preferences.folder_path
-
-        # Define the file name
-        file_name = "enriched_buildings.geojson"
-        json_path = os.path.join(folder_path, file_name)
-
-        with open(json_path, 'r') as f:
-            data = json.load(f)
-
-        # Find the vertex with the smallest latitude and longitude
-        min_lat = float('inf')
-        min_lon = float('inf')
-
-        # Iterate through all features to find the smallest lat/lon
-        latitudes = []
-
-        for feature in data['features']:
-            coordinates = feature['geometry']['coordinates']
-            for polygon in coordinates:
-                for point in polygon:
-                    latitudes.append(point[1])  # latitude is the second value in the coordinate
-
-        # Find the minimum latitude
-        min_lat = min(latitudes)
-
-
-        longitudes = []
-
-        for feature in data['features']:
-            coordinates = feature['geometry']['coordinates']
-            for polygon in coordinates:
-                for point in polygon:
-                    longitudes.append(point[0])  # latitude is the second value in the coordinate
-
-        # Find the minimum latitude
-        min_lon = min(longitudes)
-
-
-        # Iterate through the features in the JSON and create buildings or flat faces
-        for feature in data['features']:
-            coordinates = feature['geometry']['coordinates'][0]
-            num_stories = feature['properties'].get('building:levels', "NA")
-            year = feature['properties'].get('start_date', "NA")
-            use = feature['properties'].get('building', "NA")
-
-            # Get the @id property
-            feature_id = feature.get('id', "Unnamed")
-            # Replace "/" with "_" in the feature ID
-            feature_id = str(feature_id).replace('/', '_')
-
-
-            # Convert lat/lon to Blender coordinates, using the smallest lat/lon as the origin
-            vertices = [latlon_to_xyz(lat, lon, min_lat, min_lon) for lon, lat in coordinates]
-
-            # If height is "NA" or not defined, create a flat face
-            if num_stories == "NA" or not num_stories.isdigit():
-                create_flat_face(vertices, f"Flat_{feature['properties']['id']}")
+            # Report the result
+            if "saved" in result:
+                self.report({'INFO'}, result)
             else:
-                # Otherwise, create a building with the given height
-                num_stories = float(num_stories)  # Convert height to float
-                year = int(year)  # Convert year to int
-                create_building(vertices, num_stories*3, f"Building_{feature_id}", year, use)
+                self.report({'ERROR'}, result)
+
+
+            # Load the JSON file
+            folder_path = bpy.context.preferences.addons[__package__].preferences.folder_path
+
+            # Define the file name
+            file_name = "enriched_buildings.geojson"
+            json_path = os.path.join(folder_path, file_name)
+
+            with open(json_path, 'r') as f:
+                data = json.load(f)
+
+            # Find the vertex with the smallest latitude and longitude
+            min_lat = float('inf')
+            min_lon = float('inf')
+
+            # Iterate through all features to find the smallest lat/lon
+            latitudes = []
+
+            for feature in data['features']:
+                coordinates = feature['geometry']['coordinates']
+                for polygon in coordinates:
+                    for point in polygon:
+                        latitudes.append(point[1])  # latitude is the second value in the coordinate
+
+            # Find the minimum latitude
+            min_lat = min(latitudes)
+
+
+            longitudes = []
+
+            for feature in data['features']:
+                coordinates = feature['geometry']['coordinates']
+                for polygon in coordinates:
+                    for point in polygon:
+                        longitudes.append(point[0])  # latitude is the second value in the coordinate
+
+            # Find the minimum latitude
+            min_lon = min(longitudes)
+
+
+            # Iterate through the features in the JSON and create buildings or flat faces
+            for feature in data['features']:
+                coordinates = feature['geometry']['coordinates'][0]
+                num_stories = feature['properties'].get('building:levels', "NA")
+                year = feature['properties'].get('start_date', "NA")
+                use = feature['properties'].get('building', "NA")
+
+                # Get the @id property
+                feature_id = feature.get('id', "Unnamed")
+                # Replace "/" with "_" in the feature ID
+                feature_id = str(feature_id).replace('/', '_')
+
+
+                # Convert lat/lon to Blender coordinates, using the smallest lat/lon as the origin
+                vertices = [latlon_to_xyz(lat, lon, min_lat, min_lon) for lon, lat in coordinates]
+
+                # Calculate the horizontal footprint area
+                obj_name = f"Temp_{feature_id}"  # Temporary name for footprint object
+                temp_mesh = bpy.data.meshes.new(obj_name)
+                temp_mesh.from_pydata([Vector((v[0], v[1], 0)) for v in vertices], [], [[i for i in range(len(vertices))]])
+                temp_obj = bpy.data.objects.new(obj_name, temp_mesh)
+                bpy.context.collection.objects.link(temp_obj)
+
+                # Apply transformation and calculate the area
+                footprint_area = calculate_horizontal_area(temp_obj)
+
+                # Delete the temporary object after calculation
+                bpy.data.objects.remove(temp_obj, do_unlink=True)
+
+                # Check footprint area threshold
+                if footprint_area*2 < 75:
+                    print(f"Skipping building {feature_id}: Footprint area ({footprint_area:.2f} m²) is less than 50 m².")
+                    continue
+
+                # If height is "NA" or not defined, create a flat face
+                if num_stories == "NA" or not num_stories.isdigit():
+                    create_flat_face(vertices, f"Flat_{feature['properties']['id']}")
+                else:
+                    # Otherwise, create a building with the given height
+                    num_stories = float(num_stories)  # Convert height to float
+                    year = int(year)  # Convert year to int
+                    create_building(vertices, num_stories*3, f"Building_{feature_id}", year, use)
 
 
 
-        print("Buildings created successfully.")
-        return {'FINISHED'}  # Or another appropriate result like {'CANCELLED'}
+            print("Buildings created successfully.")
+
+
+
+
+        #If AI option selected, start to create buildings using BRAILS
+        elif props.tick_box_2:
+            print("2: Option 2 is selected")
+        else:
+            print("No option is selected")
+
+        return {'FINISHED'}
 
 
 class ADDON2_OT_Operator(bpy.types.Operator):
@@ -412,32 +443,14 @@ class ADDON2_OT_Operator(bpy.types.Operator):
             #transposed_df.to_csv(output_file, index=False)
 
 
-
         return {'FINISHED'}
 
 
 
-class ADDON4_OT_Operator(bpy.types.Operator):
-    bl_idname = "my_addon.check_options"
-    bl_label = "Check Options"
-
-    def execute(self, context):
-        props = context.scene.my_addon_props
-
-        # Check which option is selected and print the result
-        if props.tick_box_1:
-            print("1: Option 1 is selected")
-        elif props.tick_box_2:
-            print("2: Option 2 is selected")
-        else:
-            print("No option is selected")
-
-        return {'FINISHED'}
-
-class ADDON5_OT_Operator(bpy.types.Operator):
+class ADDON3_OT_Operator(bpy.types.Operator):
     bl_idname = "myaddon.open_browser"
     bl_label = "Open Website"
-    bl_description = "Open a specific website in the browser"
+    bl_description = "Open the OSM website in your browser to easily define the latitude and longitude of your desired urban area."
 
     def execute(self, context):
         # URL to open
