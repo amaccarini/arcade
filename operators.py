@@ -8,8 +8,11 @@ from pvlib import location, irradiance
 import pandas as pd
 import numpy as np
 import webbrowser
-import brails
+from brails.modules import (YearBuiltClassifier, NFloorDetector,OccupancyClassifier)
+from brails.workflow.FootprintHandler import FootprintHandler
+from brails.workflow.ImHandler import ImageHandler
 from mathutils import Vector
+import geopandas as gpd
 
 class ADDON1_OT_Operator(bpy.types.Operator):
     bl_idname = "generate.myop_operator"
@@ -45,7 +48,130 @@ class ADDON1_OT_Operator(bpy.types.Operator):
 
         #If AI option selected, start to create buildings using BRAILS
         elif props.tick_box_2:
-            print("2: Option 2 is selected")
+
+            # Change the working directory to avoid Blender to save tmp folder in restricted folders
+            os.chdir(os.path.expanduser(bpy.context.preferences.addons[__package__].preferences.folder_path))
+
+            NBLDGS = 'all'
+
+            # Get footprint data for Alvito, Italy from OSM (can also set fpSource='ms'):
+            fp_handler = FootprintHandler()
+            fp_handler.fetch_footprint_data((-122.256908,37.859415, -122.256621, 37.859754),
+                                            fpSource='osm',
+                                            lengthUnit='m')
+
+            footprints = fp_handler.footprints
+            if NBLDGS == 'all':
+                NBLDGS = len(footprints)
+
+            # Get street-level imagery for Alvito by using the footprint locations:
+            image_handler = ImageHandler('AIzaSyBJoY6tFIBZHjthJqOqdJPi1XsFzoP5nLo')
+            image_handler.GetGoogleStreetImage(fp_handler.footprints)
+            imstreet = [im for im in image_handler.street_images if im is not None]
+
+            # Initialize the era of construction classifier:
+            year_model = YearBuiltClassifier()
+
+            # Call the classifier to determine the era of construction for
+            # each building:
+            year_model.predict(imstreet)
+
+            # Get the prediction results:
+            preds = year_model.results_df.copy(deep=True)
+
+            # Prepare preds for merging with building inventory:
+            preds_era = preds.rename(
+                columns={'prediction': 'YearBuilt',
+                          'image': 'street_images'}).drop(
+                              columns=['probability'])
+
+            # Initialize the floor detector:
+            nfloor_model = NFloorDetector()
+
+            # Call the floor detector to determine number of floors of
+            # buildings in each image:
+            nfloor_model.predict(imstreet)
+
+            # Get predictions and prepare them for merging with the building inventory:
+            preds_nfloor = pd.DataFrame(
+                list(zip(nfloor_model.system_dict['infer']['images'],
+                          nfloor_model.system_dict['infer']['predictions'])),
+                columns=['street_images', 'NumberOfStories'])
+
+            # Initialize the occupancy classifier object:
+            occupancy_model = OccupancyClassifier()
+
+            # Call the occupancy classifier to determine the occupancy
+            # class of each building:
+            occupancy_model.predict(imstreet)
+
+            # Write the prediction results to a DataFrame:
+            preds_occ = pd.DataFrame(occupancy_model.preds, columns=[
+                'street_images', 'OccupancyClass'])
+
+            # Write prediction results into the inventory DataFrame:
+            inventory_df = pd.DataFrame(
+                pd.Series(fp_handler.footprints, name='Footprint'))
+            inventory_df.Footprint = fp_handler.footprints
+            lon = []
+            lat = []
+            for pt in fp_handler.centroids:
+                lon.append(pt.x)
+                lat.append(pt.y)
+            inventory_df['Latitude'] = lat
+            inventory_df['Longitude'] = lon
+            inventory_df['PlanArea'] = fp_handler.attributes['fparea']
+
+            inventory_df['street_images'] = image_handler.street_images
+            inventory_df = inventory_df.merge(preds_era,
+                                              how='left',
+                                              on='street_images')
+            inventory_df = inventory_df.merge(preds_nfloor,
+                                              how='left',
+                                              on='street_images')
+            inventory_df['NumberOfStories'] = inventory_df['NumberOfStories'].astype(dtype='Int64')
+            inventory_df = inventory_df.merge(preds_occ,
+                                              how='left',
+                                              on='street_images')
+
+            # Convert inventory_df to a GeoJSON format with polygons and properties
+            features = []
+            for idx, row in inventory_df.iterrows():
+                feature = {
+                    "type": "Feature",
+                    "properties": {
+                        "id": idx + 1,
+                        "Latitude": row['Latitude'],
+                        "Longitude": row['Longitude'],
+                        "start_date": str(row['YearBuilt']) if pd.notna(row['YearBuilt']) else "NA",
+                        "building:levels": str(row['NumberOfStories']) if pd.notna(row['NumberOfStories']) else "NA",
+                        "building": str(row['OccupancyClass']) if pd.notna(row['OccupancyClass']) else "NA",
+                    },
+                    "geometry": {
+                        "type": "Polygon",
+                        "coordinates": [
+                            [[point[0], point[1]] for point in row['Footprint']]
+                        ]
+                    }
+                }
+                features.append(feature)
+
+            geojson_data = {
+                "type": "FeatureCollection",
+                "features": features
+            }
+
+            # Save the GeoJSON file
+            output_folder=bpy.context.preferences.addons[__package__].preferences.folder_path
+            output_geojson = f"{output_folder}/enriched_buildings_ai.geojson"
+            with open(output_geojson, "w") as f:
+                import json
+                json.dump(geojson_data, f, indent=2)
+
+            print(f"GeoJSON file saved to: {output_geojson}")
+
+
+        return {'FINISHED'}
 
 
 

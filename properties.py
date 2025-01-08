@@ -58,7 +58,7 @@ class MyAddonProperties(bpy.types.PropertyGroup):
     tick_box_1: bpy.props.BoolProperty(
         name="Probabilistic",
         description="Missing parameters (i.e. age, height and usage) are based on a probabilistic normal distribution.",
-        default=False,
+        default=True,
         update=update_tick_box_1
     )
 

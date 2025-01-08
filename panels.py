@@ -14,7 +14,7 @@ class ADDON1_PT_Panel(bpy.types.Panel):
         props = context.scene.my_addon_props
 
         # Add the button to open the browser
-        layout.operator("myaddon.open_browser", text="Find urban area boundaries")
+        layout.operator("myaddon.open_browser", text="Find urban area boundaries", icon="URL")
 
         # Add a separator for padding
         layout.separator(factor=0.5)
@@ -111,10 +111,34 @@ class ADDON1_PT_Panel(bpy.types.Panel):
         layout.operator("generate.myop_operator", icon="FILE_NEW")
 
 
-
-
-
 class ADDON2_PT_Panel(bpy.types.Panel):
+    bl_space_type = 'VIEW_3D'
+    bl_region_type = 'UI'
+    bl_idname = 'VIEW3D_PT_addon4_panel'
+    bl_label = 'Import geoJSON file'
+    bl_context = 'objectmode'
+    bl_category = 'Arcade'
+
+    def draw(self, context):
+        layout = self.layout
+        props = context.scene.my_addon_props
+
+        # Row for label and file path input
+        row = layout.row()
+        split = row.split(factor=0.5)  # Split the row into two equal parts
+
+        # Add the label in the first column
+        col1 = split.column()
+        col1.label(text="Select GeoJSON File:")
+
+        # Add the property box and folder icon in the second column
+        col2 = split.column(align=True)
+        col2.prop(props, "file_path", text="")
+
+        layout.operator("import.open_file", icon="IMPORT")
+
+
+class ADDON3_PT_Panel(bpy.types.Panel):
     bl_space_type = 'VIEW_3D'
     bl_region_type = 'UI'
     bl_label = 'Building data'
@@ -179,7 +203,7 @@ class ADDON2_PT_Panel(bpy.types.Panel):
 
         return False
 
-class ADDON3_PT_Panel(bpy.types.Panel):
+class ADDON4_PT_Panel(bpy.types.Panel):
     bl_space_type = 'VIEW_3D'
     bl_region_type = 'UI'
     bl_idname = 'VIEW3D_PT_addon3_panel'
@@ -208,29 +232,3 @@ class ADDON3_PT_Panel(bpy.types.Panel):
             return True
 
         return False
-
-class ADDON4_PT_Panel(bpy.types.Panel):
-    bl_space_type = 'VIEW_3D'
-    bl_region_type = 'UI'
-    bl_idname = 'VIEW3D_PT_addon4_panel'
-    bl_label = 'Import geoJSON file'
-    bl_context = 'objectmode'
-    bl_category = 'Arcade'
-
-    def draw(self, context):
-        layout = self.layout
-        props = context.scene.my_addon_props
-
-        # Row for label and file path input
-        row = layout.row()
-        split = row.split(factor=0.5)  # Split the row into two equal parts
-
-        # Add the label in the first column
-        col1 = split.column()
-        col1.label(text="Select GeoJSON File:")
-
-        # Add the property box and folder icon in the second column
-        col2 = split.column(align=True)
-        col2.prop(props, "file_path", text="")
-
-        layout.operator("import.open_file", icon="IMPORT")
