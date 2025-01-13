@@ -76,12 +76,13 @@ def create_building(vertices, height, name, year, use):
     obj.my_properties.age = year
 
 
-    if use == "detached" or use =="terrace" or use == "house" or use =="residential" or use=="semidetached_house":
-        obj.my_properties.usage = "SFH"
-    elif use == "apartments":
-        obj.my_properties.usage = "AB"
+    if use == "detached" or use =="terrace" or use == "house" or use =="residential" or use =="apartments" or use=="semidetached_house":
+        obj.my_properties.usage = "RES"
+    elif use == "office" or use =="commercial":
+        obj.my_properties.usage = "COM"
     else:
-        obj.my_properties.usage = "OTH"
+        obj.my_properties.usage = "RES"
+
 
 # Function to calculate horizontal surface of buildings (floor and roof surface area - divided by 2 to get single surface)
 def calculate_horizontal_area(obj, threshold=0.01):
@@ -195,44 +196,68 @@ def calculate_and_group_vertical_faces(obj, threshold=0.01, angle_tolerance=30):
     return rounded_grouped_faces
 
 #Function to process archetypes
-def process_archetype(cube, archetype_data):
+def process_archetype(cube, archetype_data, archetype_country):
     """
-    Determines the archetype name based on the cube's properties, finds the matching archetype,
-    and prints relevant details including U-values, k_m, g-factor, and wwr.
+    Determines the archetype name based on the cube's properties, the input country,
+    and returns relevant construction details (U-values, k_m, g-factor, wwr).
 
     Args:
         cube: The selected Blender object with `my_properties.usage` and `my_properties.age`.
         archetype_data: Loaded JSON data containing archetype information.
-    """
-    # Define the building properties
-    building_type = "SFH" if cube.my_properties.usage == "SFH" else "AB"
-    year = cube.my_properties.age  # Building year
-    country = "DK"
+        country (str): The country for the archetype (e.g., 'DK', 'US_2A', 'US_3C', 'US_5A').
 
-    # Determine the year range
-    if year < 1850:
-        year_range = "1850"
-    elif 1851 <= year <= 1930:
-        year_range = "1851_1930"
-    elif 1931 <= year <= 1950:
-        year_range = "1931_1950"
-    elif 1951 <= year <= 1960:
-        year_range = "1951_1960"
-    elif 1961 <= year <= 1972:
-        year_range = "1961_1972"
-    elif 1973 <= year <= 1978:
-        year_range = "1973_1978"
-    elif 1979 <= year <= 1998:
-        year_range = "1979_1998"
-    elif 1999 <= year <= 2006:
-        year_range = "1999_2006"
-    elif 2007 <= year <= 2010:
-        year_range = "2007_2010"
+    Returns:
+        dict: The matching archetype's constructions, or None if not found.
+    """
+    # Extract building properties from the cube
+    building_type = cube.my_properties.usage  # Either 'RES_1' or 'COM_1'
+    year = cube.my_properties.age             # Building construction year
+
+    # Validate building_type
+    if building_type not in ["RES_1", "COM_1"]:
+        print(f"Invalid building type '{building_type}'. Must be 'RES_1' or 'COM_1'.")
+        return None
+
+    # Validate country
+    if archetype_country not in ["DK", "US_2A", "US_3C", "US_5A"]:
+        print(f"Invalid country '{archetype_country}'. Must be one of ['DK', 'US_2A', 'US_3C', 'US_5A'].")
+        return None
+
+    # Determine the year range based on the country
+    if archetype_country == "DK":
+        if year < 1850:
+            year_range = "1850"
+        elif 1851 <= year <= 1930:
+            year_range = "1851_1930"
+        elif 1931 <= year <= 1950:
+            year_range = "1931_1950"
+        elif 1951 <= year <= 1960:
+            year_range = "1951_1960"
+        elif 1961 <= year <= 1972:
+            year_range = "1961_1972"
+        elif 1973 <= year <= 1978:
+            year_range = "1973_1978"
+        elif 1979 <= year <= 1998:
+            year_range = "1979_1998"
+        elif 1999 <= year <= 2006:
+            year_range = "1999_2006"
+        elif 2007 <= year <= 2010:
+            year_range = "2007_2010"
+        else:
+            year_range = "2011"
+    elif archetype_country in ["US_2A", "US_3C", "US_5A"]:  # US Regions
+        if year < 1980:
+            year_range = "1980"
+        elif 1980 <= year < 2004:
+            year_range = "1980_2004"
+        else:
+            year_range = "2004"
     else:
-        year_range = "2011"
+        print(f"Country '{archetype_country}' not supported.")
+        return None
 
     # Construct the archetype name
-    archetype_name = f"{building_type}_{year_range}_{country}"
+    archetype_name = f"{building_type}_{year_range}_{archetype_country}"
 
     # Find the matching archetype
     selected_archetype = None
@@ -241,11 +266,12 @@ def process_archetype(cube, archetype_data):
             selected_archetype = archetype
             break
 
+    # Handle missing archetypes
     if not selected_archetype:
         print(f"Archetype '{archetype_name}' not found!")
-        return  None # Stop processing this cube if no matching archetype is found
+        return None  # Stop processing if no matching archetype is found
 
-
+    # Return the constructions from the selected archetype
     return selected_archetype['constructions']
 
 
@@ -358,3 +384,7 @@ def enrich_features(features, start_date_mean, start_date_std_dev, levels_mean, 
         if "building:levels" not in feature["properties"] or not feature["properties"]["building:levels"]:
             levels = max(1, round(np.random.normal(levels_mean, levels_std_dev)))  # Ensure at least 1 level
             feature["properties"]["building:levels"] = str(levels)
+
+        # Ensure the "building" key is set appropriately
+        if "building" not in feature["properties"] or feature["properties"]["building"] == "yes":
+            feature["properties"]["building"] = "residential"

@@ -2,21 +2,15 @@ import json
 import os
 
 addon_directory = os.path.dirname(os.path.realpath(__file__))
+
 def load_json(file_name):
     file_path = os.path.join(addon_directory, file_name)
     with open(file_path, 'r') as file:
         return json.load(file)
 
-# Load the archetypes.json file
+# Load the materials and constructions JSON data
 materials_data = load_json('materials.json')
 constructions_data = load_json('constructions.json')
-
-# Load materials and constructions JSON data
-#with open("materials.json") as f:
-#    materials_data = json.load(f)
-
-#with open("constructions.json") as f:
-#    constructions_data = json.load(f)
 
 # Create a material lookup dictionary for easy access
 material_lookup = {m["name"]: m for m in materials_data["materials"]}
@@ -73,79 +67,86 @@ def calculate_uvalue_and_km(layers, h_tra, thickness_eff=None):
 
     return round(u_value, 2), round(total_km, 2)
 
-# Define all archetypes
-archetype_years = ["1850", "1851_1930", "1931_1950", "1951_1960", "1961_1972", "1973_1978", "1979_1998", "1999_2006", "2007_2010", "2011"]
-archetype_prefixes = ["SFH", "AB"]
+# Define prefixes, regions, and time periods
+archetype_prefixes = ["RES_1", "COM_1"]  # Updated to include multiple prefixes
+archetype_regions = ["DK", "US_2A", "US_3C", "US_5A"]
+archetype_years_dk = ["1850", "1851_1930", "1931_1950", "1951_1960", "1961_1972", "1973_1978", "1979_1998", "1999_2006", "2007_2010", "2011"]
+archetype_years_us = ["1980", "1980_2004", "2004"]
 
 # Define h_tra values for each construction type
 h_tra_values = {
-    "floor": 0.34,
-    "walls": 0.17,
-    "roof": 0.14,
-    "window": 0.17
+    "floor": 0,
+    "walls": 0,
+    "roof": 0,
+    "window": 0
 }
 
 # Generate archetypes
 archetypes = []
 
-for prefix in archetype_prefixes:
-    for year in archetype_years:
-        archetype_name = f"{prefix}_{year}_DK"
-        description = f"{'Single-family house' if prefix == 'SFH' else 'Apartment building'} built in {year.replace('_', '-')} in Denmark."
+for prefix in archetype_prefixes:  # Iterate over prefixes
+    for region in archetype_regions:
+        # Use different time periods based on region
+        archetype_years = archetype_years_dk if region == "DK" else archetype_years_us
 
-        # Initialize the archetype entry
-        archetype = {
-            "name": archetype_name,
-            "description": description,
-            "constructions": {}
-        }
-
-        # Match constructions for floor, walls, roof, and window
-        for part in ["Floor", "Walls", "Roof", "Window"]:
-            part_key = part.lower()
-            construction_name = f"{part}_{archetype_name}"
-            matching_construction = next(
-                (c for c in constructions_data["constructions"] if c["name"] == construction_name), None
+        for year in archetype_years:
+            archetype_name = f"{prefix}_{year}_{region}"
+            description = (
+                f"{'Residential' if prefix == 'RES_1' else 'Commercial'} building "
+                f"built in {year.replace('_', '-')} in {region}."
             )
 
-            if matching_construction:
-                h_tra = h_tra_values[part_key]
+            # Initialize the archetype entry
+            archetype = {
+                "name": archetype_name,
+                "description": description,
+                "constructions": {}
+            }
 
-                # Special handling for windows to include g-factor and wwr
-                if part == "Window":
-                    layers = matching_construction["layers"]
-                    # Extract g-factor and wwr from the first layer
-                    g_factor = layers[0].get("g-factor", None)
-                    wwr = layers[0].get("wwr", None)
-                    u_value, total_km = calculate_uvalue_and_km(layers, h_tra)
+            # Match constructions for floor, walls, roof, and window
+            for part in ["Floor", "Walls", "Roof", "Window"]:
+                part_key = part.lower()
+                construction_name = f"{part}_{archetype_name}"
+                matching_construction = next(
+                    (c for c in constructions_data["constructions"] if c["name"] == construction_name), None
+                )
 
-                    # Add window properties with g-factor and wwr
-                    archetype["constructions"][part_key] = {
-                        "Uvalue": u_value,
-                        "k_m": total_km,
-                        "g-factor": g_factor,
-                        "wwr": wwr
-                    }
+                if matching_construction:
+                    h_tra = h_tra_values[part_key]
+
+                    # Special handling for windows to include g-factor and wwr
+                    if part == "Window":
+                        layers = matching_construction["layers"]
+                        # Extract g-factor and wwr from the first layer
+                        g_factor = layers[0].get("g-factor", None)
+                        wwr = layers[0].get("wwr", None)
+                        u_value, total_km = calculate_uvalue_and_km(layers, h_tra)
+
+                        # Add window properties with g-factor and wwr
+                        archetype["constructions"][part_key] = {
+                            "Uvalue": u_value,
+                            "k_m": total_km,
+                            "g-factor": g_factor,
+                            "wwr": wwr
+                        }
+                    else:
+                        # Normal handling for floor, walls, and roof
+                        u_value, total_km = calculate_uvalue_and_km(matching_construction["layers"], h_tra)
+                        archetype["constructions"][part_key] = {
+                            "Uvalue": u_value,
+                            "k_m": total_km
+                        }
                 else:
-                    # Normal handling for floor, walls, and roof
-                    u_value, total_km = calculate_uvalue_and_km(matching_construction["layers"], h_tra)
-                    archetype["constructions"][part_key] = {
-                        "Uvalue": u_value,
-                        "k_m": total_km
-                    }
-            else:
-                archetype["constructions"][part_key] = "N/A"
+                    archetype["constructions"][part_key] = "N/A"
 
-        archetypes.append(archetype)
+            archetypes.append(archetype)
 
 # Create the final JSON structure
 output_data = {"archetypes": archetypes}
 
 # Save the output to a new JSON file
-#with open("archetypes2.json", "w") as f:
-#    json.dump(output_data, f, indent=4)
-
 addon_directory_out = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+
 def save_json(output_data, file_name):
     """
     Saves the provided data to a JSON file in the add-on directory.
@@ -159,5 +160,5 @@ def save_json(output_data, file_name):
         json.dump(output_data, file, indent=4)
     print(f"JSON file saved to: {file_path_out}")
 
-file_name="archetypes.json"
+file_name = "archetypes.json"
 save_json(output_data, file_name)

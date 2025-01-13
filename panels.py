@@ -213,6 +213,22 @@ class ADDON4_PT_Panel(bpy.types.Panel):
 
     def draw(self, context):
         layout = self.layout
+        scene = context.scene
+
+        #---# Display the building archetype EnumProperty
+        row = layout.row()
+        split = row.split(factor=0.5)  # Split the row into two equal parts
+
+        # Add the label in the first column
+        col1 = split.column()
+        col1.alignment = 'RIGHT'
+        col1.label(text="Buildings archetype:")
+
+        # Add the property box and folder icon in the second column---
+        col2 = split.column(align=True)
+        col2.prop(scene.my_addon_props, "bui_arch", text="")
+
+        # Display the button to start simulation
         layout.operator("calculate.myop_operator")
 
     @classmethod

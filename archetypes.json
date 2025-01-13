@@ -1,23 +1,23 @@
 {
     "archetypes": [
         {
-            "name": "SFH_1850_DK",
-            "description": "Single-family house built in 1850 in Denmark.",
+            "name": "RES_1_1850_DK",
+            "description": "Residential building built in 1850 in DK.",
             "constructions": {
                 "floor": {
-                    "Uvalue": 1.0,
+                    "Uvalue": 1.52,
                     "k_m": 1222376.0
                 },
                 "walls": {
-                    "Uvalue": 0.62,
+                    "Uvalue": 0.7,
                     "k_m": 225117.6
                 },
                 "roof": {
-                    "Uvalue": 0.6,
+                    "Uvalue": 0.65,
                     "k_m": 231187.2
                 },
                 "window": {
-                    "Uvalue": 2.8,
+                    "Uvalue": 5.35,
                     "k_m": 0.0,
                     "g-factor": 0.76,
                     "wwr": 0.18
@@ -25,23 +25,23 @@
             }
         },
         {
-            "name": "SFH_1851_1930_DK",
-            "description": "Single-family house built in 1851-1930 in Denmark.",
+            "name": "RES_1_1851_1930_DK",
+            "description": "Residential building built in 1851-1930 in DK.",
             "constructions": {
                 "floor": {
-                    "Uvalue": 1.5,
+                    "Uvalue": 3.08,
                     "k_m": 66080.0
                 },
                 "walls": {
-                    "Uvalue": 1.6,
+                    "Uvalue": 2.2,
                     "k_m": 412414.4
                 },
                 "roof": {
-                    "Uvalue": 0.6,
+                    "Uvalue": 0.65,
                     "k_m": 231187.2
                 },
                 "window": {
-                    "Uvalue": 2.7,
+                    "Uvalue": 5.0,
                     "k_m": 0.0,
                     "g-factor": 0.76,
                     "wwr": 0.15
@@ -49,23 +49,23 @@
             }
         },
         {
-            "name": "SFH_1931_1950_DK",
-            "description": "Single-family house built in 1931-1950 in Denmark.",
+            "name": "RES_1_1931_1950_DK",
+            "description": "Residential building built in 1931-1950 in DK.",
             "constructions": {
                 "floor": {
-                    "Uvalue": 1.5,
+                    "Uvalue": 3.08,
                     "k_m": 66080.0
                 },
                 "walls": {
-                    "Uvalue": 0.67,
+                    "Uvalue": 0.76,
                     "k_m": 331440.0
                 },
                 "roof": {
-                    "Uvalue": 1.5,
+                    "Uvalue": 1.9,
                     "k_m": 156602.08
                 },
                 "window": {
-                    "Uvalue": 2.7,
+                    "Uvalue": 5.0,
                     "k_m": 0.0,
                     "g-factor": 0.76,
                     "wwr": 0.2
@@ -73,23 +73,23 @@
             }
         },
         {
-            "name": "SFH_1951_1960_DK",
-            "description": "Single-family house built in 1951-1960 in Denmark.",
+            "name": "RES_1_1951_1960_DK",
+            "description": "Residential building built in 1951-1960 in DK.",
             "constructions": {
                 "floor": {
-                    "Uvalue": 0.52,
+                    "Uvalue": 0.63,
                     "k_m": 46180.0
                 },
                 "walls": {
-                    "Uvalue": 1.0,
+                    "Uvalue": 1.21,
                     "k_m": 366216.0
                 },
                 "roof": {
-                    "Uvalue": 0.38,
+                    "Uvalue": 0.4,
                     "k_m": 280784.0
                 },
                 "window": {
-                    "Uvalue": 2.8,
+                    "Uvalue": 5.35,
                     "k_m": 0.0,
                     "g-factor": 0.76,
                     "wwr": 0.28
@@ -97,23 +97,23 @@
             }
         },
         {
-            "name": "SFH_1961_1972_DK",
-            "description": "Single-family house built in 1961-1972 in Denmark.",
+            "name": "RES_1_1961_1972_DK",
+            "description": "Residential building built in 1961-1972 in DK.",
             "constructions": {
                 "floor": {
-                    "Uvalue": 0.44,
+                    "Uvalue": 0.52,
                     "k_m": 1002881.6
                 },
                 "walls": {
-                    "Uvalue": 0.6,
+                    "Uvalue": 0.67,
                     "k_m": 361680.0
                 },
                 "roof": {
-                    "Uvalue": 0.3,
+                    "Uvalue": 0.32,
                     "k_m": 223288.0
                 },
                 "window": {
-                    "Uvalue": 2.8,
+                    "Uvalue": 5.35,
                     "k_m": 0.0,
                     "g-factor": 0.76,
                     "wwr": 0.28
@@ -121,23 +121,23 @@
             }
         },
         {
-            "name": "SFH_1973_1978_DK",
-            "description": "Single-family house built in 1973-1978 in Denmark.",
+            "name": "RES_1_1973_1978_DK",
+            "description": "Residential building built in 1973-1978 in DK.",
             "constructions": {
                 "floor": {
-                    "Uvalue": 0.2,
+                    "Uvalue": 0.22,
                     "k_m": 224913.6
                 },
                 "walls": {
-                    "Uvalue": 0.3,
+                    "Uvalue": 0.32,
                     "k_m": 299440.0
                 },
                 "roof": {
-                    "Uvalue": 0.3,
+                    "Uvalue": 0.32,
                     "k_m": 223288.0
                 },
                 "window": {
-                    "Uvalue": 2.7,
+                    "Uvalue": 5.0,
                     "k_m": 0.0,
                     "g-factor": 0.76,
                     "wwr": 0.23
@@ -145,15 +145,15 @@
             }
         },
         {
-            "name": "SFH_1979_1998_DK",
-            "description": "Single-family house built in 1979-1998 in Denmark.",
+            "name": "RES_1_1979_1998_DK",
+            "description": "Residential building built in 1979-1998 in DK.",
             "constructions": {
                 "floor": {
-                    "Uvalue": 0.33,
+                    "Uvalue": 0.37,
                     "k_m": 329232.0
                 },
                 "walls": {
-                    "Uvalue": 0.48,
+                    "Uvalue": 0.52,
                     "k_m": 332880.0
                 },
                 "roof": {
@@ -161,7 +161,7 @@
                     "k_m": 172408.0
                 },
                 "window": {
-                    "Uvalue": 1.5,
+                    "Uvalue": 2.02,
                     "k_m": 0.0,
                     "g-factor": 0.63,
                     "wwr": 0.2
@@ -169,15 +169,15 @@
             }
         },
         {
-            "name": "SFH_1999_2006_DK",
-            "description": "Single-family house built in 1999-2006 in Denmark.",
+            "name": "RES_1_1999_2006_DK",
+            "description": "Residential building built in 1999-2006 in DK.",
             "constructions": {
                 "floor": {
-                    "Uvalue": 0.14,
+                    "Uvalue": 0.15,
                     "k_m": 633096.0
                 },
                 "walls": {
-                    "Uvalue": 0.12,
+                    "Uvalue": 0.13,
                     "k_m": 51000.0
                 },
                 "roof": {
@@ -185,7 +185,7 @@
                     "k_m": 172408.0
                 },
                 "window": {
-                    "Uvalue": 1.9,
+                    "Uvalue": 2.81,
                     "k_m": 0.0,
                     "g-factor": 0.63,
                     "wwr": 0.23
@@ -193,23 +193,23 @@
             }
         },
         {
-            "name": "SFH_2007_2010_DK",
-            "description": "Single-family house built in 2007-2010 in Denmark.",
+            "name": "RES_1_2007_2010_DK",
+            "description": "Residential building built in 2007-2010 in DK.",
             "constructions": {
                 "floor": {
-                    "Uvalue": 0.12,
+                    "Uvalue": 0.13,
                     "k_m": 221880.0
                 },
                 "walls": {
-                    "Uvalue": 0.16,
+                    "Uvalue": 0.17,
                     "k_m": 338864.0
                 },
                 "roof": {
-                    "Uvalue": 0.11,
+                    "Uvalue": 0.12,
                     "k_m": 53416.0
                 },
                 "window": {
-                    "Uvalue": 1.31,
+                    "Uvalue": 1.69,
                     "k_m": 0.0,
                     "g-factor": 0.63,
                     "wwr": 0.16
@@ -217,23 +217,23 @@
             }
         },
         {
-            "name": "SFH_2011_DK",
-            "description": "Single-family house built in 2011 in Denmark.",
+            "name": "RES_1_2011_DK",
+            "description": "Residential building built in 2011 in DK.",
             "constructions": {
                 "floor": {
-                    "Uvalue": 0.1,
+                    "Uvalue": 0.11,
                     "k_m": 224380.0
                 },
                 "walls": {
-                    "Uvalue": 0.18,
+                    "Uvalue": 0.19,
                     "k_m": 337889.6
                 },
                 "roof": {
-                    "Uvalue": 0.11,
+                    "Uvalue": 0.12,
                     "k_m": 53416.0
                 },
                 "window": {
-                    "Uvalue": 1.31,
+                    "Uvalue": 1.69,
                     "k_m": 0.0,
                     "g-factor": 0.63,
                     "wwr": 0.22
@@ -241,135 +241,351 @@
             }
         },
         {
-            "name": "AB_1850_DK",
-            "description": "Apartment building built in 1850 in Denmark.",
+            "name": "RES_1_1980_US_2A",
+            "description": "Residential building built in 1980 in US_2A.",
             "constructions": {
                 "floor": {
-                    "Uvalue": 1.03,
-                    "k_m": 228945.68
+                    "Uvalue": 3.4,
+                    "k_m": 187488.0
                 },
                 "walls": {
-                    "Uvalue": 2.1,
-                    "k_m": 329472.0
+                    "Uvalue": 1.62,
+                    "k_m": 19713.41
                 },
                 "roof": {
-                    "Uvalue": 0.2,
-                    "k_m": 55920.0
+                    "Uvalue": 0.64,
+                    "k_m": 36777.2
                 },
                 "window": {
-                    "Uvalue": 2.7,
+                    "Uvalue": 5.84,
                     "k_m": 0.0,
-                    "g-factor": 0.76,
-                    "wwr": 0.14
+                    "g-factor": 0.54,
+                    "wwr": 0.15
                 }
             }
         },
         {
-            "name": "AB_1851_1930_DK",
-            "description": "Apartment building built in 1851-1930 in Denmark.",
+            "name": "RES_1_1980_2004_US_2A",
+            "description": "Residential building built in 1980-2004 in US_2A.",
             "constructions": {
                 "floor": {
-                    "Uvalue": 0.52,
-                    "k_m": 46180.0
+                    "Uvalue": 3.4,
+                    "k_m": 187488.0
                 },
                 "walls": {
-                    "Uvalue": 0.62,
-                    "k_m": 209827.2
+                    "Uvalue": 0.98,
+                    "k_m": 24140.63
+                },
+                "roof": {
+                    "Uvalue": 0.4,
+                    "k_m": 46625.34
+                },
+                "window": {
+                    "Uvalue": 5.84,
+                    "k_m": 0.0,
+                    "g-factor": 0.25,
+                    "wwr": 0.15
+                }
+            }
+        },
+        {
+            "name": "RES_1_2004_US_2A",
+            "description": "Residential building built in 2004 in US_2A.",
+            "constructions": {
+                "floor": {
+                    "Uvalue": 3.4,
+                    "k_m": 187488.0
+                },
+                "walls": {
+                    "Uvalue": 0.79,
+                    "k_m": 26846.65
                 },
                 "roof": {
                     "Uvalue": 0.38,
+                    "k_m": 48089.26
+                },
+                "window": {
+                    "Uvalue": 5.84,
+                    "k_m": 0.0,
+                    "g-factor": 0.25,
+                    "wwr": 0.15
+                }
+            }
+        },
+        {
+            "name": "RES_1_1980_US_3C",
+            "description": "Residential building built in 1980 in US_3C.",
+            "constructions": {
+                "floor": {
+                    "Uvalue": 3.4,
+                    "k_m": 187488.0
+                },
+                "walls": {
+                    "Uvalue": 1.57,
+                    "k_m": 19937.43
+                },
+                "roof": {
+                    "Uvalue": 0.64,
+                    "k_m": 36777.2
+                },
+                "window": {
+                    "Uvalue": 5.84,
+                    "k_m": 0.0,
+                    "g-factor": 0.54,
+                    "wwr": 0.15
+                }
+            }
+        },
+        {
+            "name": "RES_1_1980_2004_US_3C",
+            "description": "Residential building built in 1980-2004 in US_3C.",
+            "constructions": {
+                "floor": {
+                    "Uvalue": 3.4,
+                    "k_m": 187488.0
+                },
+                "walls": {
+                    "Uvalue": 0.83,
+                    "k_m": 26181.24
+                },
+                "roof": {
+                    "Uvalue": 0.55,
+                    "k_m": 39438.86
+                },
+                "window": {
+                    "Uvalue": 4.09,
+                    "k_m": 0.0,
+                    "g-factor": 0.39,
+                    "wwr": 0.15
+                }
+            }
+        },
+        {
+            "name": "RES_1_2004_US_3C",
+            "description": "Residential building built in 2004 in US_3C.",
+            "constructions": {
+                "floor": {
+                    "Uvalue": 3.4,
+                    "k_m": 187488.0
+                },
+                "walls": {
+                    "Uvalue": 0.51,
+                    "k_m": 34166.22
+                },
+                "roof": {
+                    "Uvalue": 0.38,
+                    "k_m": 48089.26
+                },
+                "window": {
+                    "Uvalue": 5.84,
+                    "k_m": 0.0,
+                    "g-factor": 0.61,
+                    "wwr": 0.15
+                }
+            }
+        },
+        {
+            "name": "RES_1_1980_US_5A",
+            "description": "Residential building built in 1980 in US_5A.",
+            "constructions": {
+                "floor": {
+                    "Uvalue": 3.4,
+                    "k_m": 187488.0
+                },
+                "walls": {
+                    "Uvalue": 1.02,
+                    "k_m": 23652.66
+                },
+                "roof": {
+                    "Uvalue": 0.43,
+                    "k_m": 44762.18
+                },
+                "window": {
+                    "Uvalue": 3.53,
+                    "k_m": 0.0,
+                    "g-factor": 0.41,
+                    "wwr": 0.15
+                }
+            }
+        },
+        {
+            "name": "RES_1_1980_2004_US_5A",
+            "description": "Residential building built in 1980-2004 in US_5A.",
+            "constructions": {
+                "floor": {
+                    "Uvalue": 3.4,
+                    "k_m": 187488.0
+                },
+                "walls": {
+                    "Uvalue": 0.5,
+                    "k_m": 34609.83
+                },
+                "roof": {
+                    "Uvalue": 0.31,
+                    "k_m": 54299.79
+                },
+                "window": {
+                    "Uvalue": 3.35,
+                    "k_m": 0.0,
+                    "g-factor": 0.39,
+                    "wwr": 0.15
+                }
+            }
+        },
+        {
+            "name": "RES_1_2004_US_5A",
+            "description": "Residential building built in 2004 in US_5A.",
+            "constructions": {
+                "floor": {
+                    "Uvalue": 3.4,
+                    "k_m": 187488.0
+                },
+                "walls": {
+                    "Uvalue": 0.38,
+                    "k_m": 41485.78
+                },
+                "roof": {
+                    "Uvalue": 0.38,
+                    "k_m": 48532.87
+                },
+                "window": {
+                    "Uvalue": 3.81,
+                    "k_m": 0.0,
+                    "g-factor": 0.39,
+                    "wwr": 0.15
+                }
+            }
+        },
+        {
+            "name": "COM_1_1850_DK",
+            "description": "Commercial building built in 1850 in DK.",
+            "constructions": {
+                "floor": {
+                    "Uvalue": 1.58,
+                    "k_m": 228945.68
+                },
+                "walls": {
+                    "Uvalue": 3.27,
+                    "k_m": 329472.0
+                },
+                "roof": {
+                    "Uvalue": 0.21,
+                    "k_m": 55920.0
+                },
+                "window": {
+                    "Uvalue": 5.0,
+                    "k_m": 0.0,
+                    "g-factor": 0.76,
+                    "wwr": 0.33
+                }
+            }
+        },
+        {
+            "name": "COM_1_1851_1930_DK",
+            "description": "Commercial building built in 1851-1930 in DK.",
+            "constructions": {
+                "floor": {
+                    "Uvalue": 0.63,
+                    "k_m": 46180.0
+                },
+                "walls": {
+                    "Uvalue": 0.7,
+                    "k_m": 209827.2
+                },
+                "roof": {
+                    "Uvalue": 0.41,
                     "k_m": 42160.0
                 },
                 "window": {
-                    "Uvalue": 2.7,
+                    "Uvalue": 5.0,
                     "k_m": 0.0,
                     "g-factor": 0.76,
-                    "wwr": 0.24
+                    "wwr": 0.33
                 }
             }
         },
         {
-            "name": "AB_1931_1950_DK",
-            "description": "Apartment building built in 1931-1950 in Denmark.",
+            "name": "COM_1_1931_1950_DK",
+            "description": "Commercial building built in 1931-1950 in DK.",
             "constructions": {
                 "floor": {
-                    "Uvalue": 1.21,
+                    "Uvalue": 2.06,
                     "k_m": 159720.8
                 },
                 "walls": {
-                    "Uvalue": 1.2,
+                    "Uvalue": 1.51,
                     "k_m": 712800.0
                 },
                 "roof": {
-                    "Uvalue": 1.9,
+                    "Uvalue": 2.59,
                     "k_m": 78948.0
                 },
                 "window": {
-                    "Uvalue": 2.8,
+                    "Uvalue": 5.34,
                     "k_m": 0.0,
                     "g-factor": 0.76,
-                    "wwr": 0.28
+                    "wwr": 0.33
                 }
             }
         },
         {
-            "name": "AB_1951_1960_DK",
-            "description": "Apartment building built in 1951-1960 in Denmark.",
+            "name": "COM_1_1951_1960_DK",
+            "description": "Commercial building built in 1951-1960 in DK.",
             "constructions": {
                 "floor": {
-                    "Uvalue": 0.77,
+                    "Uvalue": 1.04,
                     "k_m": 409468.8
                 },
                 "walls": {
-                    "Uvalue": 1.6,
+                    "Uvalue": 2.2,
                     "k_m": 370767.2
                 },
                 "roof": {
-                    "Uvalue": 0.6,
+                    "Uvalue": 0.65,
                     "k_m": 231187.2
                 },
                 "window": {
-                    "Uvalue": 2.8,
+                    "Uvalue": 5.35,
                     "k_m": 0.0,
                     "g-factor": 0.76,
-                    "wwr": 0.21
+                    "wwr": 0.33
                 }
             }
         },
         {
-            "name": "AB_1961_1972_DK",
-            "description": "Apartment building built in 1961-1972 in Denmark.",
+            "name": "COM_1_1961_1972_DK",
+            "description": "Commercial building built in 1961-1972 in DK.",
             "constructions": {
                 "floor": {
-                    "Uvalue": 0.99,
+                    "Uvalue": 1.5,
                     "k_m": 551519.2
                 },
                 "walls": {
-                    "Uvalue": 0.6,
+                    "Uvalue": 0.66,
                     "k_m": 43880.0
                 },
                 "roof": {
-                    "Uvalue": 0.33,
+                    "Uvalue": 0.35,
                     "k_m": 203832.0
                 },
                 "window": {
-                    "Uvalue": 2.7,
+                    "Uvalue": 5.0,
                     "k_m": 0.0,
                     "g-factor": 0.76,
-                    "wwr": 0.42
+                    "wwr": 0.33
                 }
             }
         },
         {
-            "name": "AB_1973_1978_DK",
-            "description": "Apartment building built in 1973-1978 in Denmark.",
+            "name": "COM_1_1973_1978_DK",
+            "description": "Commercial building built in 1973-1978 in DK.",
             "constructions": {
                 "floor": {
-                    "Uvalue": 0.46,
+                    "Uvalue": 0.55,
                     "k_m": 571048.0
                 },
                 "walls": {
-                    "Uvalue": 0.54,
+                    "Uvalue": 0.59,
                     "k_m": 540240.0
                 },
                 "roof": {
@@ -377,23 +593,23 @@
                     "k_m": 194000.0
                 },
                 "window": {
-                    "Uvalue": 2.8,
+                    "Uvalue": 5.35,
                     "k_m": 0.0,
                     "g-factor": 0.76,
-                    "wwr": 0.5
+                    "wwr": 0.33
                 }
             }
         },
         {
-            "name": "AB_1979_1998_DK",
-            "description": "Apartment building built in 1979-1998 in Denmark.",
+            "name": "COM_1_1979_1998_DK",
+            "description": "Commercial building built in 1979-1998 in DK.",
             "constructions": {
                 "floor": {
-                    "Uvalue": 0.19,
+                    "Uvalue": 0.21,
                     "k_m": 457096.0
                 },
                 "walls": {
-                    "Uvalue": 0.34,
+                    "Uvalue": 0.36,
                     "k_m": 204080.0
                 },
                 "roof": {
@@ -401,23 +617,23 @@
                     "k_m": 194000.0
                 },
                 "window": {
-                    "Uvalue": 2.7,
+                    "Uvalue": 5.0,
                     "k_m": 0.0,
                     "g-factor": 0.76,
-                    "wwr": 0.38
+                    "wwr": 0.33
                 }
             }
         },
         {
-            "name": "AB_1999_2006_DK",
-            "description": "Apartment building built in 1999-2006 in Denmark.",
+            "name": "COM_1_1999_2006_DK",
+            "description": "Commercial building built in 1999-2006 in DK.",
             "constructions": {
                 "floor": {
-                    "Uvalue": 0.22,
+                    "Uvalue": 0.24,
                     "k_m": 273876.0
                 },
                 "walls": {
-                    "Uvalue": 0.3,
+                    "Uvalue": 0.32,
                     "k_m": 188660.0
                 },
                 "roof": {
@@ -425,23 +641,23 @@
                     "k_m": 194000.0
                 },
                 "window": {
-                    "Uvalue": 1.6,
+                    "Uvalue": 2.2,
                     "k_m": 0.0,
                     "g-factor": 0.63,
-                    "wwr": 0.65
+                    "wwr": 0.33
                 }
             }
         },
         {
-            "name": "AB_2007_2010_DK",
-            "description": "Apartment building built in 2007-2010 in Denmark.",
+            "name": "COM_1_2007_2010_DK",
+            "description": "Commercial building built in 2007-2010 in DK.",
             "constructions": {
                 "floor": {
-                    "Uvalue": 0.14,
+                    "Uvalue": 0.15,
                     "k_m": 644995.2
                 },
                 "walls": {
-                    "Uvalue": 0.24,
+                    "Uvalue": 0.25,
                     "k_m": 197530.0
                 },
                 "roof": {
@@ -449,23 +665,23 @@
                     "k_m": 194000.0
                 },
                 "window": {
-                    "Uvalue": 1.6,
+                    "Uvalue": 2.2,
                     "k_m": 0.0,
                     "g-factor": 0.63,
-                    "wwr": 0.56
+                    "wwr": 0.33
                 }
             }
         },
         {
-            "name": "AB_2011_DK",
-            "description": "Apartment building built in 2011 in Denmark.",
+            "name": "COM_1_2011_DK",
+            "description": "Commercial building built in 2011 in DK.",
             "constructions": {
                 "floor": {
-                    "Uvalue": 0.14,
+                    "Uvalue": 0.15,
                     "k_m": 644995.2
                 },
                 "walls": {
-                    "Uvalue": 0.18,
+                    "Uvalue": 0.19,
                     "k_m": 402480.0
                 },
                 "roof": {
@@ -473,10 +689,226 @@
                     "k_m": 203500.0
                 },
                 "window": {
-                    "Uvalue": 1.05,
+                    "Uvalue": 1.28,
                     "k_m": 0.0,
                     "g-factor": 0.35,
-                    "wwr": 0.61
+                    "wwr": 0.33
+                }
+            }
+        },
+        {
+            "name": "COM_1_1980_US_2A",
+            "description": "Commercial building built in 1980 in US_2A.",
+            "constructions": {
+                "floor": {
+                    "Uvalue": 3.4,
+                    "k_m": 187488.0
+                },
+                "walls": {
+                    "Uvalue": 1.62,
+                    "k_m": 19713.41
+                },
+                "roof": {
+                    "Uvalue": 0.64,
+                    "k_m": 36777.2
+                },
+                "window": {
+                    "Uvalue": 5.84,
+                    "k_m": 0.0,
+                    "g-factor": 0.54,
+                    "wwr": 0.33
+                }
+            }
+        },
+        {
+            "name": "COM_1_1980_2004_US_2A",
+            "description": "Commercial building built in 1980-2004 in US_2A.",
+            "constructions": {
+                "floor": {
+                    "Uvalue": 3.4,
+                    "k_m": 187488.0
+                },
+                "walls": {
+                    "Uvalue": 0.98,
+                    "k_m": 24140.63
+                },
+                "roof": {
+                    "Uvalue": 0.4,
+                    "k_m": 46625.34
+                },
+                "window": {
+                    "Uvalue": 5.84,
+                    "k_m": 0.0,
+                    "g-factor": 0.25,
+                    "wwr": 0.33
+                }
+            }
+        },
+        {
+            "name": "COM_1_2004_US_2A",
+            "description": "Commercial building built in 2004 in US_2A.",
+            "constructions": {
+                "floor": {
+                    "Uvalue": 3.4,
+                    "k_m": 187488.0
+                },
+                "walls": {
+                    "Uvalue": 0.79,
+                    "k_m": 26846.65
+                },
+                "roof": {
+                    "Uvalue": 0.38,
+                    "k_m": 48089.26
+                },
+                "window": {
+                    "Uvalue": 5.84,
+                    "k_m": 0.0,
+                    "g-factor": 0.25,
+                    "wwr": 0.33
+                }
+            }
+        },
+        {
+            "name": "COM_1_1980_US_3C",
+            "description": "Commercial building built in 1980 in US_3C.",
+            "constructions": {
+                "floor": {
+                    "Uvalue": 3.4,
+                    "k_m": 187488.0
+                },
+                "walls": {
+                    "Uvalue": 1.57,
+                    "k_m": 19937.43
+                },
+                "roof": {
+                    "Uvalue": 0.64,
+                    "k_m": 36777.2
+                },
+                "window": {
+                    "Uvalue": 5.84,
+                    "k_m": 0.0,
+                    "g-factor": 0.54,
+                    "wwr": 0.33
+                }
+            }
+        },
+        {
+            "name": "COM_1_1980_2004_US_3C",
+            "description": "Commercial building built in 1980-2004 in US_3C.",
+            "constructions": {
+                "floor": {
+                    "Uvalue": 3.4,
+                    "k_m": 187488.0
+                },
+                "walls": {
+                    "Uvalue": 0.83,
+                    "k_m": 26181.24
+                },
+                "roof": {
+                    "Uvalue": 0.55,
+                    "k_m": 39438.86
+                },
+                "window": {
+                    "Uvalue": 4.09,
+                    "k_m": 0.0,
+                    "g-factor": 0.39,
+                    "wwr": 0.33
+                }
+            }
+        },
+        {
+            "name": "COM_1_2004_US_3C",
+            "description": "Commercial building built in 2004 in US_3C.",
+            "constructions": {
+                "floor": {
+                    "Uvalue": 3.4,
+                    "k_m": 187488.0
+                },
+                "walls": {
+                    "Uvalue": 0.79,
+                    "k_m": 26824.47
+                },
+                "roof": {
+                    "Uvalue": 0.38,
+                    "k_m": 48089.26
+                },
+                "window": {
+                    "Uvalue": 5.84,
+                    "k_m": 0.0,
+                    "g-factor": 0.61,
+                    "wwr": 0.33
+                }
+            }
+        },
+        {
+            "name": "COM_1_1980_US_5A",
+            "description": "Commercial building built in 1980 in US_5A.",
+            "constructions": {
+                "floor": {
+                    "Uvalue": 3.4,
+                    "k_m": 187488.0
+                },
+                "walls": {
+                    "Uvalue": 1.02,
+                    "k_m": 23652.66
+                },
+                "roof": {
+                    "Uvalue": 0.43,
+                    "k_m": 44762.18
+                },
+                "window": {
+                    "Uvalue": 3.53,
+                    "k_m": 0.0,
+                    "g-factor": 0.41,
+                    "wwr": 0.33
+                }
+            }
+        },
+        {
+            "name": "COM_1_1980_2004_US_5A",
+            "description": "Commercial building built in 1980-2004 in US_5A.",
+            "constructions": {
+                "floor": {
+                    "Uvalue": 3.4,
+                    "k_m": 187488.0
+                },
+                "walls": {
+                    "Uvalue": 0.5,
+                    "k_m": 34609.83
+                },
+                "roof": {
+                    "Uvalue": 0.31,
+                    "k_m": 54299.79
+                },
+                "window": {
+                    "Uvalue": 3.35,
+                    "k_m": 0.0,
+                    "g-factor": 0.39,
+                    "wwr": 0.33
+                }
+            }
+        },
+        {
+            "name": "COM_1_2004_US_5A",
+            "description": "Commercial building built in 2004 in US_5A.",
+            "constructions": {
+                "floor": {
+                    "Uvalue": 3.4,
+                    "k_m": 187488.0
+                },
+                "walls": {
+                    "Uvalue": 0.51,
+                    "k_m": 34166.22
+                },
+                "roof": {
+                    "Uvalue": 0.38,
+                    "k_m": 48532.87
+                },
+                "window": {
+                    "Uvalue": 3.24,
+                    "k_m": 0.0,
+                    "g-factor": 0.39,
+                    "wwr": 0.33
                 }
             }
         }

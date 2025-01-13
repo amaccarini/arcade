@@ -246,12 +246,16 @@ class ADDON2_OT_Operator(bpy.types.Operator):
             #Calculate total sum of vertical areas, and then area of walls (opaque) and windows
             tot_vertical_area=sum(vertical_faces_areas.values())
 
+
+            archetype_country=context.scene.my_addon_props.bui_arch
+            print(archetype_country)
+
             #Process the archetypes JSON file to match the archetype
-            process_archetype(cube, archetype_data)
+            process_archetype(cube, archetype_data, archetype_country)
 
             #print(cube.my_properties.usage)
             #print(cube.my_properties.age)
-            constructions_data=process_archetype(cube, archetype_data)
+            constructions_data=process_archetype(cube, archetype_data, archetype_country)
             #print(constructions_data)
 
             Awal=tot_vertical_area*(1-constructions_data.get("window")["wwr"]) #float

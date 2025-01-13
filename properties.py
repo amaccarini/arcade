@@ -7,11 +7,11 @@ class MyPropertyGroup(bpy.types.PropertyGroup):
     usage: bpy.props.EnumProperty(
         name= "",
         description= "Building usage type",
-        items= [('SFH', "Single-family house", ""),
-                ('AB', "Apartments", ""),
-                ('OTH', "Other building", "")
+        items= [('RES_1', "Residential", ""),
+                ('COM_1', "Commercial", "")
         ]
     )
+
 
 
     def get_num_stories(self):
@@ -113,4 +113,14 @@ class MyAddonProperties(bpy.types.PropertyGroup):
         description="Enter the file path or use the folder icon to browse",
         default="",
         subtype="FILE_PATH"
+    )
+
+    bui_arch: bpy.props.EnumProperty(
+        name= "",
+        description= "Building archetype",
+        items= [('DK', "Denmark", ""),
+                ('US_2A', "USA_2A - Houston", ""),
+                ('US_3C', "USA_3C - San Francisco", ""),
+                ('US_5A', "USA_5A - Chicago", "")
+        ]
     )
