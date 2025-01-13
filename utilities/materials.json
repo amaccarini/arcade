@@ -113,6 +113,48 @@
       "specific_heat_capacity": 0,
       "density": 0,
       "thermal_conductivity": 0.76
+    },
+    {
+      "name": "Wood_siding",
+      "specific_heat_capacity": 1210,
+      "density": 545,
+      "thermal_conductivity": 0.11
+    },
+    {
+      "name": "Ins_49",
+      "specific_heat_capacity": 837,
+      "density": 265,
+      "thermal_conductivity": 0.049
+    },
+    {
+      "name": "05IN_Gypsum",
+      "specific_heat_capacity": 830,
+      "density": 785,
+      "thermal_conductivity": 0.16
+    },
+    {
+      "name": "Roof_membrane",
+      "specific_heat_capacity": 1460,
+      "density": 1121,
+      "thermal_conductivity": 0.16
+    },
+    {
+      "name": "Metal_deck",
+      "specific_heat_capacity": 418,
+      "density": 7680,
+      "thermal_conductivity": 45
+    },
+    {
+      "name": "HW_concrete",
+      "specific_heat_capacity": 837,
+      "density": 2240,
+      "thermal_conductivity": 1.3
+    },
+    {
+      "name": "Carpet",
+      "specific_heat_capacity": 0,
+      "density": 0,
+      "thermal_conductivity": 0.23
     }
 
   ]

@@ -1359,6 +1359,876 @@
                     "wwr": 0.61
                 }
             ]
+        },
+        {
+            "name": "Floor_RES_1_1980_US_2A",
+            "layers": [
+                {
+                    "material": "HW_concrete",
+                    "thickness": 0.1
+                },
+                {
+                    "material": "Carpet",
+                    "thickness": 0.05
+                }
+            ]
+        },
+        {
+            "name": "Walls_RES_1_1980_US_2A",
+            "layers": [
+                {
+                    "material": "Wood_siding",
+                    "thickness": 0.01
+                },
+                {
+                    "material": "Ins_49",
+                    "thickness": 0.02184
+                },
+                {
+                    "material": "05IN_Gypsum",
+                    "thickness": 0.0127
+                }
+            ]
+        },
+        {
+            "name": "Roof_RES_1_1980_US_2A",
+            "layers": [
+                {
+                    "material": "Roof_membrane",
+                    "thickness": 0.0095
+                },
+                {
+                    "material": "Ins_49",
+                    "thickness": 0.074
+                },
+                {
+                    "material": "Metal_deck",
+                    "thickness": 0.0015
+                }
+            ]
+        },
+        {
+            "name": "Window_RES_1_1980_US_2A",
+            "layers": [
+                {
+                    "material": "Glass",
+                    "thickness": 0.1302,
+                    "g-factor": 0.54,
+                    "wwr": 0.15
+                }
+            ]
+        },
+        {
+            "name": "Floor_RES_1_1980_US_3C",
+            "layers": [
+                {
+                    "material": "HW_concrete",
+                    "thickness": 0.1
+                },
+                {
+                    "material": "Carpet",
+                    "thickness": 0.05
+                }
+            ]
+        },
+        {
+            "name": "Walls_RES_1_1980_US_3C",
+            "layers": [
+                {
+                    "material": "Wood_siding",
+                    "thickness": 0.01
+                },
+                {
+                    "material": "Ins_49",
+                    "thickness": 0.02285
+                },
+                {
+                    "material": "05IN_Gypsum",
+                    "thickness": 0.0127
+                }
+            ]
+        },
+        {
+            "name": "Roof_RES_1_1980_US_3C",
+            "layers": [
+                {
+                    "material": "Roof_membrane",
+                    "thickness": 0.0095
+                },
+                {
+                    "material": "Ins_49",
+                    "thickness": 0.074
+                },
+                {
+                    "material": "Metal_deck",
+                    "thickness": 0.0015
+                }
+            ]
+        },
+        {
+            "name": "Window_RES_1_1980_US_3C",
+            "layers": [
+                {
+                    "material": "Glass",
+                    "thickness": 0.1302,
+                    "g-factor": 0.54,
+                    "wwr": 0.15
+                }
+            ]
+        },
+        {
+            "name": "Floor_RES_1_1980_US_4A",
+            "layers": [
+                {
+                    "material": "HW_concrete",
+                    "thickness": 0.1
+                },
+                {
+                    "material": "Carpet",
+                    "thickness": 0.05
+                }
+            ]
+        },
+        {
+            "name": "Walls_RES_1_1980_US_4A",
+            "layers": [
+                {
+                    "material": "Wood_siding",
+                    "thickness": 0.01
+                },
+                {
+                    "material": "Ins_49",
+                    "thickness": 0.0328
+                },
+                {
+                    "material": "05IN_Gypsum",
+                    "thickness": 0.0127
+                }
+            ]
+        },
+        {
+            "name": "Roof_RES_1_1980_US_4A",
+            "layers": [
+                {
+                    "material": "Roof_membrane",
+                    "thickness": 0.0095
+                },
+                {
+                    "material": "Ins_49",
+                    "thickness": 0.088
+                },
+                {
+                    "material": "Metal_deck",
+                    "thickness": 0.0015
+                }
+            ]
+        },
+        {
+            "name": "Window_RES_1_1980_US_4A",
+            "layers": [
+                {
+                    "material": "Glass",
+                    "thickness": 0.1302,
+                    "g-factor": 0.54,
+                    "wwr": 0.15
+                }
+            ]
+        },
+        {
+            "name": "Floor_RES_1_1980_US_5B",
+            "layers": [
+                {
+                    "material": "HW_concrete",
+                    "thickness": 0.1
+                },
+                {
+                    "material": "Carpet",
+                    "thickness": 0.05
+                }
+            ]
+        },
+        {
+            "name": "Walls_RES_1_1980_US_5B",
+            "layers": [
+                {
+                    "material": "Wood_siding",
+                    "thickness": 0.01
+                },
+                {
+                    "material": "Ins_49",
+                    "thickness": 0.0379
+                },
+                {
+                    "material": "05IN_Gypsum",
+                    "thickness": 0.0127
+                }
+            ]
+        },
+        {
+            "name": "Roof_RES_1_1980_US_5B",
+            "layers": [
+                {
+                    "material": "Roof_membrane",
+                    "thickness": 0.0095
+                },
+                {
+                    "material": "Ins_49",
+                    "thickness": 0.104
+                },
+                {
+                    "material": "Metal_deck",
+                    "thickness": 0.0015
+                }
+            ]
+        },
+        {
+            "name": "Window_RES_1_1980_US_5B",
+            "layers": [
+                {
+                    "material": "Glass",
+                    "thickness": 0.215,
+                    "g-factor": 0.41,
+                    "wwr": 0.15
+                }
+            ]
+        },
+        {
+            "name": "Floor_RES_1_1980_US_6A",
+            "layers": [
+                {
+                    "material": "HW_concrete",
+                    "thickness": 0.1
+                },
+                {
+                    "material": "Carpet",
+                    "thickness": 0.05
+                }
+            ]
+        },
+        {
+            "name": "Walls_RES_1_1980_US_6A",
+            "layers": [
+                {
+                    "material": "Wood_siding",
+                    "thickness": 0.01
+                },
+                {
+                    "material": "Ins_49",
+                    "thickness": 0.0438
+                },
+                {
+                    "material": "05IN_Gypsum",
+                    "thickness": 0.0127
+                }
+            ]
+        },
+        {
+            "name": "Roof_RES_1_1980_US_6A",
+            "layers": [
+                {
+                    "material": "Roof_membrane",
+                    "thickness": 0.0095
+                },
+                {
+                    "material": "Ins_49",
+                    "thickness": 0.134
+                },
+                {
+                    "material": "Metal_deck",
+                    "thickness": 0.0015
+                }
+            ]
+        },
+        {
+            "name": "Window_RES_1_1980_US_6A",
+            "layers": [
+                {
+                    "material": "Glass",
+                    "thickness": 0.215,
+                    "g-factor": 0.41,
+                    "wwr": 0.15
+                }
+            ]
+        },
+        {
+            "name": "Floor_RES_1_1980_2004_US_2A",
+            "layers": [
+                {
+                    "material": "HW_concrete",
+                    "thickness": 0.1
+                },
+                {
+                    "material": "Carpet",
+                    "thickness": 0.05
+                }
+            ]
+        },
+        {
+            "name": "Walls_RES_1_1980_2004_US_2A",
+            "layers": [
+                {
+                    "material": "Wood_siding",
+                    "thickness": 0.01
+                },
+                {
+                    "material": "Ins_49",
+                    "thickness": 0.0418
+                },
+                {
+                    "material": "05IN_Gypsum",
+                    "thickness": 0.0127
+                }
+            ]
+        },
+        {
+            "name": "Roof_RES_1_1980_2004_US_2A",
+            "layers": [
+                {
+                    "material": "Roof_membrane",
+                    "thickness": 0.0095
+                },
+                {
+                    "material": "Ins_49",
+                    "thickness": 0.1184
+                },
+                {
+                    "material": "Metal_deck",
+                    "thickness": 0.0015
+                }
+            ]
+        },
+        {
+            "name": "Window_RES_1_1980_2004_US_2A",
+            "layers": [
+                {
+                    "material": "Glass",
+                    "thickness": 0.1302,
+                    "g-factor": 0.25,
+                    "wwr": 0.15
+                }
+            ]
+        },
+        {
+            "name": "Floor_RES_1_1980_2004_US_3C",
+            "layers": [
+                {
+                    "material": "HW_concrete",
+                    "thickness": 0.1
+                },
+                {
+                    "material": "Carpet",
+                    "thickness": 0.05
+                }
+            ]
+        },
+        {
+            "name": "Walls_RES_1_1980_2004_US_3C",
+            "layers": [
+                {
+                    "material": "Wood_siding",
+                    "thickness": 0.01
+                },
+                {
+                    "material": "Ins_49",
+                    "thickness": 0.051
+                },
+                {
+                    "material": "05IN_Gypsum",
+                    "thickness": 0.0127
+                }
+            ]
+        },
+        {
+            "name": "Roof_RES_1_1980_2004_US_3C",
+            "layers": [
+                {
+                    "material": "Roof_membrane",
+                    "thickness": 0.0095
+                },
+                {
+                    "material": "Ins_49",
+                    "thickness": 0.086
+                },
+                {
+                    "material": "Metal_deck",
+                    "thickness": 0.0015
+                }
+            ]
+        },
+        {
+            "name": "Window_RES_1_1980_2004_US_3C",
+            "layers": [
+                {
+                    "material": "Glass",
+                    "thickness": 0.186,
+                    "g-factor": 0.39,
+                    "wwr": 0.15
+                }
+            ]
+        },
+        {
+            "name": "Floor_RES_1_1980_2004_US_4A",
+            "layers": [
+                {
+                    "material": "HW_concrete",
+                    "thickness": 0.1
+                },
+                {
+                    "material": "Carpet",
+                    "thickness": 0.05
+                }
+            ]
+        },
+        {
+            "name": "Walls_RES_1_1980_2004_US_4A",
+            "layers": [
+                {
+                    "material": "Wood_siding",
+                    "thickness": 0.01
+                },
+                {
+                    "material": "Ins_49",
+                    "thickness": 0.081
+                },
+                {
+                    "material": "05IN_Gypsum",
+                    "thickness": 0.0127
+                }
+            ]
+        },
+        {
+            "name": "Roof_RES_1_1980_2004_US_4A",
+            "layers": [
+                {
+                    "material": "Roof_membrane",
+                    "thickness": 0.0095
+                },
+                {
+                    "material": "Ins_49",
+                    "thickness": 0.136
+                },
+                {
+                    "material": "Metal_deck",
+                    "thickness": 0.0015
+                }
+            ]
+        },
+        {
+            "name": "Window_RES_1_1980_2004_US_4A",
+            "layers": [
+                {
+                    "material": "Glass",
+                    "thickness": 0.227,
+                    "g-factor": 0.36,
+                    "wwr": 0.15
+                }
+            ]
+        },
+        {
+            "name": "Floor_RES_1_1980_2004_US_5B",
+            "layers": [
+                {
+                    "material": "HW_concrete",
+                    "thickness": 0.1
+                },
+                {
+                    "material": "Carpet",
+                    "thickness": 0.05
+                }
+            ]
+        },
+        {
+            "name": "Walls_RES_1_1980_2004_US_5B",
+            "layers": [
+                {
+                    "material": "Wood_siding",
+                    "thickness": 0.01
+                },
+                {
+                    "material": "Ins_49",
+                    "thickness": 0.09
+                },
+                {
+                    "material": "05IN_Gypsum",
+                    "thickness": 0.0127
+                }
+            ]
+        },
+        {
+            "name": "Roof_RES_1_1980_2004_US_5B",
+            "layers": [
+                {
+                    "material": "Roof_membrane",
+                    "thickness": 0.0095
+                },
+                {
+                    "material": "Ins_49",
+                    "thickness": 0.16
+                },
+                {
+                    "material": "Metal_deck",
+                    "thickness": 0.0015
+                }
+            ]
+        },
+        {
+            "name": "Window_RES_1_1980_2004_US_5B",
+            "layers": [
+                {
+                    "material": "Glass",
+                    "thickness": 0.227,
+                    "g-factor": 0.39,
+                    "wwr": 0.15
+                }
+            ]
+        },
+        {
+            "name": "Floor_RES_1_1980_2004_US_6A",
+            "layers": [
+                {
+                    "material": "HW_concrete",
+                    "thickness": 0.1
+                },
+                {
+                    "material": "Carpet",
+                    "thickness": 0.05
+                }
+            ]
+        },
+        {
+            "name": "Walls_RES_1_1980_2004_US_6A",
+            "layers": [
+                {
+                    "material": "Wood_siding",
+                    "thickness": 0.01
+                },
+                {
+                    "material": "Ins_49",
+                    "thickness": 0.117
+                },
+                {
+                    "material": "05IN_Gypsum",
+                    "thickness": 0.0127
+                }
+            ]
+        },
+        {
+            "name": "Roof_RES_1_1980_2004_US_6A",
+            "layers": [
+                {
+                    "material": "Roof_membrane",
+                    "thickness": 0.0095
+                },
+                {
+                    "material": "Ins_49",
+                    "thickness": 0.18
+                },
+                {
+                    "material": "Metal_deck",
+                    "thickness": 0.0015
+                }
+            ]
+        },
+        {
+            "name": "Window_RES_1_1980_2004_US_6A",
+            "layers": [
+                {
+                    "material": "Glass",
+                    "thickness": 0.257,
+                    "g-factor": 0.39,
+                    "wwr": 0.15
+                }
+            ]
+        },
+        {
+            "name": "Floor_RES_1_2004_US_2A",
+            "layers": [
+                {
+                    "material": "HW_concrete",
+                    "thickness": 0.1
+                },
+                {
+                    "material": "Carpet",
+                    "thickness": 0.05
+                }
+            ]
+        },
+        {
+            "name": "Walls_RES_1_2004_US_2A",
+            "layers": [
+                {
+                    "material": "Wood_siding",
+                    "thickness": 0.01
+                },
+                {
+                    "material": "Ins_49",
+                    "thickness": 0.054
+                },
+                {
+                    "material": "05IN_Gypsum",
+                    "thickness": 0.0127
+                }
+            ]
+        },
+        {
+            "name": "Roof_RES_1_2004_US_2A",
+            "layers": [
+                {
+                    "material": "Roof_membrane",
+                    "thickness": 0.0095
+                },
+                {
+                    "material": "Ins_49",
+                    "thickness": 0.125
+                },
+                {
+                    "material": "Metal_deck",
+                    "thickness": 0.0015
+                }
+            ]
+        },
+        {
+            "name": "Window_RES_1_2004_US_2A",
+            "layers": [
+                {
+                    "material": "Glass",
+                    "thickness": 0.1302,
+                    "g-factor": 0.25,
+                    "wwr": 0.15
+                }
+            ]
+        },
+        {
+            "name": "Floor_RES_1_2004_US_3C",
+            "layers": [
+                {
+                    "material": "HW_concrete",
+                    "thickness": 0.1
+                },
+                {
+                    "material": "Carpet",
+                    "thickness": 0.05
+                }
+            ]
+        },
+        {
+            "name": "Walls_RES_1_2004_US_3C",
+            "layers": [
+                {
+                    "material": "Wood_siding",
+                    "thickness": 0.01
+                },
+                {
+                    "material": "Ins_49",
+                    "thickness": 0.087
+                },
+                {
+                    "material": "05IN_Gypsum",
+                    "thickness": 0.0127
+                }
+            ]
+        },
+        {
+            "name": "Roof_RES_1_2004_US_3C",
+            "layers": [
+                {
+                    "material": "Roof_membrane",
+                    "thickness": 0.0095
+                },
+                {
+                    "material": "Ins_49",
+                    "thickness": 0.125
+                },
+                {
+                    "material": "Metal_deck",
+                    "thickness": 0.0015
+                }
+            ]
+        },
+        {
+            "name": "Window_RES_1_2004_US_3C",
+            "layers": [
+                {
+                    "material": "Glass",
+                    "thickness": 0.1302,
+                    "g-factor": 0.61,
+                    "wwr": 0.15
+                }
+            ]
+        },
+        {
+            "name": "Floor_RES_1_2004_US_4A",
+            "layers": [
+                {
+                    "material": "HW_concrete",
+                    "thickness": 0.1
+                },
+                {
+                    "material": "Carpet",
+                    "thickness": 0.05
+                }
+            ]
+        },
+        {
+            "name": "Walls_RES_1_2004_US_4A",
+            "layers": [
+                {
+                    "material": "Wood_siding",
+                    "thickness": 0.01
+                },
+                {
+                    "material": "Ins_49",
+                    "thickness": 0.119
+                },
+                {
+                    "material": "05IN_Gypsum",
+                    "thickness": 0.0127
+                }
+            ]
+        },
+        {
+            "name": "Roof_RES_1_2004_US_4A",
+            "layers": [
+                {
+                    "material": "Roof_membrane",
+                    "thickness": 0.0095
+                },
+                {
+                    "material": "Ins_49",
+                    "thickness": 0.125
+                },
+                {
+                    "material": "Metal_deck",
+                    "thickness": 0.0015
+                }
+            ]
+        },
+        {
+            "name": "Window_RES_1_2004_US_4A",
+            "layers": [
+                {
+                    "material": "Glass",
+                    "thickness": 0.1995,
+                    "g-factor": 0.39,
+                    "wwr": 0.15
+                }
+            ]
+        },
+        {
+            "name": "Floor_RES_1_2004_US_5B",
+            "layers": [
+                {
+                    "material": "HW_concrete",
+                    "thickness": 0.1
+                },
+                {
+                    "material": "Carpet",
+                    "thickness": 0.05
+                }
+            ]
+        },
+        {
+            "name": "Walls_RES_1_2004_US_5B",
+            "layers": [
+                {
+                    "material": "Wood_siding",
+                    "thickness": 0.01
+                },
+                {
+                    "material": "Ins_49",
+                    "thickness": 0.119
+                },
+                {
+                    "material": "05IN_Gypsum",
+                    "thickness": 0.0127
+                }
+            ]
+        },
+        {
+            "name": "Roof_RES_1_2004_US_5B",
+            "layers": [
+                {
+                    "material": "Roof_membrane",
+                    "thickness": 0.0095
+                },
+                {
+                    "material": "Ins_49",
+                    "thickness": 0.125
+                },
+                {
+                    "material": "Metal_deck",
+                    "thickness": 0.0015
+                }
+            ]
+        },
+        {
+            "name": "Window_RES_1_2004_US_5B",
+            "layers": [
+                {
+                    "material": "Glass",
+                    "thickness": 0.1995,
+                    "g-factor": 0.39,
+                    "wwr": 0.15
+                }
+            ]
+        },
+        {
+            "name": "Floor_RES_1_2004_US_6A",
+            "layers": [
+                {
+                    "material": "HW_concrete",
+                    "thickness": 0.1
+                },
+                {
+                    "material": "Carpet",
+                    "thickness": 0.05
+                }
+            ]
+        },
+        {
+            "name": "Walls_RES_1_2004_US_6A",
+            "layers": [
+                {
+                    "material": "Wood_siding",
+                    "thickness": 0.01
+                },
+                {
+                    "material": "Ins_49",
+                    "thickness": 0.119
+                },
+                {
+                    "material": "05IN_Gypsum",
+                    "thickness": 0.0127
+                }
+            ]
+        },
+        {
+            "name": "Roof_RES_1_2004_US_6A",
+            "layers": [
+                {
+                    "material": "Roof_membrane",
+                    "thickness": 0.0095
+                },
+                {
+                    "material": "Ins_49",
+                    "thickness": 0.125
+                },
+                {
+                    "material": "Metal_deck",
+                    "thickness": 0.0015
+                }
+            ]
+        },
+        {
+            "name": "Window_RES_1_2004_US_6A",
+            "layers": [
+                {
+                    "material": "Glass",
+                    "thickness": 0.1995,
+                    "g-factor": 0.39,
+                    "wwr": 0.15
+                }
+            ]
         }
     ]
 }
