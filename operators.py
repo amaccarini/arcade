@@ -1,4 +1,4 @@
-from .functions import latlon_to_xyz, create_flat_face, create_building, calculate_horizontal_area, calculate_and_group_vertical_faces, process_archetype, fetch_buildings_geojson
+from .functions import latlon_to_xyz, create_flat_face, create_building, calculate_horizontal_area, calculate_and_group_vertical_faces, process_archetype, fetch_buildings_geojson, get_csv_column
 import bpy
 import json
 import os
@@ -198,12 +198,9 @@ class ADDON2_OT_Operator(bpy.types.Operator):
         #read the .epw file
         epwFile = bpy.context.preferences.addons[__package__].preferences.file_path
         epw_data = read_epw(epwFile)
-        print(epw_data)
 
         #export timezone and convert it into string with sign changed
         tz_epw = int(epw_data[1]['TZ'])
-        #print('ciao')
-        #print(tz_epw)
         sign = '+' if tz_epw <= 0 else '-'
         timezone_string = f"Etc/GMT{sign}{abs(tz_epw)}"
 
@@ -218,20 +215,18 @@ class ADDON2_OT_Operator(bpy.types.Operator):
         loc = location.Location(lat,lon)
         times = pd.date_range(start='01-01-2021', end='12-31-2021 23:00', freq='h', tz=timezone_string)
         sp = loc.get_solarposition(times)
-        print(times)
-        #print(sp)
 
         solar_zenith=sp['apparent_zenith'].reset_index(drop=True)
         solar_azimuth=sp['azimuth'].reset_index(drop=True)
-        #print(solar_azimuth)
+
 
         #--------START LOOP FOR BUILDINGS----------------------
+    
 
         for cube in selected_objects:
 
             #Calculate number of floors, ensuring that the value is minimum = 1
             num_floors = max(1, math.floor(cube.dimensions.z / 3))
-            print(f"The nu_flors is {num_floors}")
 
             #Calculate the horizontal area of the building, and then floor area and roof area
             horizontal_face_area=calculate_horizontal_area(cube, threshold=0.01)
@@ -241,31 +236,23 @@ class ADDON2_OT_Operator(bpy.types.Operator):
 
             #Calculate the vertical areas of the building together with their orientation
             vertical_faces_areas=calculate_and_group_vertical_faces(cube, threshold=0.01, angle_tolerance=30)
-            #print(vertical_faces_areas)
-            print(type(vertical_faces_areas))
+
             #Calculate total sum of vertical areas, and then area of walls (opaque) and windows
             tot_vertical_area=sum(vertical_faces_areas.values())
 
-
+            #Select the archetype
             archetype_country=context.scene.my_addon_props.bui_arch
-            print(archetype_country)
 
             #Process the archetypes JSON file to match the archetype
             process_archetype(cube, archetype_data, archetype_country)
 
-            #print(cube.my_properties.usage)
-            #print(cube.my_properties.age)
             constructions_data=process_archetype(cube, archetype_data, archetype_country)
-            #print(constructions_data)
+
 
             Awal=tot_vertical_area*(1-constructions_data.get("window")["wwr"]) #float
             Awin=tot_vertical_area*(constructions_data.get("window")["wwr"]) #float
             Awal_list=[x * (1-constructions_data.get("window")["wwr"]) for x in list(vertical_faces_areas.values())] #list
             Awin_list=[x * (constructions_data.get("window")["wwr"]) for x in list(vertical_faces_areas.values())] #list
-            print('CIAOOOOOO')
-            print(Awal_list)
-            print(Awal)
-
 
             #Calculate the total heat capacity of the building (1C) (windows are not involved - Eq. 66)
             Cm_floor=constructions_data.get("floor")["k_m"]*Aflo_tot
@@ -279,16 +266,9 @@ class ADDON2_OT_Operator(bpy.types.Operator):
             den_walls=constructions_data.get("walls")["k_m"]**2*Awal
             Am=Cm_tot**2/(den_floor+den_roof+den_walls)
 
-            print(horizontal_face_area)
-            print(Cm_floor)
-            print(Cm_roof)
-            print(Cm_walls)
-            print(den_floor)
-            print(f"The Am is {Am}")
-
             #Calculate the volume of the building
             vol=horizontal_face_area*cube.dimensions.z
-            print(vol)
+
 
             #---------------Definition of constant parameters---------------------- MAYBE TO MOVE BEFORE LOOP as they are constant
 
@@ -316,13 +296,9 @@ class ADDON2_OT_Operator(bpy.types.Operator):
             #Air change rate (MAYBE TO BE MOVED INSIDE ARCHETYPES JSON FILE AS IT IS ARCHETYPE-SPECIFIC)
             ACH=0.15
 
-            #Internal heat gains
-            gain=200
-
             #--------------Calculation of heat transfer elements (5R) -----------------------
 
             Atot=Aflo_tot*ratSur
-            print(f"The Atot is {Atot}")
 
             #Heat transfer element for ventilation (Eq. 21)
             Hven=1.225*1005*ACH*vol/3600
@@ -421,10 +397,53 @@ class ADDON2_OT_Operator(bpy.types.Operator):
             solRadTot_df = pd.Series(solRadTot)
 
 
+            #------------INTERNAL GAINS---------------------------
+
+            #Set addon directory
+            addon_dir = os.path.dirname(os.path.realpath(__file__))
+
+            if cube.my_properties.usage=="RES_1":
+                m2_person_RES=35 #m2 per person
+                q_person=120 #heat load from occupants per person
+                q_light_RES=3.88 #heat load from lighting per m2
+                q_equip_RES=5.38 #heat load from equipment per m2
+
+                csv_path = os.path.join(addon_dir, "utilities", "RES_SCH.csv")
+
+                fraction_OCC=get_csv_column(csv_path, "RES_OCC_SCH")
+                fraction_LGT=get_csv_column(csv_path, "RES_LIGHT_SCH")
+                fraction_EQP=get_csv_column(csv_path, "RES_EQP_SCH")
+
+                gain_OCC=[x * q_person * Aflo_tot / m2_person_RES for x in fraction_OCC]
+                gain_LGT=[x * q_light_RES * Aflo_tot for x in fraction_LGT]
+                gain_EQP=[x * q_equip_RES * Aflo_tot for x in fraction_EQP]
+
+            else:
+                m2_person_COM=18
+                q_person=120
+                q_light_COM=10.76
+                q_equip_COM=10.76
+
+                csv_path = os.path.join(addon_dir, "utilities", "COM_SCH.csv")
+
+                fraction_OCC=get_csv_column(csv_path, "COM_OCC_SCH")
+                fraction_LGT=get_csv_column(csv_path, "COM_LIGHT_SCH")
+                fraction_EQP=get_csv_column(csv_path, "COM_EQP_SCH")
+
+                gain_OCC=[x * q_person * Aflo_tot / m2_person_RES for x in fraction_OCC]
+                gain_LGT=[x * q_light_RES * Aflo_tot for x in fraction_LGT]
+                gain_EQP=[x * q_equip_RES * Aflo_tot for x in fraction_EQP]
+
+            gain=[a + b + c for a, b, c in zip(gain_OCC, gain_LGT, gain_EQP)]
+            gain_df=pd.Series(gain)
+
+
             #------------CALCULATIONS FOR HEAT INJECTIONS-------------------------------------
-            phi_air=gain*0.5
-            phi_sur=(1-Am/Atot-Hwin/(Atot*h_ms))*(0.5*gain+solRadTot_df)
-            phi_mas=(Am/Atot)*(0.5*gain+solRadTot_df)
+            phi_air=gain_df*0.5
+
+            phi_sur=(1-Am/Atot-Hwin/(Atot*h_ms))*(0.5*gain_df+solRadTot_df)
+
+            phi_mas=(Am/Atot)*(0.5*gain_df+solRadTot_df)
 
             #------------CALCULATION OF HEATING AND COOLING LOADS----------------------------
 
@@ -439,32 +458,40 @@ class ADDON2_OT_Operator(bpy.types.Operator):
 
                 A = np.array([[Hven+Htr_sa, -Htr_sa, 0], [Htr_sa, -Hwin-Htr_sa-Htr_ms, Htr_ms], [0, Htr_ms, -Hem-Htr_ms-Cm_tot/3600]])
                 #b = np.array([phi_air+Hven*Tsup, -phi_sur-Hwin*Text.temp_air[h], -phi_mas-Cm_tot/3600*Tm_ini-Hem*Text.temp_air[h]])
-                b = np.array([phi_air+Hven*Text.temp_air.iloc[h], -phi_sur.iloc[h]-Hwin*Text.temp_air.iloc[h], -phi_mas.iloc[h]-Cm_tot/3600*Tm_ini-Hem*Text.temp_air.iloc[h]])
+                b = np.array([phi_air.iloc[h]+Hven*Text.temp_air.iloc[h], -phi_sur.iloc[h]-Hwin*Text.temp_air.iloc[h], -phi_mas.iloc[h]-Cm_tot/3600*Tm_ini-Hem*Text.temp_air.iloc[h]])
                 x = np.linalg.solve(A, b)
 
 
                 if x[0]<Ti_set_hea:
+                    #Heating condition
                     A = np.array([[1, Htr_sa, 0], [0, -Hwin-Htr_sa-Htr_ms, Htr_ms], [0, Htr_ms, -Hem-Htr_ms-Cm_tot/3600]])
-                    b = np.array([-Hven*Text.temp_air.iloc[h]+Hven*Ti_set_hea+Htr_sa*Ti_set_hea-phi_air, -phi_sur.iloc[h]-Hwin*Text.temp_air.iloc[h]-Ti_set_hea*Htr_sa, -phi_mas.iloc[h]-Cm_tot/3600*Tm_ini-Hem*Text.temp_air.iloc[h]])
+                    b = np.array([-Hven*Text.temp_air.iloc[h]+Hven*Ti_set_hea+Htr_sa*Ti_set_hea-phi_air.iloc[h], -phi_sur.iloc[h]-Hwin*Text.temp_air.iloc[h]-Ti_set_hea*Htr_sa, -phi_mas.iloc[h]-Cm_tot/3600*Tm_ini-Hem*Text.temp_air.iloc[h]])
                     x = np.linalg.solve(A, b)
                     a.append(Ti_set_hea)
                     c.append(x[0])
                     Tm_ini=x[2]
 
                 elif x[0]>Ti_set_coo:
+
+                    #Cooling condition
                     A = np.array([[1, Htr_sa, 0], [0, -Hwin-Htr_sa-Htr_ms, Htr_ms], [0, Htr_ms, -Hem-Htr_ms-Cm_tot/3600]])
-                    b = np.array([-Hven*Text.temp_air.iloc[h]+Hven*Ti_set_coo+Htr_sa*Ti_set_coo-phi_air, -phi_sur.iloc[h]-Hwin*Text.temp_air.iloc[h]-Ti_set_coo*Htr_sa, -phi_mas.iloc[h]-Cm_tot/3600*Tm_ini-Hem*Text.temp_air.iloc[h]])
+                    b = np.array([-Hven*Text.temp_air.iloc[h]+Hven*Ti_set_coo+Htr_sa*Ti_set_coo-phi_air.iloc[h], -phi_sur.iloc[h]-Hwin*Text.temp_air.iloc[h]-Ti_set_coo*Htr_sa, -phi_mas.iloc[h]-Cm_tot/3600*Tm_ini-Hem*Text.temp_air.iloc[h]])
                     x = np.linalg.solve(A, b)
                     a.append(Ti_set_coo)
                     c.append(x[0])
                     Tm_ini=x[2]
 
                 else:
+                    #No heating and cooling needed
                     a.append(x[0])
                     c.append(0)
                     Tm_ini=x[2]
 
-            df = pd.DataFrame (a)
+            # Postprocess `c` to set cooling load to 0 when Text < Ti_set_coo - 3
+            for h in range(8760):
+                if Text.temp_air.iloc[h] < (Ti_set_coo - 3) and c[h] < 0:
+                    c[h] = 0  # Override cooling/heating load
+
             df1=pd.DataFrame(c)
             fileName = cube.name
             out_dir = bpy.context.preferences.addons[__package__].preferences.folder_path
@@ -473,20 +500,22 @@ class ADDON2_OT_Operator(bpy.types.Operator):
             # Combine directory and file name
             out_file = os.path.join(out_dir, fileName)
 
-            df.to_csv(out_file + 'Temp' + '.csv', sep=';')
             df1.to_csv(out_file + 'Loads' + '.csv', sep=';')
             print(f"Calculation for {cube.name} completed")
 
-            # Open the file in write mode
-            # Specify the output file path
-            #output_file = "/Users/alm/Documents/output_transposed.csv"
 
-            # Transpose the DataFrame
-            #transposed_df = POA_irradiance_values_df.T
+            # Create a dictionary with the parameter names and their respective values
+            data = {
+                "parameter": ["Floor area", "Capacity", "U-value"],
+                "value": [round(Aflo_tot,1), round(Cm_tot,0), round(Uflo,2)]
+            }
 
-            # Export the transposed DataFrame to a CSV file
-            #transposed_df.to_csv(output_file, index=False)
+            # Convert the dictionary to a Pandas DataFrame
+            df2 = pd.DataFrame(data)
 
+            # Save the DataFrame to a CSV file
+            name_par = "building_parameters.csv"
+            df2.to_csv(out_file + name_par, sep=';',  index=False)
 
         return {'FINISHED'}
 
@@ -526,13 +555,6 @@ class ADDON5_OT_Operator(bpy.types.Operator):
     def execute(self, context):
         # Access the file path from the UI property
         file_path = context.scene.my_addon_props.file_path
-
-        # Load the JSON file
-        #folder_path = bpy.context.preferences.addons[__package__].preferences.folder_path
-
-        # Define the file name
-        #file_name = "enriched_buildings.geojson"
-        #json_path = os.path.join(folder_path, file_name)
 
         with open(file_path, 'r') as f:
             data = json.load(f)
@@ -578,7 +600,6 @@ class ADDON5_OT_Operator(bpy.types.Operator):
             # Replace "/" with "_" in the feature ID
             feature_id = str(feature_id).replace('/', '_')
 
-
             # Convert lat/lon to Blender coordinates, using the smallest lat/lon as the origin
             vertices = [latlon_to_xyz(lat, lon, min_lat, min_lon) for lon, lat in coordinates]
 
@@ -609,10 +630,6 @@ class ADDON5_OT_Operator(bpy.types.Operator):
                 year = int(year)  # Convert year to int
                 create_building(vertices, num_stories*3, f"Building_{feature_id}", year, use)
 
-
-
         print("Buildings created successfully.")
-
-
 
         return {'FINISHED'}

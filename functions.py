@@ -4,6 +4,8 @@ import bmesh
 from math import pi, cos, degrees, atan2
 from mathutils import Vector
 import requests
+import pandas as pd
+import os
 
 # Earth radius and scale (in meters)
 EARTH_RADIUS = 6371000  # in meters
@@ -388,3 +390,33 @@ def enrich_features(features, start_date_mean, start_date_std_dev, levels_mean, 
         # Ensure the "building" key is set appropriately
         if "building" not in feature["properties"] or feature["properties"]["building"] == "yes":
             feature["properties"]["building"] = "residential"
+
+
+def get_csv_column(file_path, column_name):
+    """
+    Reads a specific column from a CSV file and returns its values as a list.
+
+    Args:
+        file_path (str): The path to the CSV file.
+        column_name (str): The name of the column to retrieve.
+
+    Returns:
+        list: The values of the specified column as a list.
+
+    Raises:
+        FileNotFoundError: If the file is not found.
+        KeyError: If the column name is not found in the file.
+    """
+    # Check if the file exists
+    if not os.path.exists(file_path):
+        raise FileNotFoundError(f"The file '{file_path}' does not exist.")
+
+    # Read the CSV file
+    df = pd.read_csv(file_path)
+
+    # Check if the column exists
+    if column_name not in df.columns:
+        raise KeyError(f"The column '{column_name}' does not exist in the file '{file_path}'.")
+
+    # Return the column values as a list
+    return df[column_name].tolist()
