@@ -43,9 +43,6 @@ class ADDON1_OT_Operator(bpy.types.Operator):
 
 
 
-
-
-
         #If AI option selected, start to create buildings using BRAILS
         elif props.tick_box_2:
 
@@ -56,7 +53,7 @@ class ADDON1_OT_Operator(bpy.types.Operator):
 
             # Get footprint data for Alvito, Italy from OSM (can also set fpSource='ms'):
             fp_handler = FootprintHandler()
-            fp_handler.fetch_footprint_data((-122.256908,37.859415, -122.256621, 37.859754),
+            fp_handler.fetch_footprint_data((props.lon_min,props.lat_min, props.lon_max, props.lat_max),
                                             fpSource='osm',
                                             lengthUnit='m')
 
@@ -221,7 +218,8 @@ class ADDON2_OT_Operator(bpy.types.Operator):
 
 
         #--------START LOOP FOR BUILDINGS----------------------
-    
+        all_buildings_data = {}  # For hourly loads
+        all_buildings_parameters = {}  # For building parameters
 
         for cube in selected_objects:
 
@@ -492,30 +490,38 @@ class ADDON2_OT_Operator(bpy.types.Operator):
                 if Text.temp_air.iloc[h] < (Ti_set_coo - 3) and c[h] < 0:
                     c[h] = 0  # Override cooling/heating load
 
-            df1=pd.DataFrame(c)
-            fileName = cube.name
-            out_dir = bpy.context.preferences.addons[__package__].preferences.folder_path
-            os.makedirs(out_dir, exist_ok=True)
-
-            # Combine directory and file name
-            out_file = os.path.join(out_dir, fileName)
-
-            df1.to_csv(out_file + 'Loads' + '.csv', sep=';')
             print(f"Calculation for {cube.name} completed")
 
+            c = [round(value) for value in c]
+            all_buildings_data[cube.name] = c
 
-            # Create a dictionary with the parameter names and their respective values
-            data = {
-                "parameter": ["Floor area", "Capacity", "U-value"],
-                "value": [round(Aflo_tot,1), round(Cm_tot,0), round(Uflo,2)]
-            }
+            # Store the parameters as a list in the parameters dictionary
+            all_buildings_parameters[cube.name] = [round(Aflo_tot, 1), round(Cm_tot, 0), round(Uflo, 2)]
 
-            # Convert the dictionary to a Pandas DataFrame
-            df2 = pd.DataFrame(data)
 
-            # Save the DataFrame to a CSV file
-            name_par = "building_parameters.csv"
-            df2.to_csv(out_file + name_par, sep=';',  index=False)
+
+        # Add the "Hour of Year" as the first column in the hourly loads dictionary
+        hour_of_year = list(range(1, 8761))  # Generate a list from 1 to 8760
+        all_buildings_data["Hour of Year"] = hour_of_year
+
+        # Create DataFrames for hourly loads and parameters
+        df_all_buildings = pd.DataFrame(all_buildings_data)
+
+        # Create the parameters DataFrame (transpose the dictionary)
+        parameters_df = pd.DataFrame(all_buildings_parameters, index=["Floor area", "Capacity", "U-value"]).T
+
+        # Save the hourly loads to a CSV file
+        out_dir = bpy.context.preferences.addons[__package__].preferences.folder_path
+        os.makedirs(out_dir, exist_ok=True)
+        output_file_loads = os.path.join(out_dir, "All_Buildings_Loads_with_Hours.csv")
+        df_all_buildings.to_csv(output_file_loads, sep=';', index=False)
+
+        # Save the building parameters to a CSV file
+        output_file_parameters = os.path.join(out_dir, "All_Buildings_Parameters.csv")
+        parameters_df.to_csv(output_file_parameters, sep=';', index_label="Building")
+
+        print(f"All building data (with hour of year) saved to: {output_file_loads}")
+        print(f"Building parameters saved to: {output_file_parameters}")
 
         return {'FINISHED'}
 

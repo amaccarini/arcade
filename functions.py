@@ -79,11 +79,11 @@ def create_building(vertices, height, name, year, use):
 
 
     if use == "detached" or use =="terrace" or use == "house" or use =="residential" or use =="apartments" or use=="semidetached_house":
-        obj.my_properties.usage = "RES"
+        obj.my_properties.usage = "RES_1"
     elif use == "office" or use =="commercial":
-        obj.my_properties.usage = "COM"
+        obj.my_properties.usage = "COM_1"
     else:
-        obj.my_properties.usage = "RES"
+        obj.my_properties.usage = "RES_1"
 
 
 # Function to calculate horizontal surface of buildings (floor and roof surface area - divided by 2 to get single surface)
