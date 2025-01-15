@@ -234,6 +234,7 @@ class ADDON2_OT_Operator(bpy.types.Operator):
 
             #Calculate the vertical areas of the building together with their orientation
             vertical_faces_areas=calculate_and_group_vertical_faces(cube, threshold=0.01, angle_tolerance=30)
+            print(vertical_faces_areas)
 
             #Calculate total sum of vertical areas, and then area of walls (opaque) and windows
             tot_vertical_area=sum(vertical_faces_areas.values())
@@ -302,7 +303,8 @@ class ADDON2_OT_Operator(bpy.types.Operator):
             Hven=1.225*1005*ACH*vol/3600
 
             #Heat transfer element for windows (Eq. 17)
-            Hwin=constructions_data.get("window")["Uvalue"]*Awin
+            Uwin=constructions_data.get("window")["Uvalue"]
+            Hwin=Uwin*Awin
 
             #Heat transfer element for opaque surfaces (Eq. 63)
             Uwal=constructions_data.get("walls")["Uvalue"]
@@ -346,6 +348,8 @@ class ADDON2_OT_Operator(bpy.types.Operator):
 
             multiplied_values_win_df=pd.DataFrame(multiplied_values_win)
             solRadWin_tot=sum(multiplied_values_win)
+            solRadWin_tot_df=pd.DataFrame(solRadWin_tot)
+
 
             #---Calculate solar radiation through opaque constructions
             multiplied_values_opa = []
@@ -395,6 +399,26 @@ class ADDON2_OT_Operator(bpy.types.Operator):
             solRadTot_df = pd.Series(solRadTot)
 
 
+            #-------TESTING-----------
+            out_dir = bpy.context.preferences.addons[__package__].preferences.folder_path
+            os.makedirs(out_dir, exist_ok=True)
+            output_file_solartot = os.path.join(out_dir, "SolarRadTot.csv")
+            solRadTot_df.to_csv(output_file_solartot, sep=';', index=False)
+
+            output_file_solarOpa = os.path.join(out_dir, "SolarRadOpa.csv")
+            solRadOpa_df.to_csv(output_file_solarOpa, sep=';', index=False)
+
+            output_file_solarWin = os.path.join(out_dir, "SolarRadWin.csv")
+            solRadWin_tot_df.to_csv(output_file_solarWin, sep=';', index=False)
+
+            # Transpose the DataFrame
+            poa_transposed = POA_irradiance_values_df.T
+
+            output_file_rad = os.path.join(out_dir, "Rad.csv")
+            poa_transposed.to_csv(output_file_rad, sep=';', index=False)
+
+
+
             #------------INTERNAL GAINS---------------------------
 
             #Set addon directory
@@ -433,7 +457,8 @@ class ADDON2_OT_Operator(bpy.types.Operator):
                 gain_EQP=[x * q_equip_RES * Aflo_tot for x in fraction_EQP]
 
             gain=[a + b + c for a, b, c in zip(gain_OCC, gain_LGT, gain_EQP)]
-            gain_df=pd.Series(gain)
+            #gain_df=pd.Series(gain)
+            gain_df = pd.Series([200] * 8760)
 
 
             #------------CALCULATIONS FOR HEAT INJECTIONS-------------------------------------
@@ -486,9 +511,9 @@ class ADDON2_OT_Operator(bpy.types.Operator):
                     Tm_ini=x[2]
 
             # Postprocess `c` to set cooling load to 0 when Text < Ti_set_coo - 3
-            for h in range(8760):
-                if Text.temp_air.iloc[h] < (Ti_set_coo - 3) and c[h] < 0:
-                    c[h] = 0  # Override cooling/heating load
+            #for h in range(8760):
+            #    if Text.temp_air.iloc[h] < (Ti_set_coo - 3) and c[h] < 0:
+            #        c[h] = 0  # Override cooling/heating load
 
             print(f"Calculation for {cube.name} completed")
 
@@ -496,7 +521,22 @@ class ADDON2_OT_Operator(bpy.types.Operator):
             all_buildings_data[cube.name] = c
 
             # Store the parameters as a list in the parameters dictionary
-            all_buildings_parameters[cube.name] = [round(Aflo_tot, 1), round(Cm_tot, 0), round(Uflo, 2)]
+            all_buildings_parameters[cube.name] = [round(Aflo_tot, 1),
+                                                    round(Awal, 1),
+                                                    round(Awin, 1),
+                                                    round(Cm_tot, 0),
+                                                    round(Uflo, 2),
+                                                    round(Uwal, 2),
+                                                    round(Uroo, 2),
+                                                    round(Uwin, 2),
+                                                    round(constructions_data.get("window")["g-factor"],2),
+                                                    round(Hven, 2),
+                                                    round(Hwin, 2),
+                                                    round(Hem, 2),
+                                                    round(Htr_ms, 2),
+                                                    round(Htr_sa, 2),
+                                                    round(Am, 2)
+                                                    ]
 
 
 
@@ -507,8 +547,29 @@ class ADDON2_OT_Operator(bpy.types.Operator):
         # Create DataFrames for hourly loads and parameters
         df_all_buildings = pd.DataFrame(all_buildings_data)
 
+        # Reorder columns to ensure "Hour of Year" is the first column
+        df_all_buildings = df_all_buildings[["Hour of Year"] + [col for col in df_all_buildings.columns if col != "Hour of Year"]]
+
         # Create the parameters DataFrame (transpose the dictionary)
-        parameters_df = pd.DataFrame(all_buildings_parameters, index=["Floor area", "Capacity", "U-value"]).T
+        parameters_df = pd.DataFrame(all_buildings_parameters, index=["Floor area [m2]",
+                                                                        "Walls area [m2]",
+                                                                        "Windows area [m2]",
+                                                                        "Building heat capacity [J/K]",
+                                                                        "U-value floor [W/m2K]",
+                                                                        "U-value walls [W/m2K]",
+                                                                        "U-value roof [W/m2K]",
+                                                                        "U-value win [W/m2K]",
+                                                                        "g-factor win [-]",
+                                                                        "Hven [W/K]",
+                                                                        "Hwin [W/K]",
+                                                                        "Hem [W/K]",
+                                                                        "Htr_ms [W/K]",
+                                                                        "Htr_sa [W/K]",
+                                                                        "Am [m2]"
+
+
+
+                                                                        ]).T
 
         # Save the hourly loads to a CSV file
         out_dir = bpy.context.preferences.addons[__package__].preferences.folder_path

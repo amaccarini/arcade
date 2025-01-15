@@ -103,10 +103,10 @@ class MyAddonProperties(bpy.types.PropertyGroup):
         precision=1
     )
 
-    lon_min: bpy.props.FloatProperty(name="Min longitude", description="Minimum longitutide of the box containing the urban area", min=-180, max=180, default=(12.587832), precision=4)
-    lat_max: bpy.props.FloatProperty(name="Max latitude", description="Maximum latitude of the box containing the urban area", min=-90, max=90, default=(55.649166), precision=4)
-    lon_max: bpy.props.FloatProperty(name="Max longitude", description="Maximum longitutide of the box containing the urban area", min=-180, max=180, default=(12.589409), precision=4)
-    lat_min: bpy.props.FloatProperty(name="Min latitude", description="Minimum latitude of the box containing the urban area", min=-90, max=90, default=(55.647846), precision=4)
+    lon_min: bpy.props.FloatProperty(name="Min longitude", description="Minimum longitutide of the box containing the urban area", min=-180, max=180, default=(-122.280495), precision=4)
+    lat_max: bpy.props.FloatProperty(name="Max latitude", description="Maximum latitude of the box containing the urban area", min=-90, max=90, default=(37.877737), precision=4)
+    lon_max: bpy.props.FloatProperty(name="Max longitude", description="Maximum longitutide of the box containing the urban area", min=-180, max=180, default=(-122.279699), precision=4)
+    lat_min: bpy.props.FloatProperty(name="Min latitude", description="Minimum latitude of the box containing the urban area", min=-90, max=90, default=(37.877051), precision=4)
 
     file_path: bpy.props.StringProperty(
         name="File Path",
