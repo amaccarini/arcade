@@ -295,6 +295,9 @@ class ADDON2_OT_Operator(bpy.types.Operator):
             #Air change rate (MAYBE TO BE MOVED INSIDE ARCHETYPES JSON FILE AS IT IS ARCHETYPE-SPECIFIC)
             ACH=0.15
 
+            #Shading factor
+            shdFac=0.9
+
             #--------------Calculation of heat transfer elements (5R) -----------------------
 
             Atot=Aflo_tot*ratSur
@@ -343,7 +346,7 @@ class ADDON2_OT_Operator(bpy.types.Operator):
             # Iterate over values in Awin and corresponding POA_irradiance_values
             for win_value, poa_value in zip(Awin_list, POA_irradiance_values):
                 # Multiply the values and append the result to the list
-                multiplied_value_win = win_value * poa_value*constructions_data.get("window")["g-factor"]
+                multiplied_value_win = win_value * poa_value*constructions_data.get("window")["g-factor"]*shdFac
                 multiplied_values_win.append(multiplied_value_win)
 
             multiplied_values_win_df=pd.DataFrame(multiplied_values_win)
@@ -399,23 +402,23 @@ class ADDON2_OT_Operator(bpy.types.Operator):
             solRadTot_df = pd.Series(solRadTot)
 
 
-            #-------TESTING-----------
-            out_dir = bpy.context.preferences.addons[__package__].preferences.folder_path
-            os.makedirs(out_dir, exist_ok=True)
-            output_file_solartot = os.path.join(out_dir, "SolarRadTot.csv")
-            solRadTot_df.to_csv(output_file_solartot, sep=';', index=False)
+            #-------TESTING-----------Uncomment the code below to print csv files about solar radiation
+            #out_dir = bpy.context.preferences.addons[__package__].preferences.folder_path
+            #os.makedirs(out_dir, exist_ok=True)
+            #output_file_solartot = os.path.join(out_dir, "SolarRadTot.csv")
+            #solRadTot_df.to_csv(output_file_solartot, sep=';', index=False)
 
-            output_file_solarOpa = os.path.join(out_dir, "SolarRadOpa.csv")
-            solRadOpa_df.to_csv(output_file_solarOpa, sep=';', index=False)
+            #output_file_solarOpa = os.path.join(out_dir, "SolarRadOpa.csv")
+            #solRadOpa_df.to_csv(output_file_solarOpa, sep=';', index=False)
 
-            output_file_solarWin = os.path.join(out_dir, "SolarRadWin.csv")
-            solRadWin_tot_df.to_csv(output_file_solarWin, sep=';', index=False)
+            #output_file_solarWin = os.path.join(out_dir, "SolarRadWin.csv")
+            #solRadWin_tot_df.to_csv(output_file_solarWin, sep=';', index=False)
 
             # Transpose the DataFrame
-            poa_transposed = POA_irradiance_values_df.T
+            #poa_transposed = POA_irradiance_values_df.T
 
-            output_file_rad = os.path.join(out_dir, "Rad.csv")
-            poa_transposed.to_csv(output_file_rad, sep=';', index=False)
+            #output_file_rad = os.path.join(out_dir, "Rad.csv")
+            #poa_transposed.to_csv(output_file_rad, sep=';', index=False)
 
 
 
@@ -510,10 +513,10 @@ class ADDON2_OT_Operator(bpy.types.Operator):
                     c.append(0)
                     Tm_ini=x[2]
 
-            # Postprocess `c` to set cooling load to 0 when Text < Ti_set_coo - 3
-            #for h in range(8760):
-            #    if Text.temp_air.iloc[h] < (Ti_set_coo - 3) and c[h] < 0:
-            #        c[h] = 0  # Override cooling/heating load
+            #Postprocess `c` to set cooling load to 0 when Text < Ti_set_coo - 3
+            for h in range(8760):
+                if Text.temp_air.iloc[h] < (Ti_set_coo - 20) and c[h] < 0:
+                    c[h] = 0  # Override cooling/heating load
 
             print(f"Calculation for {cube.name} completed")
 
@@ -566,22 +569,19 @@ class ADDON2_OT_Operator(bpy.types.Operator):
                                                                         "Htr_ms [W/K]",
                                                                         "Htr_sa [W/K]",
                                                                         "Am [m2]"
-
-
-
                                                                         ]).T
 
         # Save the hourly loads to a CSV file
         out_dir = bpy.context.preferences.addons[__package__].preferences.folder_path
         os.makedirs(out_dir, exist_ok=True)
-        output_file_loads = os.path.join(out_dir, "All_Buildings_Loads_with_Hours.csv")
+        output_file_loads = os.path.join(out_dir, "All_Buildings_Loads.csv")
         df_all_buildings.to_csv(output_file_loads, sep=';', index=False)
 
         # Save the building parameters to a CSV file
         output_file_parameters = os.path.join(out_dir, "All_Buildings_Parameters.csv")
         parameters_df.to_csv(output_file_parameters, sep=';', index_label="Building")
 
-        print(f"All building data (with hour of year) saved to: {output_file_loads}")
+        print(f"All building data saved to: {output_file_loads}")
         print(f"Building parameters saved to: {output_file_parameters}")
 
         return {'FINISHED'}

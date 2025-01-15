@@ -164,7 +164,7 @@ def calculate_and_group_vertical_faces(obj, threshold=0.01, angle_tolerance=30):
 
             # Calculate orientation (rotation angle in degrees around Z-axis)
             horizontal_projection = Vector((normal.x, normal.y))
-            angle = degrees(atan2(horizontal_projection.y, horizontal_projection.x))
+            angle = degrees(atan2(horizontal_projection.x, horizontal_projection.y))
 
             # Normalize angle to range [0, 360)
             angle = angle % 360
