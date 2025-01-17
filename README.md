@@ -10,6 +10,7 @@
 - **3D Visualization**: Seamless integration with Blender for 3D visualization of buildings.
 - **Energy Simulation**: Hourly heating and cooling demand calculation based on a simplified resistance-capacitor (5R1C) method.
 - **Automatic building data enrichment**: Missing building attributes (e.g., height and construction age) can be estimated using either a user-defined probabilistic method or an AI-powered image recognition module (BRAILS).
+- **Building archetypes**: Four building archetypes are included in arcade, represeting four climatic regions: Denmark, US-2A (Houston), US-3C (San Francisco), US-5A (Chicago). Additional archetypes may be added to Arcade in the future. 
 
 ---
 
