@@ -18,7 +18,7 @@
 Arcade was designed with a simple installation process in mind, requiring no prior Python knowledge or manual installation of dependencies by the user. The tool is packaged as a Blender add-on extension, making the installation process extremely straightforward. To get started, you only need to download two items:
 
 - **Blender**: Version 4.3 [Donwload Blender here](https://blender.org)
-- **Arcade**: Latest release of Arcade as `.zip` file. 
+- **Arcade**: Latest release of Arcade as `.zip` file. Arcade is compatible with Windows (x86) and macOS (ARM64).
 
 
 
