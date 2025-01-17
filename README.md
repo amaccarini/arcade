@@ -1,9 +1,7 @@
 # Urban Building Energy Modeling Tool (UBEM)
 
 ## Overview
-The **Urban Building Energy Modeling (UBEM) Tool** is designed to simulate energy use and thermal behavior of buildings in urban areas. It enables researchers, urban planners, and policymakers to evaluate energy demand and assess the potential for energy efficiency measures at the city scale.
-
-The tool integrates 3D visualization, probabilistic data modeling, and AI-based building feature extraction for accurate and scalable analysis.
+**Arcade** is an Urban Building Energy Modeling (UBEM) tool developed as an add-on extension for Blender. The tool integrates 3D visualization of building geometries and an AI-based image detection module for extraction of building key features tpyically unavaliable (i.e. building height and age of construction). . Arcade’s primary purpose is to generate hourly heating and cooling demand data for urban areas, supporting the design and development of efficient district heating and cooling systems. 
 
 ---
 
