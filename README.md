@@ -20,9 +20,7 @@ Arcade was designed with a simple installation process in mind, requiring no pri
 - **Blender**: Version 4.3 [Donwload Blender here](https://blender.org)
 - **Arcade**: Latest release of Arcade as `.zip` file. Arcade is compatible with Windows (x86) and macOS (ARM64).
 
-<div style="color: blue; background-color: #f0f8ff; padding: 10px; border-left: 5px solid blue;">
-<strong>Note:</strong> This is a blue-colored note for informational purposes.
-</div>
+> 💡 **Note:** This is an informational note. It can be used to highlight important information or guidance.
 
 ### Steps
 Launch Blender and enable the UBEM add-on via **Edit > Preferences > Add-ons**.
