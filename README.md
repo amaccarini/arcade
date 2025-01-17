@@ -21,6 +21,9 @@ Arcade was designed with a simple installation process in mind, requiring no pri
 - **Arcade**: Latest release of Arcade as `.zip` file. Arcade is compatible with Windows (x86) and macOS (ARM64).
 
 > 💡 **Note:** This is an informational note. It can be used to highlight important information or guidance.
+> ⚠️ **Warning:** This is a warning message. Pay attention to actions that might have significant consequences.
+
+> ❗ **Important:** This is a critical note that should not be ignored.
 
 ### Steps
 Launch Blender and enable the UBEM add-on via **Edit > Preferences > Add-ons**.
