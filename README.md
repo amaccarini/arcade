@@ -22,4 +22,4 @@
 
 
 ### Steps
-
+Launch Blender and enable the UBEM add-on via **Edit > Preferences > Add-ons**.
