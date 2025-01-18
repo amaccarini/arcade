@@ -1,7 +1,7 @@
 # Arcade: a UBEM tool powered by AI
 
 ## Overview
-**Arcade** is a free and open-source Urban Building Energy Modeling (UBEM) tool developed as a Python add-on extension for Blender. It leverages 3D visualization of building geometries and an AI-powered image detection module to extract key building attributes that are often unavailable, such as building height and construction age. Arcade’s primary purpose is to generate hourly heating and cooling demand data of urban areas in just a few clicks, supporting the design and optimization of efficient district heating and cooling systems. 
+**Arcade** is a free and open-source Urban Building Energy Modeling (UBEM) tool developed as a Python add-on extension for Blender. It leverages 3D visualization of building geometries and an AI-powered image recognition module to extract key building attributes that are often unavailable, such as building height and construction age. Arcade’s primary purpose is to generate hourly heating and cooling demand data of urban areas in just a few clicks, supporting the design and optimization of efficient district heating and cooling systems. 
 
 ---
 
@@ -21,10 +21,7 @@ Arcade was designed with a simple installation process in mind, requiring no pri
 - **Arcade**: Latest release of Arcade as `.zip` file. Arcade is compatible with Windows (x86) and macOS (ARM64).
 - **Weather data**: A `.epw` file representing the climate conditions of the area of interest. Such files can be donwloaded from the [EnergyPlus website](https://energyplus.net/weather)
 
-> 💡 **Note:** This is an informational note. It can be used to highlight important information or guidance.
-> ⚠️ **Warning:** This is a warning message. Pay attention to actions that might have significant consequences.
-
-> ❗ **Important:** This is a critical note that should not be ignored.
-
+> ❗ **Important:** As outlined in the BRAILS documentation, a Google API key is required to successfully run the image recognition model. Instructions on obtaining a Google API key can be found [here](https://developers.google.com/maps/documentation/embed/get-api-key). BRAILS uses Maps Static API and Street View Static API to access satellite and street-level imagery. Ensure that both APIs are enabled when configuring your Google API key.
+> 
 ### Steps
 Launch Blender and enable the UBEM add-on via **Edit > Preferences > Add-ons**.
