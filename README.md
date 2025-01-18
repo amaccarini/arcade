@@ -1,7 +1,7 @@
 # Arcade: a UBEM tool powered by AI
 
 ## Overview
-**Arcade** is an Urban Building Energy Modeling (UBEM) tool developed as a Python add-on extension for Blender. It leverages 3D visualization of building geometries and an AI-powered image detection module to extract key building attributes that are often unavailable, such as building height and construction age. Arcade’s primary purpose is to generate hourly heating and cooling demand data for urban areas in just a few clicks, supporting the design and optimization of efficient district heating and cooling systems. 
+**Arcade** is a free and open-source Urban Building Energy Modeling (UBEM) tool developed as a Python add-on extension for Blender. It leverages 3D visualization of building geometries and an AI-powered image detection module to extract key building attributes that are often unavailable, such as building height and construction age. Arcade’s primary purpose is to generate hourly heating and cooling demand data of urban areas in just a few clicks, supporting the design and optimization of efficient district heating and cooling systems. 
 
 ---
 
@@ -15,10 +15,11 @@
 ---
 
 ## Installation
-Arcade was designed with a simple installation process in mind, requiring no prior Python knowledge or manual installation of dependencies by the user. The tool is packaged as a Blender add-on extension, making the installation process extremely straightforward. To get started, you only need to download two items:
+Arcade was designed with a simple installation process in mind, requiring no prior Python knowledge or manual installation of dependencies by the user. The tool is packaged as a Blender add-on extension, making the installation process extremely straightforward. To get started, you only need to download three items:
 
 - **Blender**: Version 4.3 [Donwload Blender here](https://blender.org)
 - **Arcade**: Latest release of Arcade as `.zip` file. Arcade is compatible with Windows (x86) and macOS (ARM64).
+- **Weather data**: A `.epw` file representing the climate conditions of the area of interest. Such files can be donwloaded from the [EnergyPlus website](https://energyplus.net/weather)
 
 > 💡 **Note:** This is an informational note. It can be used to highlight important information or guidance.
 > ⚠️ **Warning:** This is a warning message. Pay attention to actions that might have significant consequences.
