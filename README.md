@@ -25,8 +25,8 @@ Arcade was designed with a simple installation process in mind, requiring no pri
 >
 
 ### Steps
-Launch Blender go to **Edit > Preferences > Get Extensions**. Next, click the dropdown arrow in the top-right corner of the window to expand the menu, then select **Install from Disk...**
+Launch Blender and go to **Edit > Preferences > Get Extensions**. Next, click the dropdown arrow in the top-right corner of the window to expand the menu, then select **Install from Disk...**
 
 ![My Image](images/pref.png)
 
-Next, select the Arcade `.zip` file to enable the add-on.
+Next, select the Arcade `.zip` file to enable the add-on. The installation process may take a few minutes as Blender installs the necessary Python packages. During this time, Blender may become unresponsive.
