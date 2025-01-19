@@ -61,8 +61,8 @@ class ADDON1_OT_Operator(bpy.types.Operator):
             if NBLDGS == 'all':
                 NBLDGS = len(footprints)
 
-            # Get street-level imagery for Alvito by using the footprint locations:
-            image_handler = ImageHandler('AIzaSyBJoY6tFIBZHjthJqOqdJPi1XsFzoP5nLo')
+            # Get street-level imagery using the footprint locations:
+            image_handler = ImageHandler(bpy.context.preferences.addons[__package__].preferences.google_path)
             image_handler.GetGoogleStreetImage(fp_handler.footprints)
             imstreet = [im for im in image_handler.street_images if im is not None]
 
