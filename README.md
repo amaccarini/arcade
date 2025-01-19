@@ -26,3 +26,4 @@ Arcade was designed with a simple installation process in mind, requiring no pri
 
 ### Steps
 Launch Blender and enable the Arcade add-on via **Edit > Preferences > Add-ons**.
+![My Image](images/pref.png)
