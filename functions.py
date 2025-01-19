@@ -330,20 +330,25 @@ def fetch_buildings_geojson(bbox, output_folder, start_date_mean, start_date_std
 
             # Parse nodes and ways to construct polygons
             nodes = {node["id"]: (node["lon"], node["lat"]) for node in data.get("elements", []) if node["type"] == "node"}
+            feature_id = 1  # Initialize a counter for the sequential ID
+
             for element in data.get("elements", []):
                 if element["type"] == "way" and "nodes" in element:
                     coordinates = [nodes[node_id] for node_id in element["nodes"] if node_id in nodes]
                     if len(coordinates) > 2:  # Ensure it forms a polygon
                         feature = {
                             "type": "Feature",
-                            "properties": element.get("tags", {}),
+                            "properties": {
+                                **element.get("tags", {}),
+                                "id": feature_id  # Use sequential ID
+                            },
                             "geometry": {
                                 "type": "Polygon",
                                 "coordinates": [coordinates]
-                            },
-                            "id": element["id"]
+                            }
                         }
                         geojson["features"].append(feature)
+                        feature_id += 1  # Increment the counter for the next feature
 
             # Enrich missing properties
             enrich_features(geojson["features"], start_date_mean, start_date_std_dev, levels_mean, levels_std_dev)

@@ -61,6 +61,12 @@ class ADDON1_OT_Operator(bpy.types.Operator):
             if NBLDGS == 'all':
                 NBLDGS = len(footprints)
 
+            # Check if the Google API key is missing
+            if not bpy.context.preferences.addons[__package__].preferences.google_path.strip():  # If the key is empty or whitespace
+                self.report({'ERROR'}, "The AI module cannot be executed because the Google API Key is missing. Please provide a valid API Key in the Add-on Preferences to proceed.")
+                return {'CANCELLED'}
+
+
             # Get street-level imagery using the footprint locations:
             image_handler = ImageHandler(bpy.context.preferences.addons[__package__].preferences.google_path)
             image_handler.GetGoogleStreetImage(fp_handler.footprints)
@@ -234,7 +240,6 @@ class ADDON2_OT_Operator(bpy.types.Operator):
 
             #Calculate the vertical areas of the building together with their orientation
             vertical_faces_areas=calculate_and_group_vertical_faces(cube, threshold=0.01, angle_tolerance=30)
-            print(vertical_faces_areas)
 
             #Calculate total sum of vertical areas, and then area of walls (opaque) and windows
             tot_vertical_area=sum(vertical_faces_areas.values())
@@ -661,9 +666,8 @@ class ADDON5_OT_Operator(bpy.types.Operator):
             num_stories = feature['properties'].get('building:levels', "NA")
             year = feature['properties'].get('start_date', "NA")
             use = feature['properties'].get('building', "NA")
+            feature_id = feature['properties'].get('id', "NA")
 
-            # Get the @id property
-            feature_id = feature.get('id', "Unnamed")
             # Replace "/" with "_" in the feature ID
             feature_id = str(feature_id).replace('/', '_')
 
