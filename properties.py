@@ -89,7 +89,7 @@ class MyAddonProperties(bpy.types.PropertyGroup):
     avg_nfloor: bpy.props.IntProperty(
         name="average_num_floor",
         description="Average value for the normal distribution used to estimate the number of stories, and consequenctly the height of buildings.",
-        default=2,
+        default=1,
         min=1,
         max=100
     )
