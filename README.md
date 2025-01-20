@@ -27,7 +27,7 @@ Arcade was designed with a simple installation process in mind, requiring no pri
 ### Steps
 Launch Blender and go to **Edit > Preferences > Get Extensions**. Next, click the dropdown arrow in the top-right corner of the window to expand the menu, then select **Install from Disk...**
 
-![My Image](images/pref.png)
+![my_pref](images/pref.png)
 
 Next, select the Arcade `.zip` file to enable the add-on. The installation process may take a few minutes as Blender installs the necessary Python packages. During this time, Blender may become unresponsive.
 
@@ -39,3 +39,6 @@ Before using Arcade, you need to configure a few settings in the Preferences pan
 First, specify an output folder (it’s recommended to choose a folder where you have write permissions). Next, select the weather file. If you plan to use BRAILS, you’ll also need to provide a Google API key as a string.
 
 ### Basic tutorial
+Once Arcade is installed and the preferences are configued, you are ready to go! First, delete the three objects that are automatically created by Blender at start-up. This is just to have a clean scene. Then press `N` to show the sidebar of Blender. Now you should be able to see the Arcade panel. Once you click on it, you will see the difference sub-panels, buttons and settings of the Arcade tool.
+
+![my_menu](images/menu.png)
