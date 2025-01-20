@@ -30,3 +30,12 @@ Launch Blender and go to **Edit > Preferences > Get Extensions**. Next, click th
 ![My Image](images/pref.png)
 
 Next, select the Arcade `.zip` file to enable the add-on. The installation process may take a few minutes as Blender installs the necessary Python packages. During this time, Blender may become unresponsive.
+
+
+## Quickstart
+### Settings
+Before using Arcade, you need to configure a few settings in the Preferences panel. Navigate to **Edit > Preferences > Add-ons** and search for Arcade. Expand the Arcade panel to access its preferences.
+
+First, specify an output folder (it’s recommended to choose a folder where you have write permissions). Next, select the weather file. If you plan to use BRAILS, you’ll also need to provide a Google API key as a string.
+
+### Basic tutorial
