@@ -19,7 +19,7 @@ Arcade was designed with a simple installation process in mind, requiring no pri
 
 - **Blender**: Version 4.3 [Donwload Blender here](https://blender.org)
 - **Arcade**: Latest release of Arcade as `.zip` file. Arcade is compatible with Windows (x86) and macOS (ARM64).
-- **Weather data**: A `.epw` file representing the climate conditions of the area of interest. Such files can be donwloaded from the [EnergyPlus website](https://energyplus.net/weather)
+- **Weather data**: A `.epw` file representing the climate conditions of the area of interest. Such files can be downloaded from the [EnergyPlus website](https://energyplus.net/weather)
 
 > ❗ **Important:** As outlined in the BRAILS documentation, a Google API key is required to successfully run the image recognition model. Instructions on obtaining a Google API key can be found [here](https://developers.google.com/maps/documentation/embed/get-api-key). BRAILS uses Maps Static API and Street View Static API to access satellite and street-level imagery. Ensure that both APIs are enabled when configuring your Google API key.
 >
@@ -39,6 +39,11 @@ Before using Arcade, you need to configure a few settings in the Preferences pan
 First, specify an output folder (it’s recommended to choose a folder where you have write permissions). Next, select the weather file. If you plan to use BRAILS, you’ll also need to provide a Google API key as a string.
 
 ### Basic tutorial
-Once Arcade is installed and the preferences are configued, you are ready to go! First, delete the three objects that are automatically created by Blender at start-up. This is just to have a clean scene. Then press `N` to show the sidebar of Blender. Now you should be able to see the Arcade panel. Once you click on it, you will see the difference sub-panels, buttons and settings of the Arcade tool.
+Once Arcade is installed and the preferences are configured, you’re ready to get started! First, delete the three default objects created by Blender at startup to ensure a clean scene. Next, press `N` to open Blender’s Sidebar. You should now see the Arcade panel in the Sidebar. Click on it to explore the various sub-panels, buttons, and settings available in Arcade.
 
 ![my_menu](images/menu.png)
+
+The workflow can be divided in three steps:
+
+- **Generate the geoJSON file**: Start by pressing the `Create geoJSON file` button. This action prompts Arcade to generate a geoJSON file containing the building footprints of an urban area. The area is defined by a bounding box with four parameters: maximum latitude, maximum longitude, minimum latitude, and minimum longitude. By default, these parameters correspond to a small block in Berkeley, California.
+- **Import the geoJSON file**: Next, select the generated geoJSON file by clicking the folder icon. The geoJSON file will be located in the output folder you specified in the Preferences panel. After selecting the file, click `Import geoJSON files`. Arcade will then create the buildings in the Blender scene!
