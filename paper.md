@@ -14,7 +14,7 @@ authors:
 affiliations:
  - name: Department of the Built Environment, Aalborg University, Denmark
    index: 1
-date: 13 August 2017
+date: 21 January 20125
 bibliography: paper.bib
 
 # Optional fields if submitting to a AAS journal too, see this blog post:
@@ -25,15 +25,9 @@ bibliography: paper.bib
 
 # Summary
 
-The forces on stars, galaxies, and dark matter under external gravitational
-fields lead to the dynamical evolution of structures in the universe. The orbits
-of these bodies are therefore key to understanding the formation, history, and
-future state of galaxies. The field of "galactic dynamics," which aims to model
-the gravitating components of galaxies to study their structure and evolution,
-is now well-established, commonly taught, and frequently used in astronomy.
-Aside from toy problems and demonstrations, the majority of problems require
-efficient numerical tools, many of which require the same base code (e.g., for
-performing numerical orbit integration).
+With rapid urbanization, more than half of the global population now resides in cities, a trend expected to continue in the coming decades. Urban areas, while engines of economic growth and innovation, are also responsible for a significant share of global energy consumption and greenhouse gas emissions. Buildings, as key components of urban infrastructure, account for a substantial portion of this energy demand, driven by heating, cooling, lighting, and other operational needs.
+
+In this context, Urban Building Energy Modeling (UBEM) has emerged as a powerful approach to analyze and optimize energy use at the city scale. UBEM involves creating simulation-based models of building stocks, leveraging diverse datasets and computational tools to assess energy performance, evaluate retrofit strategies, and support sustainable urban planning. By providing actionable insights, UBEM plays a critical role in addressing the energy challenges of growing cities and promoting a transition to more energy-efficient and resilient urban environments.
 
 # Statement of need
 
