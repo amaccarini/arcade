@@ -25,7 +25,7 @@ bibliography: paper.bib
 
 # Summary
 
-With rapid urbanization, more than half of the global population now resides in cities, a trend expected to continue in the coming decades. Urban areas, while engines of economic growth and innovation, are also responsible for a significant share of global energy consumption and greenhouse gas emissions. Buildings, as key components of urban infrastructure, account for a substantial portion of this energy demand, driven by heating, cooling, lighting, and other operational needs.
+With rapid urbanization, more than half of the global population now resides in cities, a trend expected to continue in the coming decades [@UN:2015]. Urban areas, while engines of economic growth and innovation, are also responsible for a significant share of global energy consumption and greenhouse gas emissions. Buildings, as key components of urban infrastructure, account for a substantial portion of this energy demand, driven by heating, cooling, lighting, and other operational needs.
 
 In this context, Urban Building Energy Modeling (UBEM) has emerged as a powerful approach to analyze and optimize energy use at the city scale. UBEM involves creating simulation-based models of building stocks, leveraging diverse datasets and computational tools to assess energy performance, evaluate retrofit strategies, and support sustainable urban planning. By providing actionable insights, UBEM plays a critical role in addressing the energy challenges of growing cities and promoting a transition to more energy-efficient and resilient urban environments.
 
