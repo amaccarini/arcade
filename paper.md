@@ -29,36 +29,20 @@ With rapid urbanization, more than half of the global population now lives in ci
 
 In this context, Urban Building Energy Modeling (UBEM) has emerged as a powerful tool to analyze the energy use at the city scale. UBEM involves creating simulation-based models of building stocks, leveraging diverse datasets and computational tools to assess energy performance, evaluate retrofit strategies, and support sustainable urban planning.
 
-**Arcade** is a free and open-source UBEM tool developed as an add-on extension for Blender [@Blender]. Arcade leverages 3D visualization of building geometries and incorporates a reduced-order building thermal model for efficient energy simulations. It utilizes Blender’s Python  API to create custom panels and user interfaces, allowing seamless interaction directly within the Blender interface. Additionally, it features an AI-powered image recognition module to extract building attributes often unavailable in datasets, such as building height and construction age.
+**Arcade** is a free and open-source UBEM tool developed as an add-on extension for Blender [@Blender], a 3D computer graphics software. Arcade incorporates a reduced-order building thermal model for efficient energy simulations and uses Blender’s Python API to create custom panels and user interfaces. Additionally, it features an AI-powered image recognition module to extract building attributes often unavailable in datasets, such as building height and construction age.
 
 The primary purpose of Arcade is to generate hourly heating and cooling demand data for urban areas, supporting the design and optimization of district heating and cooling systems. Key features of Arcade include:
 
 - **3D Visualization**: Seamless integration with Blender for 3D building visualization and parameter configuration.
 - **Energy Simulation**: Calculation of hourly heating and cooling demand using a simplified resistance-capacitance thermal model.
-- **Automatic building data enrichment**: Gaps in building attributes from OpenStreetMap datasets (i.e., height and construction age) automatically filled using either a user-defined probabilistic method or BRAILS, an AI-powered image recognition module.
+- **Automatic building data enrichment**: Gaps in building attributes from OpenStreetMap datasets (i.e., height and construction year) automatically filled using either a user-defined probabilistic method or BRAILS, an AI-powered image recognition module.
 - **Building archetypes**: A set of pre-defined archetypes covering four geographical locations (Denmark and three regions in the US), two occupancy types (Residential and Offices), and multiple construction age periods.
 
 # Statement of need
 
-`Gala` is an Astropy-affiliated Python package for galactic dynamics. Python
-enables wrapping low-level languages (e.g., C) for speed without losing
-flexibility or ease-of-use in the user-interface. The API for `Gala` was
-designed to provide a class-based and user-friendly interface to fast (C or
-Cython-optimized) implementations of common operations such as gravitational
-potential and force evaluation, orbit integration, dynamical transformations,
-and chaos indicators for nonlinear dynamics. `Gala` also relies heavily on and
-interfaces well with the implementations of physical units and astronomical
-coordinate systems in the `Astropy` package [@astropy] (`astropy.units` and
-`astropy.coordinates`).
+In recent years, several UBEM tools have been developed to support the analysis and optimization of energy demand in urban areas [@UBEMreview1]. Despite these advancements, one of the major challenges remains the availability of reliable urban datasets, including key building attributes such as geometry, construction year, and occupancy type, among others. These datasets are essential, as they are converted into input parameters for the UBEM simulation engine after pre-processing and manipulation. Traditional data collection methods are often labor-intensive and time-consuming, involving field surveys, building audits, and manual data retrieval. Moreover, the availability and accuracy of urban datasets vary significantly based on geographical location and data source.
 
-`Gala` was designed to be used by both astronomical researchers and by
-students in courses on gravitational dynamics or astronomy. It has already been
-used in a number of scientific publications [@Pearson:2017] and has also been
-used in graduate courses on Galactic dynamics to, e.g., provide interactive
-visualizations of textbook material [@Binney:2008]. The combination of speed,
-design, and support for Astropy functionality in `Gala` will enable exciting
-scientific explorations of forthcoming data releases from the *Gaia* mission
-[@gaia] by students and experts alike.
+and compilation from diverse governmental agencies. Among these parameters, building height (i.e., the number of stories) and construction year are often missing from publicly available geographical information datasets, such as OpenStreetMap.
 
 # Mathematics
 
