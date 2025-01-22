@@ -29,12 +29,14 @@ With rapid urbanization, more than half of the global population now lives in ci
 
 In this context, Urban Building Energy Modeling (UBEM) has emerged as a powerful tool to analyze the energy use at the city scale. UBEM involves creating simulation-based models of building stocks, leveraging diverse datasets and computational tools to assess energy performance, evaluate retrofit strategies, and support sustainable urban planning.
 
-Arcade is a free and open-source UBEM tool developed as a Python add-on extension for Blender. It leverages 3D visualization of building geometries and an AI-powered image recognition module to extract key building attributes that are often unavailable, such as building height and construction age. Arcade’s primary purpose is to generate hourly heating and cooling demand data of urban areas, supporting the design and optimization of efficient district heating and cooling systems. Key features of Aracade are:
+**Arcade** is a free and open-source UBEM tool developed as an add-on extension for Blender [@Blender]. Arcade leverages 3D visualization of building geometries and incorporates a reduced-order building thermal model for efficient energy simulations. It utilizes Blender’s Python  API to create custom panels and user interfaces, allowing seamless interaction directly within the Blender interface. Additionally, it features an AI-powered image recognition module to extract building attributes often unavailable in datasets, such as building height and construction age.
 
-- **3D Visualization**: Seamless integration with Blender for 3D visualization of buildings.
-- **Energy Simulation**: Hourly heating and cooling demand calculation based on a simplified resistance-capacitor thermal model.
-- **Automatic building data enrichment**: Missing building attributes (e.g., height and construction age) can be estimated using either a user-defined probabilistic method or the AI-powered image recognition module BRAILS.
-- **Building archetypes**: Arcade includes a total of 38 building archetypes, covering four geographical locations (Denmark, US-Houston, US-San Francisco, and US-Chicago), two occupancy types (Residential and Offices), and various construction age periods (10 intervals for Denmark and 3 intervals for the US). Additional archetypes may be incorporated into Arcade in future updates.
+The primary purpose of Arcade is to generate hourly heating and cooling demand data for urban areas, supporting the design and optimization of district heating and cooling systems. Key features of Arcade include:
+
+- **3D Visualization**: Seamless integration with Blender for 3D building visualization and parameter configuration.
+- **Energy Simulation**: Calculation of hourly heating and cooling demand using a simplified resistance-capacitance thermal model.
+- **Automatic building data enrichment**: Gaps in building attributes from OpenStreetMap datasets (i.e., height and construction age) automatically filled using either a user-defined probabilistic method or BRAILS, an AI-powered image recognition module.
+- **Building archetypes**: A set of pre-defined archetypes covering four geographical locations (Denmark and three regions in the US), two occupancy types (Residential and Offices), and multiple construction age periods.
 
 # Statement of need
 
