@@ -1,5 +1,5 @@
 ---
-title: 'Arcade: An urban building energy modeling tool powered by AI for input data collection'
+title: 'Arcade: An urban building energy modeling tool powered by AI for input data enrichment'
 tags:
   - Python
   - urban
@@ -31,19 +31,21 @@ In this context, Urban Building Energy Modeling (UBEM) has emerged as a powerful
 
 **Arcade** is a free and open-source UBEM tool developed as an add-on extension for Blender [@Blender], a 3D computer graphics software. Arcade incorporates a reduced-order building thermal model for efficient energy simulations and uses Blender’s Python API to create custom panels and user interfaces. Additionally, it features an AI-powered image recognition module to extract building attributes often unavailable in datasets, such as building height and construction age.
 
-The primary purpose of Arcade is to generate hourly heating and cooling demand data for urban areas, supporting the design and optimization of district heating and cooling systems. Key features of Arcade include:
+Key features of Arcade include:
 
 - **3D Visualization**: Seamless integration with Blender for 3D building visualization and parameter configuration.
 - **Energy Simulation**: Calculation of hourly heating and cooling demand using a simplified resistance-capacitance thermal model.
-- **Automatic building data enrichment**: Gaps in building attributes from OpenStreetMap datasets (i.e., height and construction year) automatically filled using either a user-defined probabilistic method or BRAILS, an AI-powered image recognition module.
-- **Building archetypes**: A set of pre-defined archetypes covering four geographical locations (Denmark and three regions in the US), two occupancy types (Residential and Offices), and multiple construction age periods.
+- **Automatic building data enrichment**: Gaps in building attributes from OpenStreetMap (OSM) datasets are automatically filled using either a user-defined probabilistic method or BRAILS, an AI-powered image recognition module.
+- **Building archetypes**: Predefined archetypes act as proxies for real buildings, enhancing scalability and computational efficiency by representing variations in location, occupancy, and construction age.
 
 # Statement of need
 
 In recent years, several UBEM tools have been developed to support the analysis and optimization of energy demand in urban areas [@UBEMreview1]. Despite these advancements, one of the major challenges remains the availability of reliable geospatial datasets, including key building attributes such as geometry, construction year, and occupancy type, among others. These datasets are essential, as they are converted into input parameters for the UBEM simulation engine after pre-processing and manipulation. Although governments worldwide are releasing more such datasets, these efforts are often fragmented [@Biljecki2021].
-Therefore, researchers have increasingly relied on crowdsourced platforms such as OpenStreetMap (OSM). These platforms provide free access to data and often offer better coverage than official sources. However, the quality and completeness can vary significantly between countries or even cities, thereby impacting the application of urban analytics [@Wang2025]. For instance, while the city of Berkeley has approximately 35,000 buildings mapped in OSM, only 1,500 include height-related information (e.g., the number of stories), and a handful of buildings have data about the construction year, which is particularly critical for categorizing buildings into archetypes for energy simulations.
+Therefore, researchers have increasingly relied on crowdsourced platforms such as OSM. These platforms provide free access to data and often offer better coverage than official sources. However, the quality and completeness can vary significantly between countries or even cities, thereby impacting the application of urban analytics [@Wang2025]. For instance, while the city of Berkeley has approximately 35,000 buildings mapped in OSM, only 1,500 include height-related information, and a handful of buildings have data about the construction year, which is particularly critical for categorizing buildings into archetypes for energy simulations.
 
-In this context, Arcade differentiates itself from other UBEM tools by featuring a built-in functionality that leverages an AI-enabled module to automatically enrich incomplete OSM data using satellite and street-level imagery. Arcade is designed to be used by researchers, professionals, and students in the field of urban energy modeling and district thermal networks. The main simulation output consists of a comma separated value (csv) file, which includes hourly data of heating and cooling demand of the urban area under investigation. This output data could be used for several further analysisi such as:
+In this context, Arcade differentiates itself from other UBEM tools by featuring a built-in functionality that leverages an AI-enabled module to automatically enrich incomplete OSM data using satellite and street-level imagery. Arcade is designed to be used by researchers, professionals, and students in the field of urban energy modeling and district thermal networks. The main simulation output consists of hourly data of heating and cooling demand of the urban area under investigation. This output data could be used for several further analysis such as:
+- Retrofit scenario evaluation: Arcade can simulate and evaluate different retrofit scenarios to optimize energy performance, improve building efficiency, and reduce carbon emissions at the urban scale.
+urban areas, supporting the design and optimization of district heating and cooling systems.23
 
 # Mathematics
 
@@ -79,7 +81,7 @@ For a quick reference, the following citation commands can be used:
 # Figures
 
 Figures can be included like this:
-![Caption for example figure.\label{fig:example}](images/menu.png)
+![Caption for example figure.\label{fig:example}](images/image_workflow.png)
 and referenced from text using \autoref{fig:example}.
 
 Figure sizes can be customized by adding an optional second parameter:
