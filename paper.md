@@ -44,25 +44,8 @@ In recent years, several UBEM tools have been developed to support the analysis 
 Therefore, researchers have increasingly relied on crowdsourced platforms such as OSM. These platforms provide free access to data and often offer better coverage than official sources. However, the quality and completeness can vary significantly between countries or even cities, thereby impacting the application of urban analytics [@Wang2025]. For instance, while the city of Berkeley has approximately 35,000 buildings mapped in OSM, only 1,500 include height-related information, and a handful of buildings have data about the construction year, which is particularly critical for categorizing buildings into archetypes for energy simulations.
 
 In this context, Arcade differentiates itself from other UBEM tools by featuring a built-in functionality that leverages an AI-enabled module to automatically enrich incomplete OSM data using satellite and street-level imagery. Arcade is designed to be used by researchers, professionals, and students in the field of urban energy modeling and district thermal networks. The main simulation output consists of hourly data of heating and cooling demand of the urban area under investigation. This output data could be used for several further analysis such as:
-- Retrofit scenario evaluation: Arcade can simulate and evaluate different retrofit scenarios to optimize energy performance, improve building efficiency, and reduce carbon emissions at the urban scale.
-urban areas, supporting the design and optimization of district heating and cooling systems.23
-
-# Mathematics
-
-Single dollars ($) are required for inline mathematics e.g. $f(x) = e^{\pi/x}$
-
-Double dollars make self-standing equations:
-
-$$\Theta(x) = \left\{\begin{array}{l}
-0\textrm{ if } x < 0\cr
-1\textrm{ else}
-\end{array}\right.$$
-
-You can also use plain \LaTeX for equations
-\begin{equation}\label{eq:fourier}
-\hat f(\omega) = \int_{-\infty}^{\infty} f(x) e^{i\omega x} dx
-\end{equation}
-and refer to \autoref{eq:fourier} from text.
+- Retrofit scenario evaluation: Users can assess various retrofit scenarios by modifying archetypes to enhance building efficiency and reduce carbon emissions on an urban scale.
+![Figure 1: Workflow](images/image_workflow.png)
 
 # Citations
 
