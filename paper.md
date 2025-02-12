@@ -47,24 +47,9 @@ In this context, Arcade differentiates itself from other UBEM tools by featuring
 - Retrofit scenario evaluation: Users can assess various retrofit scenarios by modifying archetypes to enhance building efficiency and reduce carbon emissions on an urban scale.
 ![Figure 1: Workflow](images/workflow3.png)
 
-# Citations
-
-Citations to entries in paper.bib should be in
-[rMarkdown](http://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html)
-format.
-
-If you want to cite a software repository URL (e.g. something on GitHub without a preferred
-citation) then you can do it with the example BibTeX entry below for @fidgit.
-
-For a quick reference, the following citation commands can be used:
-- `@author:2001`  ->  "Author et al. (2001)"
-- `[@author:2001]` -> "(Author et al., 2001)"
-- `[@author1:2001; @author2:2001]` -> "(Author1 et al., 2001; Author2 et al., 2002)"
-
 
 # Acknowledgements
 
-We acknowledge contributions from Brigitta Sipocz, Syrtis Major, and Semyeong
-Oh, and support from Kathryn Johnston during the genesis of this project.
+Support from Barbaros Cetiner in the use of BRAILS is gratefully acknowledged.
 
 # References
