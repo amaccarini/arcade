@@ -38,14 +38,16 @@ Key features of `Arcade` include:
 - **Automatic building data enrichment**: Gaps in building attributes from OpenStreetMap (OSM) datasets are automatically filled using either a user-defined probabilistic method or BRAILS, an AI-powered image recognition module [@CETINER2024].
 - **Building archetypes**: Predefined archetypes act as proxies for real buildings, enhancing scalability and computational efficiency by representing variations in location, occupancy, and construction age.
 
+
+
 # Statement of need
 
 In recent years, several UBEM tools have been developed to support the analysis and optimization of energy demand in urban areas [@UBEMreview1; @FERRANDO2020]. Despite these advancements, one of the major challenges remains the availability of reliable geospatial datasets, including key building attributes such as geometry, construction year, and occupancy type, among others. These datasets are essential, as they are converted into input parameters for the UBEM simulation engine after pre-processing and manipulation. Although governments worldwide are releasing more such datasets, these efforts are often fragmented [@Biljecki2021].
 Therefore, researchers have increasingly relied on crowdsourced platforms such as OSM. These platforms provide free access to data and often offer better coverage than official sources. However, the quality and completeness can vary significantly between countries or even cities, thereby impacting the application of urban analytics [@Wang2025]. For instance, while the city of Berkeley has approximately 35,000 buildings mapped in OSM, only 1,500 include height-related information, and a handful of buildings have data about the construction year, which is particularly critical for categorizing buildings into archetypes for energy simulations.
 
-In this context, `Arcade` differentiates itself from other UBEM tools by featuring a built-in functionality that leverages an AI-enabled module to automatically enrich incomplete OSM data using satellite and street-level imagery. `Arcade` is designed to be used by researchers, professionals, and students in the field of urban energy modeling and district thermal networks. The main simulation output consists of hourly data of heating and cooling demand of the urban area under investigation. This output data could be used for several further analysis such as:
-- Retrofit scenario evaluation: Users can assess various retrofit scenarios by modifying archetypes to enhance building efficiency and reduce carbon emissions on an urban scale.
-![Figure 1: Workflow](images/workflow3.png)
+In this context, `Arcade` differentiates itself from other UBEM tools by featuring a built-in functionality that leverages an AI-enabled module to automatically enrich incomplete OSM data using satellite and street-level imagery. `Arcade` is designed to be used by researchers, professionals, and students in the field of urban energy modeling and district thermal networks. The main simulation output consists of hourly data of heating and cooling demand of the urban area under investigation. This output data could be used for several further analysis such as urban planning, retrofit scenarion evaluation and district heating design and optimization.
+\autoref{fig:flowchart} displays the workflow.
+![Figure 1: Schematic diagram of the workflow.\label{fig:flowchart}](images/workflow3.png)
 
 
 # Acknowledgements
