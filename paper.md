@@ -46,7 +46,8 @@ In recent years, several UBEM tools have been developed to support the analysis 
 Therefore, researchers have increasingly relied on crowdsourced platforms such as OSM. These platforms provide free access to data and often offer better coverage than official sources. However, the quality and completeness can vary significantly between countries or even cities, thereby impacting the application of urban analytics [@Wang2025]. For instance, while the city of Berkeley has approximately 35,000 buildings mapped in OSM, only 1,500 include height-related information, and a handful of buildings have data about the construction year, which is particularly critical for categorizing buildings into archetypes for energy simulations.
 
 In this context, `Arcade` differentiates itself from other UBEM tools by featuring a built-in functionality that leverages an AI-enabled module to automatically enrich incomplete OSM data using satellite and street-level imagery. `Arcade` is designed to be used by researchers, professionals, and students in the field of urban energy modeling and district thermal networks. The main simulation output consists of hourly data of heating and cooling demand of the urban area under investigation. This output data could be used for several further analysis such as urban planning, retrofit scenarion evaluation and district heating design and optimization.
-\autoref{fig:flowchart} displays the workflow.
+Displays the \autoref{fig:flowchart} workflow.
+
 ![Schematic diagram of the workflow.\label{fig:flowchart}](images/workflow3.png)
 
 
