@@ -47,7 +47,7 @@ Therefore, researchers have increasingly relied on crowdsourced platforms such a
 
 In this context, `Arcade` differentiates itself from other UBEM tools by featuring a built-in functionality that leverages an AI-enabled module to automatically enrich incomplete OSM data using satellite and street-level imagery. `Arcade` is designed to be used by researchers, professionals, and students in the field of urban energy modeling and district thermal networks. The main simulation output consists of hourly data of heating and cooling demand of the urban area under investigation. This output data could be used for several further analysis such as urban planning, retrofit scenarion evaluation and district heating design and optimization.
 \autoref{fig:flowchart} displays the workflow.
-![Figure 1: Schematic diagram of the workflow.\label{fig:flowchart}](images/workflow3.png)
+![Schematic diagram of the workflow.\label{fig:flowchart}](images/workflow3.png)
 
 
 # Acknowledgements
