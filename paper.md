@@ -29,7 +29,7 @@ With rapid urbanization, more than half of the global population now lives in ci
 
 In this context, Urban Building Energy Modeling (UBEM) has emerged as a powerful tool to analyze the energy use at the city scale. UBEM involves creating simulation-based models of building stocks, leveraging diverse datasets and computational tools to assess energy performance, evaluate retrofit strategies, and support sustainable urban planning.
 
-**Arcade** is a free and open-source UBEM tool developed as an add-on extension for Blender [@Blender], a 3D computer graphics software. Arcade incorporates a reduced-order building thermal model for efficient energy simulations and uses Blender’s Python API to create custom panels and user interfaces. Additionally, it features an AI-powered image recognition module to extract building attributes often unavailable in datasets, such as building height and construction age.
+**Arcade** is a free and open-source UBEM tool developed as an add-on extension for Blender [@Blender], a 3D computer graphics software. Arcade incorporates a reduced-order building thermal model for efficient energy simulations and uses Blender’s Python API to enable custom panels and user interfaces. Additionally, it features an AI-powered image recognition module to extract building attributes often unavailable in geospatial datasets, such as building height and construction age.
 
 Key features of Arcade include:
 
@@ -45,7 +45,7 @@ Therefore, researchers have increasingly relied on crowdsourced platforms such a
 
 In this context, Arcade differentiates itself from other UBEM tools by featuring a built-in functionality that leverages an AI-enabled module to automatically enrich incomplete OSM data using satellite and street-level imagery. Arcade is designed to be used by researchers, professionals, and students in the field of urban energy modeling and district thermal networks. The main simulation output consists of hourly data of heating and cooling demand of the urban area under investigation. This output data could be used for several further analysis such as:
 - Retrofit scenario evaluation: Users can assess various retrofit scenarios by modifying archetypes to enhance building efficiency and reduce carbon emissions on an urban scale.
-![Figure 1: Workflow](images/workflow.png)
+![Figure 1: Workflow](images/workflow3.png)
 
 # Citations
 
@@ -61,14 +61,6 @@ For a quick reference, the following citation commands can be used:
 - `[@author:2001]` -> "(Author et al., 2001)"
 - `[@author1:2001; @author2:2001]` -> "(Author1 et al., 2001; Author2 et al., 2002)"
 
-# Figures
-
-Figures can be included like this:
-![Caption for example figure.\label{fig:example}](images/image_workflow.png)
-and referenced from text using \autoref{fig:example}.
-
-Figure sizes can be customized by adding an optional second parameter:
-![Caption for example figure.](figure.png){ width=20% }
 
 # Acknowledgements
 
