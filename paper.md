@@ -14,7 +14,7 @@ authors:
 affiliations:
  - name: Department of the Built Environment, Aalborg University, Denmark
    index: 1
-date: 21 January 20125
+date: 21 January 2025
 bibliography: paper.bib
 
 # Optional fields if submitting to a AAS journal too, see this blog post:
