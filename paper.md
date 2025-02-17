@@ -29,7 +29,7 @@ With rapid urbanization, more than half of the global population now lives in ci
 
 In this context, Urban Building Energy Modeling (UBEM) has emerged as a powerful tool to analyze the energy use at the city scale [@SALVALAI2024]. UBEM involves creating simulation-based models of building stocks, leveraging diverse datasets and computational tools to assess energy performance, evaluate retrofit strategies, and support sustainable urban planning.
 
-`Arcade` is a free and open-source UBEM tool developed as an add-on extension for Blender, a 3D computer graphics software [@Blender]. `Arcade` incorporates a reduced-order building thermal model for efficient energy simulations and uses Blender’s Python API to enable custom panels and user interfaces. Additionally, it features an AI-powered image recognition module to extract building attributes often missing from geospatial datasets, such as building height and construction age. `Arcade` is designed for researchers, professionals, and students working in the fields of urban energy modeling and district thermal networks.
+`Arcade` is a free and open-source UBEM tool developed as an add-on extension for Blender, a 3D computer graphics software [@Blender]. `Arcade` incorporates a reduced-order building thermal model for efficient energy simulations and uses Blender’s Python API to enable custom panels and user interfaces. Additionally, it features an AI-powered image recognition module to estimate building attributes often missing from geospatial datasets, such as building height and construction age. `Arcade` is designed for researchers, professionals, and students working in the fields of urban energy modeling and district thermal networks.
 
 Key features of `Arcade` include:
 
