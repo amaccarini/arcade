@@ -1,5 +1,5 @@
 ---
-title: 'Arcade: An urban building energy modeling tool powered by AI for input data enrichment'
+title: 'Arcade: An urban building energy modeling tool featuring AI for input data enrichment'
 tags:
   - Python
   - urban
